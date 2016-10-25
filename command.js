@@ -20,9 +20,9 @@ var Command = {
         return deferred.promise;
     },
     
-    read: function(text){
+    read: function(){
         var command = "sudo stty -F /dev/ttyUSB0 ispeed 4800 && cat < /dev/ttyUSB0";
-        this.exe(command);
+        return this.exe(command);
     },
   
 };
