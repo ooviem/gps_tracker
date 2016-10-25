@@ -34,7 +34,7 @@ var mainFunction = function(){
 }
 
 app.get('/gps', function (req, res) {
-    res.end({
+    res.json({
     	"gps": longtitude+latitude
     });
 })
