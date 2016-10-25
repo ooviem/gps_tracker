@@ -4,7 +4,7 @@ angular.module('JackControllerApp', ['ngMaterial'])
             function callGET(name, data) {
                 return $http({
                     method: 'GET',
-                    url: "http://"+ window.location.hostname + ":8081" + name
+                    url: "http://"+ window.location.hostname + name
                 });
             };
             var ctrlMe = this;

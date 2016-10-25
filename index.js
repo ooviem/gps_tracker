@@ -39,7 +39,6 @@ var mainFunction = function(){
 
  /* serves all the static files */
  app.get(/^(.+)$/, function(req, res){ 
-     console.log('static file request : ' + req.params);
      res.sendfile( __dirname +"/web/"+ req.params[0]); 
  });
 
