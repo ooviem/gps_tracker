@@ -11,8 +11,8 @@ angular.module('JackControllerApp', ['ngMaterial'])
 
             ctrlMe.map = function() {
                 callGET("/api/gps").then(function(res){
-                    ctrlMe.lat = res.data.lat;
-                    ctrlMe.lng = res.data.lng;
+                    window.lat = res.data.lat;
+                    window.lng = res.data.lng;
                 });
             };
             ctrlMe.map();
