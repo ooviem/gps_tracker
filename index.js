@@ -1,12 +1,26 @@
 var WebServer = require("./web/server.js");
-var gps = require("./command.js");
+var serialjs=require('serialport-js');
+serialjs.open(
+    '/dev/ttyUSB0',
+    start,
+    '\n'
+);
+
+function start(port){
+    port.on(
+        'data',
+        gotData
+    );
+
+    port.send('howdy doody doo!')
+}
+
+function gotData(data){
+    console.log(data);
+}   
+
 var mainFunction = function(){
-   	var command = "sudo stty -F /dev/ttyUSB0 ispeed 4800 && cat < /dev/tUSB0";
-
-    gps.exe(command).then(function(data){
-    	console.log(data);
-    });
-
+   	start();
 }
 mainFunction();
 WebServer.initWebServer();
