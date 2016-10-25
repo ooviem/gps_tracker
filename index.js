@@ -1,5 +1,7 @@
 var WebServer = require("./web/server.js");
 var serialjs=require('serialport-js');
+var longtitude = "";
+var latitude = "";
 serialjs.open(
     '/dev/ttyUSB0',
     start,
@@ -11,12 +13,16 @@ function start(port){
         'data',
         gotData
     );
-
-    port.send('howdy doody doo!')
 }
 
 function gotData(data){
-    console.log(data);
+	var array = str.split(",");
+	switch (array[0]) {
+		case "$GPGLL":
+			longtitude = (array[0] !== "")? array[1] : longtitude;
+			latitude = (array[0] !== "")? array[3] : latitude;
+	}
+	console.log(longtitude + " " + latitude);
 }   
 
 var mainFunction = function(){
