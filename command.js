@@ -18,12 +18,8 @@ var Command = {
         });
 
         return deferred.promise;
-    },
+    }
     
-    read: function(){
-        var command = "echo B0";
-        return this.exe(command);
-    },
   
 };
 module.exports = Command;
