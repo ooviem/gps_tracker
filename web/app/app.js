@@ -10,7 +10,7 @@ angular.module('JackControllerApp', ['ngMaterial'])
             var ctrlMe = this;
 
             ctrlMe.map = function() {
-                callGET("/gps").then(function(data){
+                callGET("/api/gps").then(function(data){
                     var uluru = {lat: data.lat, lng: data.lng};
                     var map = new google.maps.Map(document.getElementById('map'), {
                       zoom: 8,

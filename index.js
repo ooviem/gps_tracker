@@ -42,7 +42,7 @@ var mainFunction = function(){
      res.sendfile( __dirname +"/web/"+ req.params[0]); 
  });
 
-app.get('/gps', function (req, res) {
+app.get('/api/gps', function (req, res) {
     res.json({
     	"lat": latitude,
     	"lng": longtitude
