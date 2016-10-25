@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="JackControllerApp">
+
+<head>
+    <link href="assets/angular-material/angular-material.css" rel="stylesheet" />
+    <link href="assets/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="app/app.css" rel="stylesheet" />
+    <script src="assets/angular/angular.js"></script>
+    <script src="assets/angular-animate/angular-animate.min.js"></script>
+    <script src="assets/angular-aria/angular-aria.min.js"></script>
+    <script src="assets/angular-material/angular-material.js"></script>
+    <script src="app/app.js"></script>
+    <title>My Controller</title>
+</head>
+
+<body ng-controller="JackController as ctrlMe">
+    <div class="container">
+        <div class="monitor row">
+            <img src="http://192.168.1.99:8080/?action=stream" />
+            <div class="top-controller">
+                <div class="row">
+                    <md-button ng-mouseup="ctrlMe.speak('Hello, I am jack, Welcome to KMS techcon 2016')" class="margin-left-65 md-fab md-raised md-button md-ink-ripple opacity-0-5" aria-label="Use Android">
+                        <md-icon class="glyphicon glyphicon-user drive-controller-button"></md-icon>
+                    </md-button>
+                </div>
+            </div>
+            <div class="left-controller">
+                <div class="row">
+                    <md-button ng-mouseup="ctrlMe.stop()" ng-mousedown="ctrlMe.runForward()" class="margin-left-65 md-fab md-raised md-button md-ink-ripple opacity-0-5" aria-label="Use Android">
+                        <md-icon class="glyphicon glyphicon-menu-up drive-controller-button"></md-icon>
+                    </md-button>
+                </div>
+                <div class="row">
+                    <md-button ng-mouseup="ctrlMe.stop()" ng-mousedown="ctrlMe.turnLeft()" class="md-fab md-raised md-button md-ink-ripple opacity-0-5" aria-label="Use Android">
+                        <md-icon class="glyphicon glyphicon-menu-left drive-controller-button"></md-icon>
+                    </md-button>
+                    <md-button ng-mouseup="ctrlMe.stop()" ng-mousedown="ctrlMe.turnRight()" class="margin-left-45 md-fab md-raised md-button md-ink-ripple opacity-0-5" aria-label="Use Android">
+                        <md-icon class="glyphicon glyphicon-menu-right drive-controller-button"></md-icon>
+                    </md-button>
+                </div>
+                <div class="row">
+                    <md-button ng-mouseup="ctrlMe.stop()" ng-mousedown="ctrlMe.runBackward()" class="margin-left-65 md-fab md-raised md-button md-ink-ripple opacity-0-5" aria-label="Use Android">
+                        <md-icon class="glyphicon glyphicon-menu-down drive-controller-button"></md-icon>
+                    </md-button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

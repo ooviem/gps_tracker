@@ -1,0 +1,14 @@
+{
+  "name": "gps_tracker",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+  },
+  "main": "main.js",
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "devDependencies": {
+    "q": ">=1.4.1"
+  }
+}

@@ -1,0 +1,63 @@
+.monitor {
+    height: 400px;
+    position: relative;
+    background-image: url("../assets/img/monitor-ex.jpg");
+    background-size: cover;
+    background-position-x: -135px;
+}
+
+.opacity-0-5 {
+    opacity: 0.5;
+}
+
+.drive-controller-button {
+    color: #616143 !important;
+    font-size: 20px;
+}
+
+.left-controller .row, .right-controller .row,  .top-controller .row {
+    height: 55px;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+.top-controller {
+    height: 75px;
+    width: 100%;
+    position: absolute;
+    left: 0px;
+    top: 10px;
+}
+.center-controller {
+    height: 300px;
+    width: 300px;
+    position: absolute;
+    left: 426px;
+    top: 83px;
+    background-image: url("http://192.168.43.9:2209/high.jpg");
+    background-size: cover;
+}
+
+
+.left-controller {
+    height: 180px;
+    width: 235px;
+    position: absolute;
+    left: 30px;
+    bottom: 30px;
+}
+
+.right-controller {
+    height: 180px;
+    width: 235px;
+    position: absolute;
+    right: 30px;
+    bottom: 30px;
+}
+
+.margin-left-45 {
+    margin-left: 45px;
+}
+
+.margin-left-65 {
+    margin-left: 65px;
+}
