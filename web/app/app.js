@@ -1,15 +1,15 @@
 angular.module('JackControllerApp', ['ngMaterial'])
     .controller('JackController', ['$http', 
     	function($http) {
-            function callGET(url, data) {
+            function callGET(name, data) {
                 return $http({
                     method: 'GET',
-                    url: window.location.hostname + url
+                    url: window.location.hostname + ":8081" + name
                 });
             };
             var ctrlMe = this;
 
-            ctrlMe.map = function(code) {
+            ctrlMe.map = function() {
                 callGET("/gps").then(function(data){
                     var uluru = {lat: data.lat, lng: data.lng};
                     var map = new google.maps.Map(document.getElementById('map'), {
