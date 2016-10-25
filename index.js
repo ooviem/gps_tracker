@@ -33,7 +33,7 @@ var mainFunction = function(){
 }
  /* serves main page */
  app.get("/", function(req, res) {
-    res.sendfile('./web/index.htm;')
+    res.sendfile('./web/index.html')
  });
 
 
