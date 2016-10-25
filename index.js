@@ -16,7 +16,7 @@ function start(port){
 }
 
 function gotData(data){
-	var array = str.split(",");
+	var array = data.split(",");
 	switch (array[0]) {
 		case "$GPGLL":
 			longtitude = (array[0] !== "")? array[1] : longtitude;
