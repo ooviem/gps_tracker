@@ -1,7 +1,7 @@
 .monitor {
-    height: 400px;
+    height: 100%;
+    width: 100%;
     position: relative;
-    background-image: url("../assets/img/monitor-ex.jpg");
     background-size: cover;
     background-position-x: -135px;
 }

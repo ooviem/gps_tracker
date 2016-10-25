@@ -10,88 +10,17 @@
     <script src="assets/angular-aria/angular-aria.min.js"></script>
     <script src="assets/angular-material/angular-material.js"></script>
     <script src="app/app.js"></script>
+
     <title>My Controller</title>
 </head>
 
 <body ng-controller="JackController as ctrlMe" ng-keyup="ctrlMe.keyUp($event.keyCode)" ng-keydown="ctrlMe.keyDown($event.keyCode)">
     <div class="container">
         <div class="monitor row">
-            <div class="top-controller">
-                <div class="row">
-                    <md-button ng-mouseup="ctrlMe.record()" class="margin-left-45 md-fab md-raised md-button md-ink-ripple opacity-0-5" aria-label="Use Android">
-                        <md-icon class="glyphicon glyphicon-record drive-controller-button"></md-icon>
-                    </md-button>
-                    <md-button ng-mouseup="ctrlMe.distance()" class="margin-left-45 md-fab md-raised md-button md-ink-ripple opacity-0-5" aria-label="Use Android">
-                        <md-icon class="glyphicon glyphicon-resize-full drive-controller-button"></md-icon>
-                    </md-button>
-                    <md-button ng-mouseup="ctrlMe.photo()" class="margin-left-45 md-fab md-raised md-button md-ink-ripple opacity-0-5" aria-label="Use Android">
-                        <md-icon class="glyphicon glyphicon-camera drive-controller-button"></md-icon>
-                    </md-button>
-                    <md-button ng-mouseup="ctrlMe.test()" class="margin-left-45 md-fab md-raised md-button md-ink-ripple opacity-0-5" aria-label="Use Android">
-                        <md-icon class="glyphicon glyphicon-road drive-controller-button"></md-icon>
-                    </md-button>
-
-                    <md-button ng-mouseup="ctrlMe.test2()" class="margin-left-45 md-fab md-raised md-button md-ink-ripple opacity-0-5" aria-label="Use Android">
-                        <md-icon class="glyphicon glyphicon-move drive-controller-button"></md-icon>
-                    </md-button>
-                    <md-button ng-mouseup="ctrlMe.speak()" class="margin-left-45 md-fab md-raised md-button md-ink-ripple opacity-0-5" aria-label="Use Android">
-                        <md-icon class="glyphicon glyphicon-volume-up drive-controller-button"></md-icon>
-                    </md-button>
-                    <md-button ng-mouseup="ctrlMe.detectObject()" class="margin-left-45 md-fab md-raised md-button md-ink-ripple opacity-0-5" aria-label="Use Android">
-                        <md-icon class="glyphicon glyphicon-eye-open drive-controller-button"></md-icon>
-                    </md-button>
-                    <md-button ng-mouseup="ctrlMe.gift()" class="margin-left-45 md-fab md-raised md-button md-ink-ripple opacity-0-5" aria-label="Use Android">
-                        <md-icon class="glyphicon glyphicon-gift drive-controller-button"></md-icon>
-                    </md-button> 
-                    <md-button ng-mouseup="ctrlMe.stop()" class="margin-left-45 md-fab md-raised md-button md-ink-ripple opacity-0-5" aria-label="Use Android">
-                        <md-icon class="glyphicon glyphicon-stop drive-controller-button"></md-icon>
-                    </md-button>                </div>
-            </div>
-            <div class="left-controller">
-                <div class="row">
-                    <md-button ng-mouseup="ctrlMe.stop()" ng-mousedown="ctrlMe.runForward()" class="margin-left-65 md-fab md-raised md-button md-ink-ripple opacity-0-5" aria-label="Use Android">
-                        <md-icon class="glyphicon glyphicon-menu-up drive-controller-button"></md-icon>
-                    </md-button>
-                </div>
-                <div class="row">
-                    <md-button ng-mouseup="ctrlMe.stop()" ng-mousedown="ctrlMe.turnLeft()" class="md-fab md-raised md-button md-ink-ripple opacity-0-5" aria-label="Use Android">
-                        <md-icon class="glyphicon glyphicon-menu-left drive-controller-button"></md-icon>
-                    </md-button>
-                    <md-button ng-mouseup="ctrlMe.stop()" ng-mousedown="ctrlMe.turnRight()" class="margin-left-45 md-fab md-raised md-button md-ink-ripple opacity-0-5" aria-label="Use Android">
-                        <md-icon class="glyphicon glyphicon-menu-right drive-controller-button"></md-icon>
-                    </md-button>
-                </div>
-                <div class="row">
-                    <md-button ng-mouseup="ctrlMe.stop()" ng-mousedown="ctrlMe.runBackward()" class="margin-left-65 md-fab md-raised md-button md-ink-ripple opacity-0-5" aria-label="Use Android">
-                        <md-icon class="glyphicon glyphicon-menu-down drive-controller-button"></md-icon>
-                    </md-button>
-                </div>
-            </div>
-            <div class="center-controller">
-                <div class="row">
-    
-                </div>
-            </div>
-            <div class="right-controller">
-                <div class="row">
-                    <md-button ng-mouseup="ctrlMe.headUp()"  class="margin-left-65 md-fab md-raised md-button md-ink-ripple opacity-0-5" aria-label="Use Android">
-                        <md-icon class="glyphicon glyphicon-menu-up drive-controller-button"></md-icon>
-                    </md-button>
-                </div>
-                <div class="row">
-                    <md-button ng-mouseup="ctrlMe.headLeft()" class="md-fab md-raised md-button md-ink-ripple opacity-0-5" aria-label="Use Android">
-                        <md-icon class="glyphicon glyphicon-menu-left drive-controller-button"></md-icon>
-                    </md-button>
-                    <md-button ng-mouseup="ctrlMe.headRight()" class="margin-left-45 md-fab md-raised md-button md-ink-ripple opacity-0-5" aria-label="Use Android">
-                        <md-icon class="glyphicon glyphicon-menu-right drive-controller-button"></md-icon>
-                    </md-button>
-                </div>
-                <div class="row">
-                    <md-button ng-mouseup="ctrlMe.headDown()" class="margin-left-65 md-fab md-raised md-button md-ink-ripple opacity-0-5" aria-label="Use Android">
-                        <md-icon class="glyphicon glyphicon-menu-down drive-controller-button"></md-icon>
-                    </md-button>
-                </div>
-            </div>
+        <div id="map" style="height: 400px;"></div>
+        <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAoIlmrJmGoZOispoiDRB01L6y_NjOyl2E&callback=initMap">
+        </script>   
         </div>
     </div>
 </body>

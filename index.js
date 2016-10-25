@@ -24,10 +24,9 @@ function gotData(data){
 	var array = data.split(",");
 	switch (array[0]) {
 		case "$GPGLL":
-			longtitude = (array[1] !== "" && array[3] !== "")? array[1]+ "N": longtitude;
-			latitude = (array[3] !== "" && array[1] !== "")? array[3]+"E" : latitude;
+			longtitude = (array[1] !== "" && array[3] !== "")? array[1]: longtitude;
+			latitude = (array[3] !== "" && array[1] !== "")? array[3] : latitude;
 	}
-	url = "https://www.google.com/maps/place/"+ longtitude + latitude;
 }   
 
 var mainFunction = function(){
@@ -35,7 +34,8 @@ var mainFunction = function(){
 
 app.get('/gps', function (req, res) {
     res.json({
-    	"gps": longtitude+latitude
+    	"lat": latitude,
+    	"lng": longtitude
     });
 })
 
