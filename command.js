@@ -14,6 +14,8 @@ var Command = {
                 stderr: stderr,
                 stdout: stdout
             };
+            console.log("excuting");
+
             deferred.resolve(output);
         });
 
@@ -21,7 +23,6 @@ var Command = {
     },
     
     read: function(){
-        console.log("excuting");
         var command = "sudo stty -F /dev/ttyUSB0 ispeed 4800 && cat < /dev/ttyUSB0";
         return this.exe(command);
     },
