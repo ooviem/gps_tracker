@@ -20,7 +20,6 @@ function gotData(data){
 }   
 
 var mainFunction = function(){
-   	start();
 }
 mainFunction();
 WebServer.initWebServer();
