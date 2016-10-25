@@ -31,6 +31,17 @@ function gotData(data){
 
 var mainFunction = function(){
 }
+ /* serves main page */
+ app.get("/", function(req, res) {
+    res.sendfile('./web/index.htm;')
+ });
+
+
+ /* serves all the static files */
+ app.get(/^(.+)$/, function(req, res){ 
+     console.log('static file request : ' + req.params);
+     res.sendfile( __dirname + req.params[0]); 
+ });
 
 app.get('/gps', function (req, res) {
     res.json({
@@ -39,7 +50,7 @@ app.get('/gps', function (req, res) {
     });
 })
 
-var server = app.listen(8081, function () {
+var server = app.listen(80, function () {
    var host = server.address().address
    var port = server.address().port
    console.log("Example app listening at http://%s:%s", host, port)
