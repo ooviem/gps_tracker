@@ -19,17 +19,24 @@
         <div class="monitor row">
         <div id="map" style="height: 400px;"></div>
         <script>
+          var map;
+          var marker;
           function initMap() {
-            var uluru = {lat: window.lat, lng: window.lng};
-            var map = new google.maps.Map(document.getElementById('map'), {
+            var uluru = {lat: 101.1, lng: 120.1};
+            map = new google.maps.Map(document.getElementById('map'), {
               zoom: 4,
               center: uluru
             });
-            var marker = new google.maps.Marker({
+            marker = new google.maps.Marker({
               position: uluru,
               map: map
             });
           }
+          setTimeout(function() {
+            var newLatLng = new google.maps.LatLng(window.lat, window.lng);
+            marker.setPosition(newLatLng);
+          }, 2000);
+
         </script>
         <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAoIlmrJmGoZOispoiDRB01L6y_NjOyl2E&callback=initMap">
