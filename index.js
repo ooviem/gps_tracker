@@ -24,8 +24,8 @@ function gotData(data){
 	var array = data.split(",");
 	switch (array[0]) {
 		case "$GPGLL":
-			longtitude = (array[1] !== "" && array[3] !== "")? array[1]: longtitude;
-			latitude = (array[3] !== "" && array[1] !== "")? array[3] : latitude;
+			latitude = (array[1] !== "" && array[3] !== "")? array[1]: longtitude;
+			longtitude = (array[3] !== "" && array[1] !== "")? array[3] : latitude;
 	}
 }   
 
