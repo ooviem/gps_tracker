@@ -49,8 +49,8 @@
 
             lat = lat.substring(0,3) + "." + lat.substring(3) ;
             lng = lng.substring(0,3) + "." + lng.substring(3) ;
-            lat = ConvertDMSToDD(lat.substring(0,3), lat.substring(3,2),lat.substring(5,2), "N");
-            lng = ConvertDMSToDD(lng.substring(0,3), lng.substring(3,2),lat.substring(5,2), "E");           
+            lat = ConvertDMSToDD(lat.substring(0,3), lat.substring(3,5),lat.substring(5,7), "N");
+            lng = ConvertDMSToDD(lng.substring(0,3), lng.substring(3,5),lat.substring(5,7), "E");           
             var newLatLng = new google.maps.LatLng(window.lat, window.lng);
             marker.setPosition(newLatLng);
 
