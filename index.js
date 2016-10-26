@@ -58,7 +58,7 @@ app.get('/api/sms', function (req, res) {
 		 port: 443,
 		 method: 'POST',
 		 headers: {
-		   'Content-Type': 'application/json',
+		   'Content-Type': 'application/json; charset=utf-8',
 		   'Content-Length': Buffer.byteLength(data)
 		 }
 		};
