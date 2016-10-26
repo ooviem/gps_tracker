@@ -24,7 +24,7 @@
           function initMap() {
             var uluru = {lat: -25.363, lng: 131.044};
             map = new google.maps.Map(document.getElementById('map'), {
-              zoom: 4,
+              zoom: 8,
               center: uluru
             });
             marker = new google.maps.Marker({
@@ -47,11 +47,11 @@
             lat = lat.length < 9 ? "0"+lat : lat;
             lng = lng.length < 9 ? "0"+lng : lng;
 
-            lat = ConvertDMSToDD(lat.substring(0,3), lat.substring(3,5),lat.substring(5,7), "N");
-            lng = ConvertDMSToDD(lng.substring(0,3), lng.substring(3,5),lng.substring(5,7), "E");           
+            lat = ConvertDMSToDD(lat.substring(0,3), lat.substring(3,5),lat.substring(5,8), "N");
+            lng = ConvertDMSToDD(lng.substring(0,3), lng.substring(3,5),lng.substring(5,8), "E");           
             var newLatLng = new google.maps.LatLng(lat, lng);
             marker.setPosition(newLatLng);
-
+            map.setCenter(marker.getPosition())
           }, 2000);
 
         </script>
