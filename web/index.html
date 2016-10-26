@@ -36,8 +36,8 @@
 
             var lat = window.lat.replace('.','');
             var lng = window.lng.replace('.','');
-            lat = lat.substring(0,2) + "." + lat.substring(3) ;
-            lng = lng.substring(0,3) + "." + lng.substring(4) ;
+            lat = lat.substring(0,2) + "." + lat.substring(2) ;
+            lng = lng.substring(0,3) + "." + lng.substring(3) ;
 
             var newLatLng = new google.maps.LatLng(window.lat, window.lng);
             marker.setPosition(newLatLng);
