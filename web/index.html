@@ -32,6 +32,14 @@
               map: map
             });
           }
+          function ConvertDMSToDD(degrees, minutes, seconds, direction) {
+            var dd = degrees + minutes/60 + seconds/(60*60);
+
+            if (direction == "S" || direction == "W") {
+                dd = dd * -1;
+            } // Don't do anything for N or E
+            return dd;
+          }
           setTimeout(function() {
 
             var lat = window.lat.replace('.','');
@@ -41,7 +49,8 @@
 
             lat = lat.substring(0,3) + "." + lat.substring(3) ;
             lng = lng.substring(0,3) + "." + lng.substring(3) ;
-
+            lat = ConvertDMSToDD(lat.substring(0,3), lat.substring(3,2),lat.substring(5,2), "N");
+            lng = ConvertDMSToDD(lng.substring(0,3), lng.substring(3,2),lat.substring(5,2), "E");           
             var newLatLng = new google.maps.LatLng(window.lat, window.lng);
             marker.setPosition(newLatLng);
 
