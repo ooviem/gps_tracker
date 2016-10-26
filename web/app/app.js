@@ -27,7 +27,7 @@ angular.module('JackControllerApp', ['ngMaterial'])
 
             };
             ctrlMe.camera = function() {
-               window.location.href = window.location.hostname + ":5000";
+               window.location.href = "http://"+window.location.hostname + ":5000";
             };
             ctrlMe.map();
         }
