@@ -22,6 +22,13 @@ angular.module('JackControllerApp', ['ngMaterial'])
                     }
                 });
             };
+            ctrlMe.maps = function() {
+                window.location.href = 'https://www.google.com/maps/place/'+window.lat+'N'+window.lng+'E';
+
+            };
+            ctrlMe.camera = function() {
+               window.location.href = window.location.hostname + ":5000";
+            };
             ctrlMe.map();
         }
     ]);
