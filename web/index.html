@@ -36,7 +36,10 @@
 
             var lat = window.lat.replace('.','');
             var lng = window.lng.replace('.','');
-            lat = lat.substring(0,2) + "." + lat.substring(2) ;
+            lat = lat.length < 9 ? "0"+lat : lat;
+            lng = lng.length < 9 ? "0"+lng : lng;
+
+            lat = lat.substring(0,3) + "." + lat.substring(3) ;
             lng = lng.substring(0,3) + "." + lng.substring(3) ;
 
             var newLatLng = new google.maps.LatLng(window.lat, window.lng);
