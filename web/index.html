@@ -32,14 +32,14 @@
               map: map
             });
           }
-          function ConvertDMSToDD(degrees, minutes, seconds, direction) {
-            var dd = degrees + minutes/60 + seconds/(60*60);
+            function ConvertDMSToDD(degrees, minutes, seconds, direction) {   
+                var dd = Number(degrees) + Number(minutes)/60 + Number(seconds)/(60*60);
 
-            if (direction == "S" || direction == "W") {
-                dd = dd * -1;
-            } // Don't do anything for N or E
-            return dd;
-          }
+                if (direction == "S" || direction == "W") {
+                    dd = dd * -1;
+                } // Don't do anything for N or E
+                return dd;
+            }
           setTimeout(function() {
 
             var lat = window.lat.replace('.','');
