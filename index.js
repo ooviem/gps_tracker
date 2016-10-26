@@ -42,7 +42,7 @@ app.get('/api/gps', function (req, res) {
     	"lng": longtitude
     });
 });
-app.get('/api/gps', function (req, res) {
+app.get('/api/sms', function (req, res) {
        var https = require('https');
 		var data = JSON.stringify({
 		 api_key: '6cdcc83f',
