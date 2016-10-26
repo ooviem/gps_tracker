@@ -17,14 +17,19 @@
 <body ng-controller="JackController as ctrlMe">
     <div class="container">
         <div class="monitor row">
-        <div id="map" style="height: 400px;"></div>
+ <div class="top-controller">
+                <div class="row">
+                    <button>Nhắn tin</button>
+                </div>
+            </div>        
+            <div id="map" style="height: 500px; width: 500px;"></div>
         <script>
           var map;
           var marker;
           function initMap() {
             var uluru = {lat: -25.363, lng: 131.044};
             map = new google.maps.Map(document.getElementById('map'), {
-              zoom: 8,
+              zoom: 18,
               center: uluru
             });
             marker = new google.maps.Marker({
@@ -40,19 +45,27 @@
                 } // Don't do anything for N or E
                 return dd;
             }
+            function resetMaker(){
+
+                var lat = window.lat.replace('.','');
+                var lng = window.lng.replace('.','');
+                lat = lat.length < 9 ? "0"+lat : lat;
+                lng = lng.length < 9 ? "0"+lng : lng;
+
+                lat = ConvertDMSToDD(lat.substring(0,3), lat.substring(3,5),lat.substring(5,7), "N");
+                lng = ConvertDMSToDD(lng.substring(0,3), lng.substring(3,5),lng.substring(5,7), "E");           
+                var newLatLng = new google.maps.LatLng(lat, lng);
+                marker.setPosition(newLatLng);
+                map.setCenter(marker.getPosition())
+            }
           setTimeout(function() {
-
-            var lat = window.lat.replace('.','');
-            var lng = window.lng.replace('.','');
-            lat = lat.length < 9 ? "0"+lat : lat;
-            lng = lng.length < 9 ? "0"+lng : lng;
-
-            lat = ConvertDMSToDD(lat.substring(0,3), lat.substring(3,5),lat.substring(5,7), "N");
-            lng = ConvertDMSToDD(lng.substring(0,3), lng.substring(3,5),lng.substring(5,7), "E");           
-            var newLatLng = new google.maps.LatLng(lat, lng);
-            marker.setPosition(newLatLng);
-            map.setCenter(marker.getPosition())
+            resetMaker();
+            setInterval(function(){
+                resetMaker();
+            }, 2000);
           }, 2000);
+ 
+
 
         </script>
         <script async defer
