@@ -49,7 +49,7 @@ app.get('/api/sms', function (req, res) {
 		 api_secret: '541cd43f233e8ca4',
 		 to: '841234555864',
 		 from: '841234555864',
-		 text: 'SOS, Phát hiện tình huống nguy hiểm, vui lòng xem tại https://www.google.com/maps/place/'+window.lat+'N'+window.lng+'E'
+		 text: 'SOS, Phát hiện tình huống nguy hiểm, vui lòng xem tại https://www.google.com/maps/place/'+latitude+'N'+longtitude+'E'
 		});
 
 		var options = {
