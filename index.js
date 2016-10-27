@@ -82,6 +82,46 @@ app.get('/api/sms', function (req, res) {
     	"OK":"OK"
     });
 });
+app.get('/api/sms2', function (req, res) {
+       var https = require('https');
+		var data = JSON.stringify({
+		 api_key: '960d4cc1',
+		 api_secret: '63d52d8d586fa8e2',
+		 to: '84906625050',
+		 from: '841234555864',
+		 text: 'SOS, Nguoi than cua ban hien gap nguy hiem, xin xem tai https://www.google.com/maps/place/'+latitude+'N'+longtitude+'E'
+		});
+
+		var options = {
+		 host: 'rest.nexmo.com',
+		 path: '/sms/json',
+		 port: 443,
+		 method: 'POST',
+		 headers: {
+		   'Content-Type': 'application/json; charset=utf-8',
+		   'Content-Length': Buffer.byteLength(data)
+		 }
+		};
+
+		var req = https.request(options);
+
+		req.write(data);
+		req.end();
+
+		var responseData = '';
+		req.on('response', function(res){
+		 res.on('data', function(chunk){
+		   responseData += chunk;
+		 });
+
+		 res.on('end', function(){
+		   console.log(JSON.parse(responseData));
+		 });
+		});
+    res.json({
+    	"OK":"OK"
+    });
+});
 
  /* serves all the static files */
  app.get(/^(.+)$/, function(req, res){ 

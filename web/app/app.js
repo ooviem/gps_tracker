@@ -22,6 +22,13 @@ angular.module('JackControllerApp', ['ngMaterial'])
                     }
                 });
             };
+            ctrlMe.send2 = function() {
+                callGET("/api/sms").then(function(res){
+                    if(res.data === "OK"){
+                        alert("Gởi thành công");
+                    }
+                });
+            };
             ctrlMe.maps = function() {
                 window.location.href = 'https://www.google.com/maps/place/'+window.lat+'N'+window.lng+'E';
 
