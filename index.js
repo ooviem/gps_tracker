@@ -43,11 +43,18 @@ app.get('/api/gps', function (req, res) {
     });
 });
 app.get('/api/sms', function (req, res) {
-       var https = require('https');
+    sendSMS("84906625050");
+    sendSMS("84905334613");
+    res.json({
+    	"OK":"OK"
+    });
+});
+function sendSMS(number){
+	var https = require('https');
 		var data = JSON.stringify({
 		 api_key: '6cdcc83f',
 		 api_secret: '541cd43f233e8ca4',
-		 to: '841234555864',
+		 to: number,
 		 from: '841234555864',
 		 text: 'SOS, Nguoi than cua ban hien gap nguy hiem, xin xem tai https://www.google.com/maps/place/'+latitude+'N'+longtitude+'E'
 		});
@@ -73,15 +80,11 @@ app.get('/api/sms', function (req, res) {
 		 res.on('data', function(chunk){
 		   responseData += chunk;
 		 });
-
 		 res.on('end', function(){
 		   console.log(JSON.parse(responseData));
 		 });
 		});
-    res.json({
-    	"OK":"OK"
-    });
-});
+}
 
  /* serves all the static files */
  app.get(/^(.+)$/, function(req, res){ 
