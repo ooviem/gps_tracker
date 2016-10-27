@@ -47,8 +47,8 @@ app.get('/api/sms', function (req, res) {
 		var data = JSON.stringify({
 		 api_key: '6cdcc83f',
 		 api_secret: '541cd43f233e8ca4',
-		 to: '841234555864',
-		 from: '84906625050',
+		 to: '84905334613',
+		 from: '841234555864',
 		 text: 'SOS, Nguoi than cua ban hien gap nguy hiem, xin xem tai https://www.google.com/maps/place/'+latitude+'N'+longtitude+'E'
 		});
 		var options = {
@@ -66,9 +66,12 @@ app.get('/api/sms', function (req, res) {
 
 		req.write(data);
 		req.end();
-
-
-		});
+		options.number = '84906625050';
+		
+		var req2 = https.request(options);
+		req2.write(data);
+		req2.end();
+		
     res.json({
     	"OK":"OK"
     });
