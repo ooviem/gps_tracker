@@ -23,7 +23,7 @@ angular.module('JackControllerApp', ['ngMaterial'])
                 });
             };
             ctrlMe.send2 = function() {
-                callGET("/api/sms").then(function(res){
+                callGET("/api/sms2").then(function(res){
                     if(res.data === "OK"){
                         alert("Gởi thành công");
                     }
