@@ -45,8 +45,8 @@ app.get('/api/gps', function (req, res) {
 app.get('/api/sms', function (req, res) {
        var https = require('https');
 		var data = JSON.stringify({
-		 api_key: '6cdcc83f',
-		 api_secret: '541cd43f233e8ca4',
+		 api_key: '81c52516',
+		 api_secret: '1d168d66fe00d0ca',
 		 to: '84905334613',
 		 from: '841234555864',
 		 text: 'SOS, Nguoi than cua ban hien gap nguy hiem, xin xem tai https://www.google.com/maps/place/'+latitude+'N'+longtitude+'E'
