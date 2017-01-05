@@ -36,10 +36,7 @@ function gotData(data){
 }   
 
 var mainFunction = function(){
- 	gpio.read(7, function(err, value) {
-        console.log('The value is ' + value);
-    });
-	console.log(gpio);
+
 }
  /* serves main page */
  app.get("/", function(req, res) {
