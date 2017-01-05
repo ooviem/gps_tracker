@@ -8,7 +8,14 @@ var express = require('express');
 var app = express();
 var gpio = require('rpi-gpio');
 
+gpio.setup(7, gpio.DIR_IN, readInput);
 
+ 
+function readInput() {
+    gpio.read(7, function(err, value) {
+        console.log('The value is ' + value);
+    });
+}
 
 serialjs.open(
     '/dev/ttyUSB0',
@@ -33,10 +40,7 @@ function gotData(data){
 }   
 
 var mainFunction = function(){
-	gpio.setup(7, gpio.DIR_IN);
-    gpio.read(7, function(err, value) {
-        console.log('The value is ' + value);
-    });
+
 }
  /* serves main page */
  app.get("/", function(req, res) {
