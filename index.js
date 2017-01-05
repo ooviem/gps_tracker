@@ -99,17 +99,14 @@ function sendVNSMS(content, number){
 
 		var responseData = '';
 		req.on('response', function(res){
-		 res.on('data', function(chunk){
-		   responseData += chunk;
-		 });
+			 res.on('data', function(chunk){
+		   		responseData += chunk;
+		 	});
 
-		 res.on('end', function(){
-		   console.log(JSON.parse(responseData));
-		 });
+		 	res.on('end', function(){
+		   		console.log(JSON.parse(responseData));
+		 	});
 		});
-    res.json({
-    	"OK":"OK"
-    });
 }
 
  /* serves main page */
@@ -165,7 +162,7 @@ app.get('/api/sms', function (req, res) {
     });
 });
 app.get('/api/sms2', function (req, res) {
-       sendVNSMS('Thiet bi dang bi dich chuyen, Xem vi tri thiet bi, https://www.google.com/maps/place/'+latitude+'N'+longtitude+'E', "01234555864");
+       sendVNSMS('Thiết bị của bạn đang bị dịch chuyển, Xem vị trí thiết bị, https://www.google.com/maps/place/'+latitude+'N'+longtitude+'E', "01234555864");
 });
 
  /* serves all the static files */
