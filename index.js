@@ -67,9 +67,8 @@ function start2(port){
 
 function gotData2(data){
 	var array = data.split(",");
-	switch (array[0]) {
-		console.log(array);
-	}
+    console.log(array);
+
 }   
 
 
