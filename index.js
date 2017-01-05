@@ -9,7 +9,7 @@ var app = express();
 var rpio = require('rpio');
 var keyboard = "";
 var alertCount = 0;
-var alertLimit = 15;
+var alertLimit = 40;
 rpio.init({mapping: 'gpio'});
 
 rpio.open(4, rpio.INPUT, rpio.PULL_DOWN);
@@ -20,6 +20,7 @@ function pollcb(pin)
         alertCount++;
 		if(alertCount > alertLimit){
 			console.log("Object is moving!!!");
+			alertCount = 0;
 		}
 }
 
