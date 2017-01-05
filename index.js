@@ -74,7 +74,7 @@ function sendVNSMS(content, number){
 	var https = require('http');
 		var data = JSON.stringify({
 		 to: [number],
-		 content: 'SOS, Nguoi than cua ban hien gap nguy hiem, xin xem tai https://www.google.com/maps/place/'+latitude+'N'+longtitude+'E',
+		 content: content,
 		 sms_type: 4,
 		 dlr: 0
 		});
