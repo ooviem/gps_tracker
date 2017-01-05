@@ -27,45 +27,46 @@ var rpio = require('rpio');
 
 
 
-// serialjs.open(
-//     '/dev/ttyUSB0',
-//     start,
-//     '\n'
-// );
-
-// function start(port){
-//     port.on(
-//         'data',
-//         gotData
-//     );
-// }
-
-// function gotData(data){
-// 	var array = data.split(",");
-// 	switch (array[0]) {
-// 		case "$GPGLL":
-// 			latitude = (array[1] !== "" && array[3] !== "")? array[1]: latitude;
-// 			longtitude = (array[3] !== "" && array[1] !== "")? array[3] : longtitude;
-// 	}
-// }   
-
-
 serialjs.open(
-    '/dev/ttyUSB2',
-    start2,
+    '/dev/ttyUSB0',
+    start,
     '\n'
 );
 
-function start2(port){
+function start(port){
     port.on(
         'data',
-        gotData2
+        gotData
     );
 }
 
-function gotData2(data){
-    console.log(data);
+function gotData(data){
+	console.log(data);
+	// var array = data.split(",");
+	// switch (array[0]) {
+	// 	case "$GPGLL":
+	// 		latitude = (array[1] !== "" && array[3] !== "")? array[1]: latitude;
+	// 		longtitude = (array[3] !== "" && array[1] !== "")? array[3] : longtitude;
+	// }
 }   
+
+
+// serialjs.open(
+//     '/dev/ttyUSB3',
+//     start2,
+//     '\n'
+// );
+
+// function start2(port){
+//     port.on(
+//         'data',
+//         gotData2
+//     );
+// }
+
+// function gotData2(data){
+//     console.log(data);
+// }   
 
 
 var mainFunction = function(){
