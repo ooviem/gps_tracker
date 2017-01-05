@@ -8,22 +8,22 @@ var express = require('express');
 var app = express();
 var rpio = require('rpio');
 
-rpio.init({mapping: 'gpio'});
+// rpio.init({mapping: 'gpio'});
 
-rpio.open(4, rpio.INPUT, rpio.PULL_DOWN);
+// rpio.open(4, rpio.INPUT, rpio.PULL_DOWN);
 
-function pollcb(pin)
-{
-        /*
-         * Interrupts aren't supported by the underlying hardware, so events
-         * may be missed during the 1ms poll window.  The best we can do is to
-         * print the current state after a event is detected.
-         */
-        var state = rpio.read(pin) ? 'high' : 'low';
-        console.log(pin+ " " + state);
-}
+// function pollcb(pin)
+// {
+//         /*
+//          * Interrupts aren't supported by the underlying hardware, so events
+//          * may be missed during the 1ms poll window.  The best we can do is to
+//          * print the current state after a event is detected.
+//          */
+//         var state = rpio.read(pin) ? 'high' : 'low';
+//         console.log(pin+ " " + state);
+// }
 
-rpio.poll(4, pollcb);
+// rpio.poll(4, pollcb);
 
 
 
@@ -47,7 +47,31 @@ function gotData(data){
 			latitude = (array[1] !== "" && array[3] !== "")? array[1]: latitude;
 			longtitude = (array[3] !== "" && array[1] !== "")? array[3] : longtitude;
 	}
+	console.log(array);
+
 }   
+
+
+serialjs.open(
+    '/dev/ttyUSB2',
+    start2,
+    '\n'
+);
+
+function start2(port){
+    port.on(
+        'data',
+        gotData2
+    );
+}
+
+function gotData2(data){
+	var array = data.split(",");
+	switch (array[0]) {
+		console.log(array);
+	}
+}   
+
 
 var mainFunction = function(){
 
@@ -76,6 +100,8 @@ app.get('/api/smsvn', function (req, res) {
 		 method: 'POST',
 		 headers: {
 		   'Content-Type': 'application/json; charset=utf-8'
+			 "Authorization": "Basic " + btoa("_ukSiHakGmLDEYOeQ4uiInIV0Z2de4iD" + ":x")
+
 		 }
 		};
 
