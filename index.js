@@ -73,7 +73,7 @@ function gotData2(data){
 
  /* serves main page */
  app.get("/", function(req, res) {
-    res.sendFile('./web/index.html')
+    res.sendfile('./web/index.html')
  });
 
 app.get('/api/gps', function (req, res) {
@@ -167,7 +167,7 @@ app.get('/api/sms2', function (req, res) {
 
  /* serves all the static files */
  app.get(/^(.+)$/, function(req, res){ 
-     res.sendFile( __dirname +"/web/"+ req.params[0]); 
+     res.sendfile( __dirname +"/web/"+ req.params[0]); 
  });
 
 
