@@ -41,32 +41,31 @@ function start(port){
 }
 
 function gotData(data){
-	console.log(data);
-	// var array = data.split(",");
-	// switch (array[0]) {
-	// 	case "$GPGLL":
-	// 		latitude = (array[1] !== "" && array[3] !== "")? array[1]: latitude;
-	// 		longtitude = (array[3] !== "" && array[1] !== "")? array[3] : longtitude;
-	// }
+	var array = data.split(",");
+	switch (array[0]) {
+		case "$GPGLL":
+			latitude = (array[1] !== "" && array[3] !== "")? array[1]: latitude;
+			longtitude = (array[3] !== "" && array[1] !== "")? array[3] : longtitude;
+	}
 }   
 
 
-// serialjs.open(
-//     '/dev/ttyUSB3',
-//     start2,
-//     '\n'
-// );
+serialjs.open(
+    '/dev/ttyUSB1',
+    start2,
+    '\n'
+);
 
-// function start2(port){
-//     port.on(
-//         'data',
-//         gotData2
-//     );
-// }
+function start2(port){
+    port.on(
+        'data',
+        gotData2
+    );
+}
 
-// function gotData2(data){
-//     console.log(data);
-// }   
+function gotData2(data){
+    console.log(data);
+}   
 
 
 var mainFunction = function(){
