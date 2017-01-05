@@ -6,10 +6,12 @@ var url = "";
 var msg = "";
 var express = require('express');
 var app = express();
-var gpio = require('rpi-gpio');
+var rpio = require('rpio');
 
-gpio.setup(7, gpio.DIR_IN, function(){});
-
+rpio.open(4, rpio.INPUT);
+console.log('Pin 11 is currently set ' + (rpio.read(4) ? 'high' : 'low'));
+rpio.open(7, rpio.INPUT);
+console.log('Pin 11 is currently set ' + (rpio.read(7) ? 'high' : 'low'));
 
 
 serialjs.open(
