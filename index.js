@@ -7,23 +7,23 @@ var msg = "";
 var express = require('express');
 var app = express();
 var rpio = require('rpio');
+var keyboard = "";
+rpio.init({mapping: 'gpio'});
 
-// rpio.init({mapping: 'gpio'});
+rpio.open(4, rpio.INPUT, rpio.PULL_DOWN);
 
-// rpio.open(4, rpio.INPUT, rpio.PULL_DOWN);
+function pollcb(pin)
+{
+        /*
+         * Interrupts aren't supported by the underlying hardware, so events
+         * may be missed during the 1ms poll window.  The best we can do is to
+         * print the current state after a event is detected.
+         */
+        var state = rpio.read(pin) ? 'high' : 'low';
+        console.log(pin+ " " + state);
+}
 
-// function pollcb(pin)
-// {
-//         /*
-//          * Interrupts aren't supported by the underlying hardware, so events
-//          * may be missed during the 1ms poll window.  The best we can do is to
-//          * print the current state after a event is detected.
-//          */
-//         var state = rpio.read(pin) ? 'high' : 'low';
-//         console.log(pin+ " " + state);
-// }
-
-// rpio.poll(4, pollcb);
+rpio.poll(4, pollcb);
 
 
 
@@ -64,7 +64,9 @@ function start2(port){
 }
 
 function gotData2(data){
-    console.log(data);
+    console.log(data[0]);
+	keyboard += data[0];
+	console.log(keyboard);
 }   
 
 
