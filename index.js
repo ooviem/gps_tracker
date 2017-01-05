@@ -8,19 +8,19 @@ var express = require('express');
 var app = express();
 var rpio = require('rpio');
 var keyboard = "";
+var alertCount = 0;
+var alertLimit = 15;
 rpio.init({mapping: 'gpio'});
 
 rpio.open(4, rpio.INPUT, rpio.PULL_DOWN);
 
 function pollcb(pin)
 {
-        /*
-         * Interrupts aren't supported by the underlying hardware, so events
-         * may be missed during the 1ms poll window.  The best we can do is to
-         * print the current state after a event is detected.
-         */
         var state = rpio.read(pin) ? 'high' : 'low';
-        console.log(pin+ " " + state);
+        alertCount++;
+		if(alertCount > alertLimit){
+			console.log("Object is moving!!!");
+		}
 }
 
 rpio.poll(4, pollcb);
