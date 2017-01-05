@@ -10,23 +10,7 @@ var rpio = require('rpio');
 
 rpio.init({mapping: 'gpio'});
 
-// rpio.open(4, rpio.INPUT, rpio.PULL_DOWN);
-
-// function pollcb(pin)
-// {
-//         /*
-//          * Interrupts aren't supported by the underlying hardware, so events
-//          * may be missed during the 1ms poll window.  The best we can do is to
-//          * print the current state after a event is detected.
-//          */
-//         var state = rpio.read(pin) ? 'high' : 'low';
-//         console.log(pin+ " " + state);
-// }
-
-// rpio.poll(4, pollcb);
-
-
-rpio.open(17, rpio.INPUT, rpio.PULL_DOWN);
+rpio.open(4, rpio.INPUT, rpio.PULL_DOWN);
 
 function pollcb(pin)
 {
@@ -39,7 +23,9 @@ function pollcb(pin)
         console.log(pin+ " " + state);
 }
 
-rpio.poll(17, pollcb);
+rpio.poll(4, pollcb);
+
+
 
 serialjs.open(
     '/dev/ttyUSB0',
@@ -75,6 +61,41 @@ app.get('/api/gps', function (req, res) {
     res.json({
     	"lat": latitude,
     	"lng": longtitude
+    });
+});
+app.get('/api/smsvn', function (req, res) {
+       var https = require('https');
+		var data = JSON.stringify({
+		 to: ['84905334613'],
+		 content: 'SOS, Nguoi than cua ban hien gap nguy hiem, xin xem tai https://www.google.com/maps/place/'+latitude+'N'+longtitude+'E'
+		});
+
+		var options = {
+		 host: 'api.speedsms.vn',
+		 path: 'index.php/sms/send',
+		 method: 'POST',
+		 headers: {
+		   'Content-Type': 'application/json; charset=utf-8'
+		 }
+		};
+
+		var req = https.request(options);
+
+		req.write(data);
+		req.end();
+
+		var responseData = '';
+		req.on('response', function(res){
+		 res.on('data', function(chunk){
+		   responseData += chunk;
+		 });
+
+		 res.on('end', function(){
+		   console.log(JSON.parse(responseData));
+		 });
+		});
+    res.json({
+    	"OK":"OK"
     });
 });
 app.get('/api/sms', function (req, res) {
