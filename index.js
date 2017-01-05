@@ -125,23 +125,24 @@ app.get('/api/sms', function (req, res) {
     });
 });
 app.get('/api/sms2', function (req, res) {
-       var https = require('https');
+       var https = require('http');
 		var data = JSON.stringify({
-		 api_key: '960d4cc1',
-		 api_secret: '63d52d8d586fa8e2',
-		 to: '84906625050',
-		 from: '841234555864',
-		 text: 'SOS, Nguoi than cua ban hien gap nguy hiem, xin xem tai https://www.google.com/maps/place/'+latitude+'N'+longtitude+'E'
+		 to: ['01234555864'],
+		 content: 'SOS, Nguoi than cua ban hien gap nguy hiem, xin xem tai https://www.google.com/maps/place/'+latitude+'N'+longtitude+'E',
+		 sms_type: 4,
+		 dlr: 0
 		});
+   		var auth = "Basic " + new Buffer("_ukSiHakGmLDEYOeQ4uiInIV0Z2de4iD" + ":x").toString("base64");
 
 		var options = {
-		 host: 'rest.nexmo.com',
-		 path: '/sms/json',
-		 port: 443,
+		 host: 'api.speedsms.vn',
+		 path: '/index.php/sms/send',
 		 method: 'POST',
 		 headers: {
 		   'Content-Type': 'application/json; charset=utf-8',
-		   'Content-Length': Buffer.byteLength(data)
+		   'Content-Length': Buffer.byteLength(data),
+		   'Authorization' : auth
+
 		 }
 		};
 
@@ -167,7 +168,7 @@ app.get('/api/sms2', function (req, res) {
 
  /* serves all the static files */
  app.get(/^(.+)$/, function(req, res){ 
-     res.sendfile( __dirname +"/web/"+ req.params[0]); 
+     res.sendFile( __dirname +"/web/"+ req.params[0]); 
  });
 
 
