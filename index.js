@@ -6,6 +6,16 @@ var url = "";
 var msg = "";
 var express = require('express');
 var app = express();
+var gpio = require('rpi-gpio');
+
+gpio.setup(4, gpio.DIR_IN, readInput);
+
+ 
+function readInput() {
+    gpio.read(4, function(err, value) {
+        console.log('The value is ' + value);
+    });
+}
 
 serialjs.open(
     '/dev/ttyUSB0',
@@ -30,6 +40,7 @@ function gotData(data){
 }   
 
 var mainFunction = function(){
+
 }
  /* serves main page */
  app.get("/", function(req, res) {
