@@ -20,7 +20,7 @@ function pollcb(pin)
          * print the current state after a event is detected.
          */
         var state = rpio.read(pin) ? 'high' : 'low';
-        // console.log(pin+ " " + state);
+        console.log(pin+ " " + state);
 }
 
 rpio.poll(4, pollcb);
