@@ -86,43 +86,6 @@ app.get('/api/gps', function (req, res) {
     	"lng": longtitude
     });
 });
-app.get('/api/smsvn', function (req, res) {
-       var https = require('https');
-		var data = JSON.stringify({
-		 to: ['84905334613'],
-		 content: 'SOS, Nguoi than cua ban hien gap nguy hiem, xin xem tai https://www.google.com/maps/place/'+latitude+'N'+longtitude+'E'
-		});
-
-		var options = {
-		 host: 'api.speedsms.vn',
-		 path: 'index.php/sms/send',
-		 method: 'POST',
-		 headers: {
-		   'Content-Type': 'application/json; charset=utf-8'
-			 "Authorization": "Basic " + btoa("_ukSiHakGmLDEYOeQ4uiInIV0Z2de4iD" + ":x")
-
-		 }
-		};
-
-		var req = https.request(options);
-
-		req.write(data);
-		req.end();
-
-		var responseData = '';
-		req.on('response', function(res){
-		 res.on('data', function(chunk){
-		   responseData += chunk;
-		 });
-
-		 res.on('end', function(){
-		   console.log(JSON.parse(responseData));
-		 });
-		});
-    res.json({
-    	"OK":"OK"
-    });
-});
 app.get('/api/sms', function (req, res) {
        var https = require('https');
 		var data = JSON.stringify({
