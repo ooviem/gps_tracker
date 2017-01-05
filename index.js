@@ -28,7 +28,7 @@ var rpio = require('rpio');
 
 
 serialjs.open(
-    '/dev/ttyACM0',
+    '/dev/ttyUSB0',
     start,
     '\n'
 );
@@ -51,7 +51,7 @@ function gotData(data){
 
 
 serialjs.open(
-    '/dev/ttyUSB1',
+    '/dev/ttyACM0',
     start2,
     '\n'
 );
