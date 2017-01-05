@@ -47,8 +47,6 @@ function gotData(data){
 			latitude = (array[1] !== "" && array[3] !== "")? array[1]: latitude;
 			longtitude = (array[3] !== "" && array[1] !== "")? array[3] : longtitude;
 	}
-	console.log(array);
-
 }   
 
 
