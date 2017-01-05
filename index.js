@@ -8,10 +8,10 @@ var express = require('express');
 var app = express();
 var rpio = require('rpio');
 
-// rpio.open(4, rpio.INPUT);
-// console.log('Pin 11 is currently set ' + (rpio.read(4) ? 'high' : 'low'));
-rpio.open(7, rpio.INPUT);
-console.log('Pin 11 is currently set ' + (rpio.read(7) ? 'high' : 'low'));
+rpio.open(4, rpio.INPUT);
+console.log('Pin 11 is currently set ' + (rpio.read(4) ? 'high' : 'low'));
+// rpio.open(7, rpio.INPUT);
+// console.log('Pin 7 is currently set ' + (rpio.read(7) ? 'high' : 'low'));
 
 
 serialjs.open(
