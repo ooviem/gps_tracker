@@ -64,7 +64,6 @@ function start2(port){
 }
 
 function gotData2(data){
-    console.log(data[0]);
 	keyboard += data[0];
 	console.log(keyboard);
 }   
