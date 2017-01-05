@@ -9,8 +9,8 @@ var app = express();
 var rpio = require('rpio');
 
 rpio.init({mapping: 'gpio'});
-rpio.open(7, rpio.INPUT);
-console.log('Pin 7 is currently set ' + (rpio.read(7) ? 'high' : 'low'));
+rpio.open(4, rpio.INPUT);
+console.log('Pin 4 is currently set ' + (rpio.read(4) ? 'high' : 'low'));
 
 
 serialjs.open(
