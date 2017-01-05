@@ -28,7 +28,7 @@ var rpio = require('rpio');
 
 
 serialjs.open(
-    '/dev/ttyUSB0',
+    '/dev/ttyACM0',
     start,
     '\n'
 );
