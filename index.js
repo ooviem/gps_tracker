@@ -8,7 +8,7 @@ var express = require('express');
 var app = express();
 var gpio = require('rpi-gpio');
 
-gpio.setup(7, gpio.DIR_IN, readInput);
+gpio.setup(7, gpio.DIR_IN, function(){});
 
 
 
@@ -35,7 +35,10 @@ function gotData(data){
 }   
 
 var mainFunction = function(){
-
+ 	gpio.read(7, function(err, value) {
+        console.log('The value is ' + value);
+    });
+	console.log(gpio);
 }
  /* serves main page */
  app.get("/", function(req, res) {
@@ -143,8 +146,3 @@ var server = app.listen(80, function () {
 mainFunction();
 WebServer.initWebServer();
 
-function readInput() {
-    gpio.read(7, function(err, value) {
-        console.log('The value is ' + value);
-    });
-}
