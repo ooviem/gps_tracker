@@ -22,7 +22,7 @@ function pollcb(pin)
 			console.log("Object is moving!!!");
 			alertCount = 0;
 		}
-}
+};
 
 rpio.poll(4, pollcb);
 
@@ -39,7 +39,7 @@ function start(port){
         'data',
         gotData
     );
-}
+};
 
 function gotData(data){
 	var array = data.split(",");
@@ -48,7 +48,7 @@ function gotData(data){
 			latitude = (array[1] !== "" && array[3] !== "")? array[1]: latitude;
 			longtitude = (array[3] !== "" && array[1] !== "")? array[3] : longtitude;
 	}
-}   
+};   
 
 
 serialjs.open(
@@ -62,20 +62,18 @@ function start2(port){
         'data',
         gotData2
     );
-}
+};
 
 function gotData2(data){
 	keyboard += data[0];
 	console.log(data.trim());
-}   
+};  
 
 
-var mainFunction = function(){
 
-}
  /* serves main page */
  app.get("/", function(req, res) {
-    res.sendfile('./gps_tracker/web/index.html')
+    res.sendFile('./web/index.html')
  });
 
 app.get('/api/gps', function (req, res) {
@@ -84,6 +82,7 @@ app.get('/api/gps', function (req, res) {
     	"lng": longtitude
     });
 });
+
 app.get('/api/sms', function (req, res) {
        var https = require('https');
 		var data = JSON.stringify({
@@ -176,7 +175,7 @@ var server = app.listen(80, function () {
    var host = server.address().address
    var port = server.address().port
    console.log("Example app listening at http://%s:%s", host, port)
-})
-mainFunction();
+});
+
 WebServer.initWebServer();
 
