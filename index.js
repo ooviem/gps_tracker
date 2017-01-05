@@ -70,6 +70,47 @@ function gotData2(data){
 };  
 
 
+function sendVNSMS(content, number){
+	var https = require('http');
+		var data = JSON.stringify({
+		 to: [number],
+		 content: 'SOS, Nguoi than cua ban hien gap nguy hiem, xin xem tai https://www.google.com/maps/place/'+latitude+'N'+longtitude+'E',
+		 sms_type: 4,
+		 dlr: 0
+		});
+   		var auth = "Basic " + new Buffer("_ukSiHakGmLDEYOeQ4uiInIV0Z2de4iD" + ":x").toString("base64");
+
+		var options = {
+		 host: 'api.speedsms.vn',
+		 path: '/index.php/sms/send',
+		 method: 'POST',
+		 headers: {
+		   'Content-Type': 'application/json; charset=utf-8',
+		   'Content-Length': Buffer.byteLength(data),
+		   'Authorization' : auth
+
+		 }
+		};
+
+		var req = https.request(options);
+
+		req.write(data);
+		req.end();
+
+		var responseData = '';
+		req.on('response', function(res){
+		 res.on('data', function(chunk){
+		   responseData += chunk;
+		 });
+
+		 res.on('end', function(){
+		   console.log(JSON.parse(responseData));
+		 });
+		});
+    res.json({
+    	"OK":"OK"
+    });
+}
 
  /* serves main page */
  app.get("/", function(req, res) {
@@ -124,45 +165,8 @@ app.get('/api/sms', function (req, res) {
     });
 });
 app.get('/api/sms2', function (req, res) {
-       var https = require('http');
-		var data = JSON.stringify({
-		 to: ['01234555864'],
-		 content: 'SOS, Nguoi than cua ban hien gap nguy hiem, xin xem tai https://www.google.com/maps/place/'+latitude+'N'+longtitude+'E',
-		 sms_type: 4,
-		 dlr: 0
-		});
-   		var auth = "Basic " + new Buffer("_ukSiHakGmLDEYOeQ4uiInIV0Z2de4iD" + ":x").toString("base64");
-
-		var options = {
-		 host: 'api.speedsms.vn',
-		 path: '/index.php/sms/send',
-		 method: 'POST',
-		 headers: {
-		   'Content-Type': 'application/json; charset=utf-8',
-		   'Content-Length': Buffer.byteLength(data),
-		   'Authorization' : auth
-
-		 }
-		};
-
-		var req = https.request(options);
-
-		req.write(data);
-		req.end();
-
-		var responseData = '';
-		req.on('response', function(res){
-		 res.on('data', function(chunk){
-		   responseData += chunk;
-		 });
-
-		 res.on('end', function(){
-		   console.log(JSON.parse(responseData));
-		 });
-		});
-    res.json({
-    	"OK":"OK"
-    });
+       sendVNSMS('Thiet bi dang bi dich chuyen, Xem vi tri thiet bi, https://www.google.com/maps/place/'+latitude+'N'+longtitude+'E', "01234555864");
+, );
 });
 
  /* serves all the static files */
