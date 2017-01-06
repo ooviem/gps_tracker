@@ -64,7 +64,7 @@ function pollFlame(pin)
 	}
 };
 
-function pollFlame(pin)
+function pollTouch(pin)
 {
 	var state = rpio.read(pin) ? 'high' : 'low';
 	console.log(state);
@@ -84,10 +84,10 @@ function pollFlame(pin)
 };
 rpio.poll(4, pollVib);
 rpio.poll(17, pollFlame);
-rpio.poll(21, pollToucn);
+rpio.poll(21, pollTouch);
 
 
-var looping = setInterval(loop, 5000);
+var looping = setInterval(loop, 300000);
 
 function loop() {
 	if(isMoving && useThiefTracking) {
