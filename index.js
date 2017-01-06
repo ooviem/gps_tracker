@@ -181,17 +181,22 @@ function start2(port){
 };
 
 function gotData2(data){
-	if(data != '') {
+	if(data != '' && data!= "BEEP") {
 		keyboard += data.trim().charAt(0);
 		commandTracking();
-		if(arduino1){
-			arduino1.send("BEEP");
-		}
-		if(arduino2){
-			arduino2.send("BEEP");
-		}
+		alertBuzzer();
 	}
 };
+
+function alertBuzzer(){
+	if(arduino1){
+		arduino1.send("BEEP");
+	}
+	if(arduino2){
+		arduino2.send("BEEP");
+	}
+}
+
 
 function sendVNSMS(content, number){
 	var https = require('http');
