@@ -20,7 +20,7 @@ rpio.init({mapping: 'gpio'});
 
 rpio.open(4, rpio.INPUT, rpio.PULL_DOWN);
 rpio.open(17, rpio.INPUT, rpio.PULL_DOWN);
-rpio.open(21, rpio.INPUT, rpio.PULL_DOWN);
+rpio.open(18, rpio.INPUT, rpio.PULL_DOWN);
 
 function sendFireAlert(){
 	sendVNSMS('Phat hien chay, vi tri hien tai https://www.google.com/maps/place/'+latitude+'N'+longtitude+'E', "01234555864");
@@ -84,7 +84,7 @@ function pollTouch(pin)
 };
 rpio.poll(4, pollVib);
 rpio.poll(17, pollFlame);
-rpio.poll(21, pollTouch);
+rpio.poll(18, pollTouch);
 
 
 var looping = setInterval(loop, 300000);
