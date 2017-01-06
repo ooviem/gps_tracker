@@ -181,7 +181,7 @@ function start2(port){
 };
 
 function gotData2(data){
-	if(data != '' && data.trim().charAt(0) != 'M') {
+	if(data != '' && data.trim().charAt(0)+"" != "M") {
 		keyboard += data.trim().charAt(0);
 		commandTracking();
 		alertBuzzer();
