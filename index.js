@@ -71,7 +71,9 @@ function pollTouch(pin)
 	var state = rpio.read(pin) ? 'high' : 'low';
 	if(state == 'high'){
 		console.log("released");
+		alertBuzzer();
 	}
+	
 };
 rpio.poll(4, pollVib);
 rpio.poll(17, pollFlame);
@@ -170,9 +172,9 @@ function start2(port){
 };
 
 function gotData2(data){
-	console.log(data.trim().charAt(0));
 	if(data != '') {
 		keyboard += data.trim().charAt(0);
+		console.log(keyboard);
 		commandTracking();
 	}
 };
