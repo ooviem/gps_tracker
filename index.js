@@ -67,10 +67,11 @@ function loop() {
 }
 
 function commandTracking(){
+	console.log(keyboard);
 	if(keyboard === "A#"){
 		useThiefTracking = useThiefTracking? false : true;
 		keyboard = "";
-		console.log("Thieft dectector: "+ useThiefTracking);
+		console.log("Thief dectector: "+ useThiefTracking);
 	} else if(keyboard === "B#") {
 		keyboard = "";
 		useFlameDetector = useFlameDetector? false : true;
