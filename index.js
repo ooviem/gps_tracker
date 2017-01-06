@@ -24,7 +24,7 @@ function pollcb(pin)
 		}
 };
 
-rpio.poll(4, pollcb);
+// rpio.poll(4, pollcb);
 
 
 
