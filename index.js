@@ -188,7 +188,7 @@ function gotData2(data){
 			arduino1.send("BEEP");
 		}
 		if(arduino2){
-			arduino1.send("BEEP");
+			arduino2.send("BEEP");
 		}
 	}
 };
