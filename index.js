@@ -19,7 +19,7 @@ function pollcb(pin)
         var state = rpio.read(pin) ? 'high' : 'low';
         alertCount++;
 		if(alertCount > alertLimit){
-			// console.log("Object is moving!!!");
+			console.log("Object is moving!!!");
 			alertCount = 0;
 		}
 };
@@ -51,13 +51,23 @@ function gotData(data){
 };   
 
 
-serialjs.open('/dev/ttyACM0', 
-				function start2(port) {
-					port.on('data',function(data){
-						console.log('receiving');
-						console.log(data);
-					});}, '\n');
+serialjs.open(
+    '/dev/ttyACM0',
+    start2,
+    '\n'
+);
 
+function start2(port){
+    port.on(
+        'data',
+        gotData2
+    );
+};
+
+function gotData2(data){
+	keyboard += data[0];
+	console.log(data);
+};  
 
 
 function sendVNSMS(content, number){
