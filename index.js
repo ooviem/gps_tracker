@@ -73,7 +73,7 @@ function start2(port){
 function gotData2(data){
 	if(data != '') {
 		keyboard += data.trim().charAt(0);
-		console.log("1 "+data.trim().charAt(0));
+		console.log(keyboard);
 	}
 };  
 
