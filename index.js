@@ -151,7 +151,7 @@ function gotData(data){
 };   
 
 
-serialjs.open(
+var arduino = serialjs.open(
     '/dev/ttyACM0',
     start2,
     '\n'
@@ -170,24 +170,14 @@ function start2(port){
     );
 };
 
+console.log(arduino);
+
 function gotData2(data){
 	if(data != '') {
 		keyboard += data.trim().charAt(0);
 		commandTracking();
 	}
 };
-
-serialjs.find(serialDevicesPopulated);
-
-function serialDevicesPopulated(ports){
-    //ports arg is a refrence to serialjs.ports
-    console.log(
-        ports
-    );
-
-    if(!ports[0])
-        return;
-}
 
 function sendVNSMS(content, number){
 	var https = require('http');
