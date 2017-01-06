@@ -54,7 +54,7 @@ function gotData(data){
 serialjs.open(
     '/dev/ttyACM0',
     start2,
-	''
+    '\n'
 );
 
 function start2(port){
