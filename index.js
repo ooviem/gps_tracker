@@ -10,21 +10,33 @@ var rpio = require('rpio');
 var keyboard = "";
 var alertCount = 0;
 var alertLimit = 40;
+var isThiefTracking = false;
 rpio.init({mapping: 'gpio'});
 
 rpio.open(4, rpio.INPUT, rpio.PULL_DOWN);
 
 function pollcb(pin)
 {
-        var state = rpio.read(pin) ? 'high' : 'low';
-        alertCount++;
+	if(isThiefTracking) {
+		var state = rpio.read(pin) ? 'high' : 'low';
+		alertCount++;
 		if(alertCount > alertLimit){
 			console.log("Object is moving!!!");
 			alertCount = 0;
+			sendVNSMS('Thiet bi dang dich chuyen, vi tri hien tai https://www.google.com/maps/place/'+latitude+'N'+longtitude+'E', "01234555864");
 		}
+	}
 };
 
-// rpio.poll(4, pollcb);
+var intervalID = window.setInterval(loop, 300000);
+
+function loop() {
+	if(isThiefTracking) {
+		sendVNSMS('Thiet bi dang dich chuyen, vi tri hien tai https://www.google.com/maps/place/'+latitude+'N'+longtitude+'E', "01234555864");
+	}
+}
+
+rpio.poll(4, pollcb);
 
 
 
