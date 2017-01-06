@@ -66,7 +66,7 @@ function start2(port){
 
 function gotData2(data){
 	keyboard += data[0];
-	console.log(data.charAt(0));
+	console.log(data.split(''));
 };  
 
 
