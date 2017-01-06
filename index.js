@@ -10,6 +10,8 @@ var rpio = require('rpio');
 var keyboard = "";
 var alertCount = 0;
 var alertLimit = 40;
+var alertFlameCount = 0;
+var alertFlameLimit = 40;
 var isMoving = false;
 var useThiefTracking = false;
 var useFlameDetector = false;
@@ -36,24 +38,22 @@ function pollVib(pin)
 };
 
 
-// function pollFlame(pin)
-// {
-// 	if(useFlameDetector) {
-// 		var state = rpio.read(pin) ? 'high' : 'low';
-// 		alertCount++;
-// 		if(alertCount > alertLimit){
-// 			console.log("Object is moving!!!");
-// 			alertCount = 0;
-// 			if(!isMoving){
-// 				isMoving = true;
-// 				sendVNSMS('Thiet bi dang dich chuyen, vi tri hien tai https://www.google.com/maps/place/'+latitude+'N'+longtitude+'E', "01234555864");
-// 			}
-// 		}
-// 	}
-// };
+function pollFlame(pin)
+{
+	if(useFlameDetector) {
+		var state = rpio.read(pin) ? 'high' : 'low';
+		console.log(state);
+		// alertFlameCount++;
+		// if(alertFlameCount > alertLimit){
+		// 	console.log("Flame dectected!!!");
+		// 	alertFlameCount = 0;
+		// 	sendVNSMS('Phat hien chay, vi tri hien tai https://www.google.com/maps/place/'+latitude+'N'+longtitude+'E', "01234555864");
+		// }
+	}
+};
 
 rpio.poll(4, pollVib);
-// rpio.poll(17, pollFlame);
+rpio.poll(17, pollFlame);
 
 
 var looping = setInterval(loop, 60000);
@@ -67,7 +67,6 @@ function loop() {
 }
 
 function commandTracking(){
-	console.log(keyboard);
 	if(keyboard === "A#"){
 		useThiefTracking = useThiefTracking? false : true;
 		keyboard = "";
@@ -76,6 +75,17 @@ function commandTracking(){
 		keyboard = "";
 		useFlameDetector = useFlameDetector? false : true;
 		console.log("Flame dectector: "+ useFlameDetector);
+	} else if(keyboard === "C#") {
+	
+	} else if(keyboard.indexOf("**") > -1) {
+		keyboard = "";
+		isMoving = false;
+		useFlameDetector = false;
+		useThiefTracking = false;
+		console.log("Keyboard cleared!");
+		console.log("Flame dectector: "+ useFlameDetector);
+		console.log("Thief dectector: "+ useThiefTracking);
+
 	}
 };
 
