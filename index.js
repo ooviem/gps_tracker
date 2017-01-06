@@ -11,7 +11,8 @@ var keyboard = "";
 var alertCount = 0;
 var alertLimit = 40;
 var alertFlameCount = 0;
-var alertFlameLimit = 40;
+var alertFlameLimit = 10;
+var isBurning = false;
 var isMoving = false;
 var useThiefTracking = false;
 var useFlameDetector = false;
@@ -42,13 +43,16 @@ function pollFlame(pin)
 {
 	if(useFlameDetector) {
 		var state = rpio.read(pin) ? 'high' : 'low';
-		console.log(state);
-		// alertFlameCount++;
-		// if(alertFlameCount > alertLimit){
-		// 	console.log("Flame dectected!!!");
-		// 	alertFlameCount = 0;
-		// 	sendVNSMS('Phat hien chay, vi tri hien tai https://www.google.com/maps/place/'+latitude+'N'+longtitude+'E', "01234555864");
-		// }
+		alertFlameCount++;
+		if(alertFlameCount > alertLimit){
+			console.log("Flame dectected!!!");
+			alertFlameCount = 0;
+			if(!isBurning){
+				isBurning = true;
+				sendVNSMS('Phat hien chay, vi tri hien tai https://www.google.com/maps/place/'+latitude+'N'+longtitude+'E', "01234555864");
+				// take photo
+			}
+		}
 	}
 };
 
@@ -56,13 +60,18 @@ rpio.poll(4, pollVib);
 rpio.poll(17, pollFlame);
 
 
-var looping = setInterval(loop, 60000);
+var looping = setInterval(loop, 5000);
 
 function loop() {
 	if(isMoving && useThiefTracking) {
 		sendVNSMS('Thiet bi dang dich chuyen, vi tri hien tai https://www.google.com/maps/place/'+latitude+'N'+longtitude+'E', "01234555864");
 	} else {
 		isMoving = false;
+	}
+	if(isBurning && useFlameDetector && rpio.read(17)) {
+		sendVNSMS('Phat hien chay, vi tri hien tai https://www.google.com/maps/place/'+latitude+'N'+longtitude+'E', "01234555864");
+	} else {
+		isBurning = false;
 	}
 }
 
@@ -80,6 +89,7 @@ function commandTracking(){
 	} else if(keyboard.indexOf("**") > -1) {
 		keyboard = "";
 		isMoving = false;
+		isBurning = false;
 		useFlameDetector = false;
 		useThiefTracking = false;
 		console.log("Keyboard cleared!");
