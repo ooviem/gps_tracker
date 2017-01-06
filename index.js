@@ -69,25 +69,9 @@ function pollFlame(pin)
 function pollTouch(pin)
 {
 	var state = rpio.read(pin) ? 'high' : 'low';
-	console.log(state);
-	alertBuzzer("OPEN");
-	setTimeout(function(){
-		alertBuzzer("STOP");
-	}, 3000);
-
-	// if(useFlameDetector) {
-	// 	var state = rpio.read(pin) ? 'high' : 'low';
-	// 	alertFlameCount++;
-	// 	if(alertFlameCount > alertLimit){
-	// 		console.log("Flame dectected!!!");
-	// 		alertFlameCount = 0;
-	// 		if(!isBurning){
-	// 			isBurning = true;
-	// 			sendFireAlert();
-	// 			// take photo
-	// 		}
-	// 	}
-	// }
+	if(state == 'high'){
+		console.log("released");
+	}
 };
 rpio.poll(4, pollVib);
 rpio.poll(17, pollFlame);
@@ -186,19 +170,19 @@ function start2(port){
 };
 
 function gotData2(data){
+	console.log(data.trim().charAt(0));
 	if(data != '') {
 		keyboard += data.trim().charAt(0);
 		commandTracking();
-		console.log(keyboard);
 	}
 };
 
-function alertBuzzer(key){
+function alertBuzzer(){
 	if(arduino1){
-		arduino1.send(key);
+		arduino1.send("START");
 	}
 	if(arduino2){
-		arduino2.send(key);
+		arduino2.send("START");
 	}
 }
 
