@@ -28,7 +28,7 @@ function pollcb(pin)
 	}
 };
 
-var intervalID = window.setInterval(loop, 300000);
+var looping = setInterval(loop, 300000);
 
 function loop() {
 	if(isThiefTracking) {
