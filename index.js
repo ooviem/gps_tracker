@@ -181,6 +181,7 @@ function start2(port){
 };
 
 function gotData2(data){
+	console.log(data.trim().charAt(0));
 	if(data != '' && data.trim().charAt(0)+"" != "M") {
 		keyboard += data.trim().charAt(0);
 		commandTracking();
@@ -190,10 +191,10 @@ function gotData2(data){
 
 function alertBuzzer(){
 	if(arduino1){
-		arduino1.send("MEEP");
+		arduino1.send("M");
 	}
 	if(arduino2){
-		arduino2.send("MEEP");
+		arduino2.send("M");
 	}
 }
 
