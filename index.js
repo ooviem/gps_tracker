@@ -157,7 +157,7 @@ serialjs.open(
     '\n'
 );
 
-serialjs.open(
+var arduino = serialjs.open(
     '/dev/ttyACM1',
     start2,
     '\n'
@@ -168,13 +168,13 @@ function start2(port){
         'data',
         gotData2
     );
-	port.send("abcdef");
 };
 
 function gotData2(data){
 	if(data != '') {
 		keyboard += data.trim().charAt(0);
 		commandTracking();
+		arduino.send("Received");
 	}
 };  
 
