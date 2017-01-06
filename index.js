@@ -16,6 +16,8 @@ var isBurning = false;
 var isMoving = false;
 var useThiefTracking = false;
 var useFlameDetector = false;
+var arduino1;
+var arduino2;
 rpio.init({mapping: 'gpio'});
 
 rpio.open(4, rpio.INPUT, rpio.PULL_DOWN);
@@ -166,23 +168,28 @@ function start1(port){
         'data',
         gotData2
     );
-};
+	arduino1 = port;	
 
-var arduino;
+};
 
 function start2(port){
     port.on(
         'data',
         gotData2
     );
-	arduino = port;	
+	arduino2 = port;	
 };
 
 function gotData2(data){
 	if(data != '') {
 		keyboard += data.trim().charAt(0);
 		commandTracking();
-		arduino.send("receive");
+		if(arduino1){
+			arduino1.send("BEEP");
+		}
+		if(arduino2){
+			arduino1.send("BEEP");
+		}
 	}
 };
 
