@@ -70,6 +70,7 @@ function pollTouch(pin)
 {
 	var state = rpio.read(pin) ? 'high' : 'low';
 	console.log(state);
+	alertBuzzer();
 	// if(useFlameDetector) {
 	// 	var state = rpio.read(pin) ? 'high' : 'low';
 	// 	alertFlameCount++;
@@ -181,11 +182,13 @@ function start2(port){
 };
 
 function gotData2(data){
-	console.log(data.trim().charAt(0));
-	if(data != '' && data.trim().charAt(0)+"" != "M") {
+	if(data != '') {
 		keyboard += data.trim().charAt(0);
+		if(keyboard.endsWith("M")){
+			keyboard.replace('M','');
+		}
+		console.log(keyboard);
 		commandTracking();
-		alertBuzzer();
 	}
 };
 
