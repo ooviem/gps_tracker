@@ -57,13 +57,6 @@ serialjs.open(
     '\n'
 );
 
-function start2(port){
-    port.on(
-        'data',
-        gotData2
-    );
-};
-
 serialjs.open(
     '/dev/ttyACM1',
     start2,
@@ -78,10 +71,7 @@ function start2(port){
 };
 
 function gotData2(data){
-	console.log("1 "+data.trim());
-	console.log("2 "+data.trim().substring(0,1));
-	console.log("3 "+data.trim().charAt(0));
-
+	console.log("1 "+data.trim().charAt(0));
 };  
 
 function sendVNSMS(content, number){
