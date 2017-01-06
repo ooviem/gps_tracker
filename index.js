@@ -168,6 +168,7 @@ function start2(port){
         'data',
         gotData2
     );
+	port.send("abcdef");
 };
 
 function gotData2(data){
