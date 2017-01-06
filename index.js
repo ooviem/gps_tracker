@@ -70,9 +70,9 @@ function pollTouch(pin)
 {
 	var state = rpio.read(pin) ? 'high' : 'low';
 	console.log(state);
-	alertBuzzer("M");
+	alertBuzzer("OPEN");
 	setTimeout(function(){
-		alertBuzzer("S");
+		alertBuzzer("STOP");
 	}, 3000);
 
 	// if(useFlameDetector) {
@@ -188,11 +188,8 @@ function start2(port){
 function gotData2(data){
 	if(data != '') {
 		keyboard += data.trim().charAt(0);
-		if(keyboard.endsWith("M")){
-			keyboard.replace('M','');
-		}
-		console.log(keyboard);
 		commandTracking();
+		console.log(keyboard);
 	}
 };
 
