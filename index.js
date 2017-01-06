@@ -22,6 +22,14 @@ rpio.open(4, rpio.INPUT, rpio.PULL_DOWN);
 rpio.open(17, rpio.INPUT, rpio.PULL_DOWN);
 rpio.open(21, rpio.INPUT, rpio.PULL_DOWN);
 
+function sendFireAlert(){
+	sendVNSMS('Phat hien chay, vi tri hien tai https://www.google.com/maps/place/'+latitude+'N'+longtitude+'E', "01234555864");
+};
+
+function sendThiefAlert(){
+	sendVNSMS('Thiet bi dang dich chuyen, vi tri hien tai https://www.google.com/maps/place/'+latitude+'N'+longtitude+'E', "01234555864");
+};
+
 function pollVib(pin)
 {
 	if(useThiefTracking) {
@@ -32,7 +40,7 @@ function pollVib(pin)
 			alertCount = 0;
 			if(!isMoving){
 				isMoving = true;
-				sendVNSMS('Thiet bi dang dich chuyen, vi tri hien tai https://www.google.com/maps/place/'+latitude+'N'+longtitude+'E', "01234555864");
+				sendThiefAlert();
 			}
 		}
 	}
@@ -49,27 +57,46 @@ function pollFlame(pin)
 			alertFlameCount = 0;
 			if(!isBurning){
 				isBurning = true;
-				sendVNSMS('Phat hien chay, vi tri hien tai https://www.google.com/maps/place/'+latitude+'N'+longtitude+'E', "01234555864");
+				sendFireAlert();
 				// take photo
 			}
 		}
 	}
 };
 
+function pollFlame(pin)
+{
+	var state = rpio.read(pin) ? 'high' : 'low';
+	console.log(state);
+	// if(useFlameDetector) {
+	// 	var state = rpio.read(pin) ? 'high' : 'low';
+	// 	alertFlameCount++;
+	// 	if(alertFlameCount > alertLimit){
+	// 		console.log("Flame dectected!!!");
+	// 		alertFlameCount = 0;
+	// 		if(!isBurning){
+	// 			isBurning = true;
+	// 			sendFireAlert();
+	// 			// take photo
+	// 		}
+	// 	}
+	// }
+};
 rpio.poll(4, pollVib);
 rpio.poll(17, pollFlame);
+rpio.poll(21, pollToucn);
 
 
 var looping = setInterval(loop, 5000);
 
 function loop() {
 	if(isMoving && useThiefTracking) {
-		sendVNSMS('Thiet bi dang dich chuyen, vi tri hien tai https://www.google.com/maps/place/'+latitude+'N'+longtitude+'E', "01234555864");
+		sendThiefAlert();
 	} else {
 		isMoving = false;
 	}
 	if(isBurning && useFlameDetector && rpio.read(17)) {
-		sendVNSMS('Phat hien chay, vi tri hien tai https://www.google.com/maps/place/'+latitude+'N'+longtitude+'E', "01234555864");
+		sendFireAlert();
 	} else {
 		isBurning = false;
 	}
