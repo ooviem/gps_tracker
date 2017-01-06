@@ -11,7 +11,7 @@ var keyboard = "";
 var alertCount = 0;
 var alertLimit = 40;
 var isMoving = false;
-var useThiefTracking = false;
+var useThiefTracking = true;
 rpio.init({mapping: 'gpio'});
 
 rpio.open(4, rpio.INPUT, rpio.PULL_DOWN);
