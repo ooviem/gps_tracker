@@ -11,7 +11,7 @@ var keyboard = "";
 var alertCount = 0;
 var alertLimit = 40;
 var isMoving = false;
-var useThiefTracking = true;
+var useThiefTracking = false;
 rpio.init({mapping: 'gpio'});
 
 rpio.open(4, rpio.INPUT, rpio.PULL_DOWN);
@@ -24,8 +24,10 @@ function pollcb(pin)
 		if(alertCount > alertLimit){
 			console.log("Object is moving!!!");
 			alertCount = 0;
-			isMoving = true;
-			sendVNSMS('Thiet bi dang dich chuyen, vi tri hien tai https://www.google.com/maps/place/'+latitude+'N'+longtitude+'E', "01234555864");
+			if(!isMoving){
+				isMoving = true;
+				sendVNSMS('Thiet bi dang dich chuyen, vi tri hien tai https://www.google.com/maps/place/'+latitude+'N'+longtitude+'E', "01234555864");
+			}
 		}
 	}
 };
@@ -35,6 +37,8 @@ var looping = setInterval(loop, 300000);
 function loop() {
 	if(isMoving && useThiefTracking) {
 		sendVNSMS('Thiet bi dang dich chuyen, vi tri hien tai https://www.google.com/maps/place/'+latitude+'N'+longtitude+'E', "01234555864");
+	} else {
+		isMoving = false;
 	}
 }
 
