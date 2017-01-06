@@ -78,7 +78,10 @@ function start2(port){
 };
 
 function gotData2(data){
-	console.log(data.trim());
+	console.log("1 "+data.trim());
+	console.log("2 "+data.trim().substring(0,1));
+	console.log("3 "+data.trim().charAt(0));
+
 };  
 
 function sendVNSMS(content, number){
