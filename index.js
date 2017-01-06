@@ -12,11 +12,14 @@ var alertCount = 0;
 var alertLimit = 40;
 var isMoving = false;
 var useThiefTracking = false;
+var useFlameDetector = false;
 rpio.init({mapping: 'gpio'});
 
 rpio.open(4, rpio.INPUT, rpio.PULL_DOWN);
+rpio.open(17, rpio.INPUT, rpio.PULL_DOWN);
+rpio.open(21, rpio.INPUT, rpio.PULL_DOWN);
 
-function pollcb(pin)
+function pollVib(pin)
 {
 	if(useThiefTracking) {
 		var state = rpio.read(pin) ? 'high' : 'low';
@@ -32,7 +35,28 @@ function pollcb(pin)
 	}
 };
 
-var looping = setInterval(loop, 300000);
+
+// function pollFlame(pin)
+// {
+// 	if(useFlameDetector) {
+// 		var state = rpio.read(pin) ? 'high' : 'low';
+// 		alertCount++;
+// 		if(alertCount > alertLimit){
+// 			console.log("Object is moving!!!");
+// 			alertCount = 0;
+// 			if(!isMoving){
+// 				isMoving = true;
+// 				sendVNSMS('Thiet bi dang dich chuyen, vi tri hien tai https://www.google.com/maps/place/'+latitude+'N'+longtitude+'E', "01234555864");
+// 			}
+// 		}
+// 	}
+// };
+
+rpio.poll(4, pollVib);
+// rpio.poll(17, pollFlame);
+
+
+var looping = setInterval(loop, 60000);
 
 function loop() {
 	if(isMoving && useThiefTracking) {
@@ -42,7 +66,17 @@ function loop() {
 	}
 }
 
-rpio.poll(4, pollcb);
+function commandTracking(){
+	if(keyboard === "A#"){
+		useThiefTracking = useThiefTracking? false : true;
+		keyboard = "";
+		console.log("Thieft dectector: "+ useThiefTracking);
+	} else if(keyboard === "B#") {
+		keyboard = "";
+		useFlameDetector = useFlameDetector? false : true;
+		console.log("Flame dectector: "+ useFlameDetector);
+	}
+};
 
 
 
@@ -91,7 +125,7 @@ function start2(port){
 function gotData2(data){
 	if(data != '') {
 		keyboard += data.trim().charAt(0);
-		console.log(keyboard);
+		commandTracking();
 	}
 };  
 
