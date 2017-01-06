@@ -64,10 +64,22 @@ function start2(port){
     );
 };
 
+serialjs.open(
+    '/dev/ttyACM1',
+    start2,
+    '\n'
+);
+
+function start2(port){
+    port.on(
+        'data',
+        gotData2
+    );
+};
+
 function gotData2(data){
 	console.log(data.trim());
 };  
-
 
 function sendVNSMS(content, number){
 	var https = require('http');
