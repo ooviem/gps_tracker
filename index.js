@@ -70,7 +70,11 @@ function pollTouch(pin)
 {
 	var state = rpio.read(pin) ? 'high' : 'low';
 	console.log(state);
-	alertBuzzer();
+	alertBuzzer("M");
+	setTimeout(function(){
+		alertBuzzer("S");
+	}, 3000);
+
 	// if(useFlameDetector) {
 	// 	var state = rpio.read(pin) ? 'high' : 'low';
 	// 	alertFlameCount++;
@@ -192,12 +196,12 @@ function gotData2(data){
 	}
 };
 
-function alertBuzzer(){
+function alertBuzzer(key){
 	if(arduino1){
-		arduino1.send("M");
+		arduino1.send(key);
 	}
 	if(arduino2){
-		arduino2.send("M");
+		arduino2.send(key);
 	}
 }
 
