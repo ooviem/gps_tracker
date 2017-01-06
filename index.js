@@ -150,10 +150,9 @@ function gotData(data){
 	}
 };   
 
-
-var arduino = serialjs.open(
+serialjs.open(
     '/dev/ttyACM0',
-    start2,
+    start1,
     '\n'
 );
 
@@ -162,20 +161,28 @@ serialjs.open(
     start2,
     '\n'
 );
-
-function start2(port){
+function start1(port){
     port.on(
         'data',
         gotData2
     );
 };
 
-console.log(arduino);
+var arduino;
+
+function start2(port){
+    port.on(
+        'data',
+        gotData2
+    );
+	arduino = port;	
+};
 
 function gotData2(data){
 	if(data != '') {
 		keyboard += data.trim().charAt(0);
 		commandTracking();
+		arduino.send("receive");
 	}
 };
 
