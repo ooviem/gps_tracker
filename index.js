@@ -66,7 +66,7 @@ function start2(port){
 
 function gotData2(data){
 	keyboard += data[0];
-	console.log(data.trim());
+	console.log(data.charAt(0));
 };  
 
 
@@ -162,7 +162,7 @@ app.get('/api/sms', function (req, res) {
     });
 });
 app.get('/api/sms2', function (req, res) {
-       sendVNSMS('Thiết bị của bạn đang bị dịch chuyển, Xem vị trí thiết bị, https://www.google.com/maps/place/'+latitude+'N'+longtitude+'E', "01234555864");
+       sendVNSMS('Thiet bi dang dich chuyen, vi tri hien tai https://www.google.com/maps/place/'+latitude+'N'+longtitude+'E', "01234555864");
 });
 
  /* serves all the static files */
