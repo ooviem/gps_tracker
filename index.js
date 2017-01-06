@@ -181,7 +181,8 @@ function start2(port){
 };
 
 function gotData2(data){
-	if(data != '' && data!= "BEEP") {
+	console.log(data);
+	if(data != '' && data != "BEEP") {
 		keyboard += data.trim().charAt(0);
 		commandTracking();
 		alertBuzzer();
