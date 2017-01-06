@@ -66,7 +66,8 @@ function start2(port){
 
 function gotData2(data){
 	keyboard += data[0];
-	console.log(data.substring(0,2));
+	var obj = JSON.parse(data);
+	console.log(obj);
 };  
 
 
