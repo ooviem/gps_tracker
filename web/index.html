@@ -29,10 +29,12 @@
             <div id="files" style="height: 500px; width: 500px; margin-top: 80px; margin-left: 20px;float: left;">
                 <h2>Các hình và video gần đây.</h2>
                 <div>
-                    <img src="/camera/{{ctrlMe.listFiles[0]}}" style="width: 150px; height: 150px; margin-left: 5px;"></img>
-                    <img src="/camera/{{ctrlMe.listFiles[1]}}" style="width: 150px; height: 150px; margin-left: 5px; float: left;"></img>
-                    <img src="/camera/{{ctrlMe.listFiles[2]}}" style="width: 150px; height: 150px; margin-left: 5px;"></img>
-                    <img src="/camera/{{ctrlMe.listFiles[3]}}" style="width: 150px; height: 150px; margin-left: 5px; float: left;"></img>
+                    <img src="/camera/{{ctrlMe.listImage[0]}}" style="width: 200px; height: 200px; margin-left: 5px;"></img>
+                    <img src="/camera/{{ctrlMe.listImage[1]}}" style="width: 200px; height: 200px; margin-left: 5px; float: left;"></img>
+                </div>
+                <div>
+                    <img src="/camera/{{ctrlMe.listImage[2]}}" style="width: 200px; height: 200px; margin-left: 5px;"></img>
+                    <img src="/camera/{{ctrlMe.listImage[3]}}" style="width: 200px; height: 200px;; margin-left: 5px; float: left;"></img>
                 </div>
                 <ul>
                     <li ng-repeat="file in ctrlMe.listFiles track by $index">

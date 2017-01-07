@@ -13,9 +13,14 @@ angular.module('JackControllerApp', ['ngMaterial'])
             var ctrlMe = this;
 
             ctrlMe.listFiles = "";
-            
+            ctrlMe.listImage = "";
             callGET("/api/images").then(function(res){
-                ctrlMe.listFiles = res.data.data;
+                ctrlMe.listFiles = res.data.data.reverse();
+                res.data.data.forEach(function(file) {
+                    if(file.endsWith(".jpg")){
+                         ctrlMe.listImage.push(file);
+                    }
+                });
                 console.log(ctrlMe.listFiles);
             });
 
