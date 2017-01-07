@@ -270,7 +270,7 @@ app.get('/api/sms2', function (req, res) {
 app.get('/api/images', function (req, res) {
 	var testFolder = './web/camera/';
 	var response = [];
-	fs.readdir('/', function (err, files) { // '/' denotes the root folder
+	fs.readdir(testFolder, function (err, files) { // '/' denotes the root folder
 		console.log(files);
 		if (err) throw err;
 		files.forEach( function (file) {
