@@ -29,9 +29,11 @@ rpio.open(18, rpio.INPUT, rpio.PULL_DOWN);
 
 function sendFireAlert(){
 	sendVNSMS('Phat hien chay, vi tri hien tai https://www.google.com/maps/place/'+latitude+'N'+longtitude+'E', phoneNumber);
+	takePhoto();
 };
 
 function sendThiefAlert(){
+	takePhoto();
 	sendVNSMS('Thiet bi dang dich chuyen, vi tri hien tai https://www.google.com/maps/place/'+latitude+'N'+longtitude+'E', phoneNumber);
 };
 
@@ -63,7 +65,6 @@ function pollFlame(pin)
 			if(!isBurning){
 				isBurning = true;
 				sendFireAlert();
-				// take photo
 			}
 		}
 	}
@@ -73,6 +74,7 @@ function takePhoto(){
 	isTakingPhoto = true;
 	command.exe("sudo ./camera.sh").then(function(){
 		isTakingPhoto = false;
+		console.log("photo taken!!!");
 	});
 };
 
@@ -82,7 +84,6 @@ function pollTouch(pin)
 	if(state == 'high'){
 		takePhoto();
 	}
-	
 };
 rpio.poll(4, pollVib);
 rpio.poll(17, pollFlame);
