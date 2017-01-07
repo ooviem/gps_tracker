@@ -28,9 +28,12 @@
             <div id="map" style="height: 500px; width: 500px; margin-top: 80px; float: left;"></div>
             <div id="files" style="height: 500px; width: 500px; margin-top: 80px; margin-left: 20px;float: left;">
                 <h2>Các hình và video gần đây.</h2>
+                <div ng-repeat="file in ctrlMe.listFiles track by $index">
+                    <img src="/camera/{{file}}" style="width: 150px; height: 150px; margin-left: 5px;"></img>
+                </div>
                 <ul>
                     <li ng-repeat="file in ctrlMe.listFiles track by $index">
-                       <a href="/web/camera/{{file}}">{{file}}</a>
+                       <a href="/camera/{{file}}">{{file}}</a>
                     </li>
                 </ul>
             </div>
