@@ -11,7 +11,7 @@ var keyboard = "";
 var alertCount = 0;
 var alertLimit = 40;
 var alertFlameCount = 0;
-var alertFlameLimit = 3;
+var alertFlameLimit = 2;
 var isBurning = false;
 var isMoving = false;
 var useThiefTracking = false;
@@ -24,6 +24,29 @@ var isTakingPhoto = false;
 var isRecording = false;
 var isSOS = false;
 var fs = require('fs');
+
+serialjs.find(serialDevicesPopulated);
+
+function serialDevicesPopulated(ports){
+    //ports arg is a refrence to serialjs.ports
+    console.log(
+        ports
+    );
+
+    if(!ports[0])
+        return;
+}
+
+
+
+
+
+
+
+
+
+
+
 
 rpio.init({mapping: 'gpio'});
 
@@ -142,12 +165,12 @@ function loop() {
 function commandTracking(){
 	if(keyboard === "A#"){
 		keyboard = "";
-		console.log("Thief dectector: "+ useThiefTracking);
 		setTimeout(function() {
 			useThiefTracking = useThiefTracking? false : true;
 			if(!useThiefTracking){
 				alertBuzzer("P");
 			}
+			console.log("Thief dectector: "+ useThiefTracking);
 		}, 2000);
 	} else if(keyboard === "B#") {
 		keyboard = "";
