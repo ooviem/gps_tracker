@@ -21,6 +21,7 @@ var arduino2;
 var phoneNumber = "01234555864";
 var command = require("./command.js");
 var isTakingPhoto = false;
+var isRecording = false;
 var isSOS = false;
 var fs = require('fs');
 
@@ -85,12 +86,25 @@ function takePhoto(){
 		console.log("photo taken!!!");
 	});
 };
+function recordVideo(){
+	isRecording = true;
+	console.log("start recording");
+	// command.exe("sudo ./camera.sh").then(function(){
+	// 	isTakingPhoto = false;
+	// 	console.log("photo taken!!!");
+	// });
+};
 
 function pollTouch(pin)
 {
 	var state = rpio.read(pin) ? 'high' : 'low';
 	if(state == 'high'){
 		takePhoto();
+		setTimeout(function(){
+			if(rpio.read(pin) && !isRecording){
+				recordVideo();
+			}
+		}, 1000);
 	}
 };
 rpio.poll(4, pollVib);
@@ -132,7 +146,7 @@ function commandTracking(){
 		phoneNumber = phoneNumber.replace("*", '');
 		keyboard = "";
 	} else if(keyboard.indexOf("D") > -1 && keyboard != "") {
-		keyboard = keyboard.substring(0, keyboard.length - 3);
+		keyboard = keyboard.substring(0, keyboard.length - 2);
 	} else if(keyboard.indexOf("**") > -1) {
 		keyboard = "";
 	} else if(keyboard.indexOf("911#") > -1) {
@@ -140,6 +154,7 @@ function commandTracking(){
 		if(isSOS){
 			sendSOS();
 		}
+		keyboard = "";
 	} else if(keyboard.indexOf("123#") > -1) {
 		keyboard = "";
 		isMoving = false;
