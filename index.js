@@ -272,11 +272,12 @@ app.get('/api/images', function (req, res) {
 	var response = [];
 	fs.readdir(testFolder, function (err, files) { // '/' denotes the root folder
 		response = files;
+		res.json({
+    		"data": response
+   	    });
 		console.log(response);
 	});
-	res.json({
-    	"data": response
-    });
+
 });
 
  /* serves all the static files */
