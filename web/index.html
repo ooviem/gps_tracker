@@ -23,8 +23,10 @@
                     <button ng-mouseup="ctrlMe.maps()" class="btn btn-primary">Xem Google Maps</button>
                 </div>
             </div>  
-            <div id="map" style="height: 500px; width: 500px; margin-top: 80px; float: left;">
-                            <h2>Vị trí hiện tại của thiết bị.</h2>
+            <div style="height: 500px; width: 500px; margin-top: 80px; float: left;">
+               <h2>Vị trí hiện tại của thiết bị.</h2>
+               <div id="map" style="height: 450px; width: 500px; margin-top: 80px; float: left;">
+            </div>
             </div>
             <div id="files" style="height: 500px; width: 500px; margin-top: 80px; margin-left: 20px;float: left;">
                 <h2>Các hình gần đây.</h2>
@@ -37,7 +39,7 @@
                     <img src="/camera/{{ctrlMe.listImage[3]}}" style="width: 200px; height: 200px;; margin-left: 5px; float: left;"></img>
                 </div>
             </div>
-            <div>
+            <div style="margin-top: 80px; float: left;">
                 <h2>Tất cả hình ảnh và video.</h2>
                 <ul>
                     <li ng-repeat="file in ctrlMe.listFiles track by $index">
