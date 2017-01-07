@@ -216,11 +216,6 @@ serialjs.open(
     '\n'
 );
 
-serialjs.open(
-    '/dev/ttyACM1',
-    start2,
-    '\n'
-);
 function start1(port){
     port.on(
         'data',
@@ -230,23 +225,8 @@ function start1(port){
 
 };
 
-function start2(port){
-    port.on(
-        'data',
-        gotData3
-    );
-	arduino2 = port;	
-};
 
 function gotData2(data){
-	if(data != '') {
-		keyboard += data.trim().charAt(0);
-		console.log(keyboard);
-		commandTracking();
-	}
-};
-
-function gotData3(data){
 	if(data != '') {
 		keyboard += data.trim().charAt(0);
 		console.log(keyboard);
@@ -259,10 +239,7 @@ function alertBuzzer(key){
 	if(arduino1){
 		arduino1.send(key);
 	}
-	if(arduino2){
-		arduino2.send(key);
-	}
-}
+};
 
 
 function sendVNSMS(content, number){
@@ -330,7 +307,7 @@ app.get('/api/sms2', function (req, res) {
 });
 
 app.get('/api/images', function (req, res) {
-	var testFolder = './web/camera/';
+	var testFolder = './gps_tracker/web/camera/';
 	var response = [];
 	fs.readdir(testFolder, function (err, files) { // '/' denotes the root folder
 		response = files;
