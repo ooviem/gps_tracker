@@ -99,13 +99,16 @@ function pollTouch(pin)
 {
 	var state = rpio.read(pin) ? 'high' : 'low';
 	if(state == 'high'){
-		console.log(state);
-		// takePhoto();
-		// setTimeout(function(){
-		// 	if(rpio.read(pin) && !isRecording){
-		// 		recordVideo();
-		// 	}
-		// }, 1000);
+		if(!isRecording){
+			takePhoto();
+		}
+	} else {
+		setTimeout(function(){
+			if(!rpio.read(pin) && !isRecording){
+				isRecording= true;
+				recordVideo();
+			}
+		}, 1000);
 	}
 };
 rpio.poll(4, pollVib);
