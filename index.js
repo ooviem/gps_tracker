@@ -34,16 +34,19 @@ rpio.open(18, rpio.INPUT, rpio.PULL_DOWN);
 function sendFireAlert(){
 	sendVNSMS('Phat hien chay, vi tri hien tai https://www.google.com/maps/place/'+latitude+'N'+longtitude+'E', phoneNumber);
 	takePhoto();
+	alertBuzzer("S");
 };
 
 function sendSOS(){
  	sendVNSMS('SOS, Nguoi than cua ban hien gap nguy hiem, xin xem tai https://www.google.com/maps/place/'+latitude+'N'+longtitude+'E', "01234555864");
  	takePhoto();
+	alertBuzzer("S");
 };
 
 function sendThiefAlert(){
 	sendVNSMS('Thiet bi dang dich chuyen, vi tri hien tai https://www.google.com/maps/place/'+latitude+'N'+longtitude+'E', phoneNumber);
 	takePhoto();
+	alertBuzzer("S");
 };
 
 function pollVib(pin)
@@ -115,7 +118,7 @@ rpio.poll(17, pollFlame);
 rpio.poll(18, pollTouch);
 
 
-var looping = setInterval(loop, 300000);
+var looping = setInterval(loop, 60000);
 
 function loop() {
 	if(isMoving && useThiefTracking) {
@@ -165,6 +168,7 @@ function commandTracking(){
 		isSOS = false;
 		useFlameDetector = false;
 		useThiefTracking = false;
+		alertBuzzer("P");
 		console.log("Keyboard cleared!");
 		console.log("Flame dectector: "+ useFlameDetector);
 		console.log("Thief dectector: "+ useThiefTracking);
@@ -231,12 +235,12 @@ function gotData2(data){
 	}
 };
 
-function alertBuzzer(){
+function alertBuzzer(key){
 	if(arduino1){
-		arduino1.send("START");
+		arduino1.send(key);
 	}
 	if(arduino2){
-		arduino2.send("START");
+		arduino2.send(key));
 	}
 }
 
