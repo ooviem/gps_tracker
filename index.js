@@ -173,7 +173,6 @@ function start2(port){
 };
 
 function gotData2(data){
-	console.log(data.trim().charAt(0));
 	if(data != '') {
 		keyboard += data.trim().charAt(0);
 		commandTracking();
