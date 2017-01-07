@@ -272,6 +272,7 @@ app.get('/api/images', function (req, res) {
 	var response = [];
 	fs.readdir(testFolder, function (err, files) { // '/' denotes the root folder
 		response = files;
+		console.log(response);
 	});
 	res.json({
     	"data": response
