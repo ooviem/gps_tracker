@@ -240,7 +240,7 @@ function alertBuzzer(key){
 		arduino1.send(key);
 	}
 	if(arduino2){
-		arduino2.send(key));
+		arduino2.send(key);
 	}
 }
 
