@@ -26,6 +26,13 @@
                 </div>
             </div>        
             <div id="map" style="height: 500px; width: 500px; margin-top: 80px;"></div>
+            <div id="files" style="height: 500px; width: 500px; margin-top: 80px;">
+                <ul>
+                    <li ng-repeat="file in ctrlMe.listFiles track by $index">
+                        {file}
+                    </li>
+                </ul>
+            </div>
         <script>
           var map;
           var marker;
