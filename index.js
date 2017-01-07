@@ -69,10 +69,11 @@ function pollFlame(pin)
 function pollTouch(pin)
 {
 	var state = rpio.read(pin) ? 'high' : 'low';
-	if(state == 'high'){
-		console.log("released");
-		alertBuzzer();
-	}
+	console.log(state);
+	// if(state == 'high'){
+	// 	console.log("released");
+	// 	alertBuzzer();
+	// }
 	
 };
 rpio.poll(4, pollVib);
