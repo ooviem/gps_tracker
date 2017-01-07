@@ -131,15 +131,16 @@ function commandTracking(){
 		phoneNumber = keyboard.replace("C#", '');
 		phoneNumber = phoneNumber.replace("*", '');
 		keyboard = "";
-		console.log(phoneNumber);
 	} else if(keyboard.indexOf("D") > -1 && keyboard != "") {
-		keyboard.substring(0, keyboard.length - 3);
+		keyboard = keyboard.substring(0, keyboard.length - 3);
+	} else if(keyboard.indexOf("**") > -1) {
+		keyboard = "";
 	} else if(keyboard.indexOf("911#") > -1) {
 		isSOS = isSOS? false : true;
 		if(isSOS){
 			sendSOS();
 		}
-	} else if(keyboard.indexOf("**") > -1) {
+	} else if(keyboard.indexOf("123#") > -1) {
 		keyboard = "";
 		isMoving = false;
 		isBurning = false;
@@ -149,7 +150,6 @@ function commandTracking(){
 		console.log("Keyboard cleared!");
 		console.log("Flame dectector: "+ useFlameDetector);
 		console.log("Thief dectector: "+ useThiefTracking);
-
 	}
 };
 
