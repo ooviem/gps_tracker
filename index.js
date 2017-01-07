@@ -87,7 +87,7 @@ function takePhoto(){
 	});
 };
 function recordVideo(){
-	isRecording = true;
+	// isRecording = true;
 	console.log("start recording");
 	// command.exe("sudo ./camera.sh").then(function(){
 	// 	isTakingPhoto = false;
@@ -99,7 +99,7 @@ function pollTouch(pin)
 {
 	var state = rpio.read(pin) ? 'high' : 'low';
 	if(state == 'high'){
-		takePhoto();
+		// takePhoto();
 		setTimeout(function(){
 			if(rpio.read(pin) && !isRecording){
 				recordVideo();
