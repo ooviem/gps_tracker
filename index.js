@@ -175,6 +175,7 @@ function start2(port){
 function gotData2(data){
 	if(data != '') {
 		keyboard += data.trim().charAt(0);
+		console.log(keyboard);
 		commandTracking();
 	}
 };
