@@ -100,8 +100,6 @@ function recordVideo(){
 function pollTouch(pin)
 {
 	var state = rpio.read(pin) ? 'high' : 'low';
-	alertBuzzer("S");
-
 	if(state == 'high'){
 		if(!isRecording){
 			takePhoto();
@@ -110,7 +108,6 @@ function pollTouch(pin)
 		setTimeout(function(){
 			if(!rpio.read(pin) && !isRecording){
 				isRecording = true;
-				alertBuzzer("P");
 				recordVideo();
 			}
 		}, 1500);
