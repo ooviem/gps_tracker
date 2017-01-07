@@ -25,30 +25,6 @@ var isRecording = false;
 var isSOS = false;
 var fs = require('fs');
 
-serialjs.find(serialDevicesPopulated);
-
-function serialDevicesPopulated(ports){
-	console.log("123");
-    //ports arg is a refrence to serialjs.ports
-    console.log(
-        ports
-    );
-
-    if(!ports[0])
-        return;
-}
-
-
-
-
-
-
-
-
-
-
-
-
 rpio.init({mapping: 'gpio'});
 
 rpio.open(4, rpio.INPUT, rpio.PULL_DOWN);
