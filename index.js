@@ -11,7 +11,7 @@ var keyboard = "";
 var alertCount = 0;
 var alertLimit = 40;
 var alertFlameCount = 0;
-var alertFlameLimit = 10;
+var alertFlameLimit = 3;
 var isBurning = false;
 var isMoving = false;
 var useThiefTracking = false;
@@ -21,6 +21,8 @@ var arduino2;
 var phoneNumber = "01234555864";
 var command = require("./command.js");
 var isTakingPhoto = false;
+var fs = require('fs');
+
 rpio.init({mapping: 'gpio'});
 
 rpio.open(4, rpio.INPUT, rpio.PULL_DOWN);
@@ -262,6 +264,26 @@ app.get('/api/sms2', function (req, res) {
        sendVNSMS('Thiet bi dang dich chuyen, vi tri hien tai https://www.google.com/maps/place/'+latitude+'N'+longtitude+'E', "01234555864");
 	res.json({
     	"OK":"OK"
+    });
+});
+
+app.get('/api/images', function (req, res) {
+	var testFolder = './web/camera/';
+	var response = [];
+	fs.readdir('/', function (err, files) { // '/' denotes the root folder
+		if (err) throw err;
+		files.forEach( function (file) {
+			fs.lstat('/'+file, function(err, stats) {
+				if (!err) { 
+					response.push(file);
+				} else{
+					response = err;
+				}
+			});
+		});
+	});
+	res.json({
+    	"data": response
     });
 });
 
