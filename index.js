@@ -145,10 +145,16 @@ function commandTracking(){
 		console.log("Thief dectector: "+ useThiefTracking);
 		setTimeout(function() {
 			useThiefTracking = useThiefTracking? false : true;
+			if(!useThiefTracking){
+				alertBuzzer("P");
+			}
 		}, 2000);
 	} else if(keyboard === "B#") {
 		keyboard = "";
 		useFlameDetector = useFlameDetector? false : true;
+		if(!useFlameDetector){
+			alertBuzzer("P");
+		}
 		console.log("Flame dectector: "+ useFlameDetector);
 	} else if(keyboard.indexOf("C#") > -1 && keyboard.charAt(keyboard.length -1 ) == "*") {
 		phoneNumber = keyboard.replace("C#", '');
@@ -162,6 +168,8 @@ function commandTracking(){
 		isSOS = isSOS? false : true;
 		if(isSOS){
 			sendSOS();
+		} else {
+		    alertBuzzer("P");
 		}
 		keyboard = "";
 	} else if(keyboard.indexOf("123#") > -1) {
@@ -225,7 +233,7 @@ function start1(port){
 function start2(port){
     port.on(
         'data',
-        gotData2
+        gotData3
     );
 	arduino2 = port;	
 };
@@ -237,6 +245,15 @@ function gotData2(data){
 		commandTracking();
 	}
 };
+
+function gotData3(data){
+	if(data != '') {
+		keyboard += data.trim().charAt(0);
+		console.log(keyboard);
+		commandTracking();
+	}
+};
+
 
 function alertBuzzer(key){
 	if(arduino1){
