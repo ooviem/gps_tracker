@@ -84,14 +84,14 @@ function pollFlame(pin)
 
 function takePhoto(){
 	isTakingPhoto = true;
-	command.exe("sudo ./camera.sh").then(function(){
+	command.exe("sudo ./gps_tracker/camera.sh").then(function(){
 		isTakingPhoto = false;
 		console.log("photo taken!!!");
 	});
 };
 function recordVideo(){
 	console.log("start recording");
-	command.exe("sudo ./video.sh").then(function(){
+	command.exe("sudo ./gps_tracker/video.sh").then(function(){
 		isRecording = false;
 		console.log("end recording");
 	});
@@ -137,19 +137,21 @@ function loop() {
 }
 
 function commandTracking(){
-	if(keyboard === "A#"){
+	if(keyboard.indexOf("A#") > -1){
 		keyboard = "";
 		setTimeout(function() {
 			useThiefTracking = useThiefTracking? false : true;
 			if(!useThiefTracking){
+				isMoving = false;
 				alertBuzzer("P");
 			}
 			console.log("Thief dectector: "+ useThiefTracking);
 		}, 2000);
-	} else if(keyboard === "B#") {
+	} else if(keyboard.indexOf("B#") > -1) {
 		keyboard = "";
 		useFlameDetector = useFlameDetector? false : true;
 		if(!useFlameDetector){
+			isBurning = false;
 			alertBuzzer("P");
 		}
 		console.log("Flame dectector: "+ useFlameDetector);
