@@ -87,12 +87,11 @@ function takePhoto(){
 	});
 };
 function recordVideo(){
-	// isRecording = true;
 	console.log("start recording");
-	// command.exe("sudo ./camera.sh").then(function(){
-	// 	isTakingPhoto = false;
-	// 	console.log("photo taken!!!");
-	// });
+	command.exe("sudo ./video.sh").then(function(){
+		isRecording = false;
+		console.log("end recording");
+	});
 };
 
 function pollTouch(pin)
@@ -105,10 +104,10 @@ function pollTouch(pin)
 	} else {
 		setTimeout(function(){
 			if(!rpio.read(pin) && !isRecording){
-				isRecording= true;
+				isRecording = true;
 				recordVideo();
 			}
-		}, 1000);
+		}, 1500);
 	}
 };
 rpio.poll(4, pollVib);
