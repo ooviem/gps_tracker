@@ -18,6 +18,9 @@ var useThiefTracking = false;
 var useFlameDetector = false;
 var arduino1;
 var arduino2;
+var phoneNumber = "01234555864";
+var command = require("./command.js");
+var isTakingPhoto = false;
 rpio.init({mapping: 'gpio'});
 
 rpio.open(4, rpio.INPUT, rpio.PULL_DOWN);
@@ -25,11 +28,11 @@ rpio.open(17, rpio.INPUT, rpio.PULL_DOWN);
 rpio.open(18, rpio.INPUT, rpio.PULL_DOWN);
 
 function sendFireAlert(){
-	sendVNSMS('Phat hien chay, vi tri hien tai https://www.google.com/maps/place/'+latitude+'N'+longtitude+'E', "01234555864");
+	sendVNSMS('Phat hien chay, vi tri hien tai https://www.google.com/maps/place/'+latitude+'N'+longtitude+'E', phoneNumber);
 };
 
 function sendThiefAlert(){
-	sendVNSMS('Thiet bi dang dich chuyen, vi tri hien tai https://www.google.com/maps/place/'+latitude+'N'+longtitude+'E', "01234555864");
+	sendVNSMS('Thiet bi dang dich chuyen, vi tri hien tai https://www.google.com/maps/place/'+latitude+'N'+longtitude+'E', phoneNumber);
 };
 
 function pollVib(pin)
@@ -66,14 +69,19 @@ function pollFlame(pin)
 	}
 };
 
+function takePhoto(){
+	isTakingPhoto = true;
+	command.exe("sudo ./camera.sh").then(function(){
+		isTakingPhoto = false;
+	});
+};
+
 function pollTouch(pin)
 {
 	var state = rpio.read(pin) ? 'high' : 'low';
-	console.log(state);
-	// if(state == 'high'){
-	// 	console.log("released");
-	// 	alertBuzzer();
-	// }
+	if(state == 'high'){
+		takePhoto();
+	}
 	
 };
 rpio.poll(4, pollVib);
@@ -98,9 +106,11 @@ function loop() {
 
 function commandTracking(){
 	if(keyboard === "A#"){
-		useThiefTracking = useThiefTracking? false : true;
 		keyboard = "";
 		console.log("Thief dectector: "+ useThiefTracking);
+		setTimeout(function() {
+			useThiefTracking = useThiefTracking? false : true;
+		}, 2000);
 	} else if(keyboard === "B#") {
 		keyboard = "";
 		useFlameDetector = useFlameDetector? false : true;
