@@ -275,9 +275,7 @@ app.get('/api/images', function (req, res) {
 		res.json({
     		"data": response
    	    });
-		console.log(response);
 	});
-
 });
 
  /* serves all the static files */

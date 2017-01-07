@@ -1,6 +1,9 @@
 angular.module('JackControllerApp', ['ngMaterial'])
     .controller('JackController', ['$http', 
     	function($http) {
+
+            
+
             function callGET(name, data) {
                 return $http({
                     method: 'GET',
@@ -8,6 +11,13 @@ angular.module('JackControllerApp', ['ngMaterial'])
                 });
             };
             var ctrlMe = this;
+
+            ctrlMe.listFiles = "";
+            
+            callGET("/api/images").then(function(res){
+                ctrlMe.listFiles = res.data;
+                console.log(res);
+            });
 
             ctrlMe.map = function() {
                 callGET("/api/gps").then(function(res){
