@@ -26,11 +26,11 @@
                 </div>
             </div>        
             <div id="map" style="height: 500px; width: 500px; margin-top: 80px; float: left;"></div>
-            <div id="files" style="height: 500px; width: 500px; margin-top: 80px; float: left;">
+            <div id="files" style="height: 500px; width: 500px; margin-top: 80px; margin-left: 20px;float: left;">
                 <h2>Các hình và video gần đây.</h2>
                 <ul>
                     <li ng-repeat="file in ctrlMe.listFiles track by $index">
-                        {{file}}
+                       <a href="/{{'file'}}"></a>
                     </li>
                 </ul>
             </div>
