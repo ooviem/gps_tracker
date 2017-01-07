@@ -15,8 +15,8 @@ angular.module('JackControllerApp', ['ngMaterial'])
             ctrlMe.listFiles = "";
             
             callGET("/api/images").then(function(res){
-                ctrlMe.listFiles = res.data;
-                console.log(res);
+                ctrlMe.listFiles = res.data.data;
+                console.log(ctrlMe.listFiles);
             });
 
             ctrlMe.map = function() {
