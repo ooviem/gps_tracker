@@ -271,17 +271,7 @@ app.get('/api/images', function (req, res) {
 	var testFolder = './web/camera/';
 	var response = [];
 	fs.readdir(testFolder, function (err, files) { // '/' denotes the root folder
-		console.log(files);
-		if (err) throw err;
-		files.forEach( function (file) {
-			fs.lstat('/'+file, function(err, stats) {
-				if (!err) { 
-					response.push(file);
-				} else{
-					response = err;
-				}
-			});
-		});
+		response = files;
 	});
 	res.json({
     	"data": response
