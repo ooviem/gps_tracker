@@ -21,6 +21,7 @@ var arduino2;
 var phoneNumber = "01234555864";
 var command = require("./command.js");
 var isTakingPhoto = false;
+var isSOS = false;
 var fs = require('fs');
 
 rpio.init({mapping: 'gpio'});
@@ -34,9 +35,14 @@ function sendFireAlert(){
 	takePhoto();
 };
 
+function sendSOS(){
+ 	sendVNSMS('SOS, Nguoi than cua ban hien gap nguy hiem, xin xem tai https://www.google.com/maps/place/'+latitude+'N'+longtitude+'E', "01234555864");
+ 	takePhoto();
+};
+
 function sendThiefAlert(){
-	takePhoto();
 	sendVNSMS('Thiet bi dang dich chuyen, vi tri hien tai https://www.google.com/maps/place/'+latitude+'N'+longtitude+'E', phoneNumber);
+	takePhoto();
 };
 
 function pollVib(pin)
@@ -100,6 +106,9 @@ function loop() {
 	} else {
 		isMoving = false;
 	}
+	if(isSOS){
+		sendSOS();
+	}
 	if(isBurning && useFlameDetector && rpio.read(17)) {
 		sendFireAlert();
 	} else {
@@ -118,12 +127,23 @@ function commandTracking(){
 		keyboard = "";
 		useFlameDetector = useFlameDetector? false : true;
 		console.log("Flame dectector: "+ useFlameDetector);
-	} else if(keyboard === "C#") {
-	
+	} else if(keyboard.indexOf("C#") > -1 && keyboard.charAt(keyboard.length -1 ) == "*") {
+		phoneNumber = keyboard.replace("C#", '');
+		phoneNumber = phoneNumber.replace("*", '');
+		keyboard = "";
+		console.log(phoneNumber);
+	} else if(keyboard.indexOf("D") > -1 && keyboard != "") {
+		keyboard.substring(0, keyboard.length - 3);
+	} else if(keyboard.indexOf("911#") > -1) {
+		isSOS = isSOS? false : true;
+		if(isSOS){
+			sendSOS();
+		}
 	} else if(keyboard.indexOf("**") > -1) {
 		keyboard = "";
 		isMoving = false;
 		isBurning = false;
+		isSOS = false;
 		useFlameDetector = false;
 		useThiefTracking = false;
 		console.log("Keyboard cleared!");
