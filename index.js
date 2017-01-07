@@ -11,7 +11,7 @@ var keyboard = "";
 var alertCount = 0;
 var alertLimit = 40;
 var alertFlameCount = 0;
-var alertFlameLimit = 2;
+var alertFlameLimit = 1;
 var isBurning = false;
 var isMoving = false;
 var useThiefTracking = false;
@@ -71,11 +71,11 @@ function pollFlame(pin)
 	if(useFlameDetector) {
 		var state = rpio.read(pin) ? 'high' : 'low';
 		alertFlameCount++;
+		console.log(state);
 		if(alertFlameCount > alertLimit){
 			console.log("Flame dectected!!!");
 			alertFlameCount = 0;
 			if(!isBurning){
-				isBurning = true;
 				sendFireAlert();
 			}
 		}
