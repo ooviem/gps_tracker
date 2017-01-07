@@ -306,7 +306,7 @@ function sendVNSMS(content, number){
 
 /* serves main page */
 app.get("/", function(req, res) {
-    res.sendfile('./web/index.html')
+    res.sendfile('./gps_tracker/web/index.html')
 });
 
 app.get('/api/gps', function (req, res) {
