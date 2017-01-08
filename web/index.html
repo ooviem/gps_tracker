@@ -19,9 +19,15 @@
         <div class="monitor row">
             <div class="top-controller">
                 <div class="row">
-                    <button ng-mouseup="ctrlMe.camera()" class="btn btn-primary">Xem trực tiếp camera</button>
+                    <button ng-mouseup="ctrlMe.send()" class="btn btn-primary">Gửi tin nhắn vị trí</button>
                     <button ng-mouseup="ctrlMe.maps()" class="btn btn-primary">Xem Google Maps</button>
-                    <button ng-mouseup="ctrlMe.delete()" class="btn btn-primary">Xóa tất cả ảnh</button>
+                    <button ng-mouseup="ctrlMe.camera()" class="btn btn-primary">Xem trực tiếp camera</button>
+                    <button ng-mouseup="ctrlMe.capture()" class="btn btn-primary">Chụp ảnh</button>
+                    <button ng-mouseup="ctrlMe.record()" class="btn btn-primary">Quay video</button>
+                    <button ng-mouseup="ctrlMe.delete()" class="btn btn-primary">Xóa ảnh</button>
+                    <button ng-mouseup="ctrlMe.reset()" class="btn btn-primary">Reset</button>
+                    <button ng-mouseup="ctrlMe.reboot()" class="btn btn-primary">Khởi động lại</button>
+
                 </div>
             </div>  
             <div style="height: 500px; width: 500px; margin-top: 80px; float: left;">

@@ -38,7 +38,7 @@ function sendFireAlert(){
 };
 
 function sendSOS(){
- 	sendVNSMS('SOS, Nguoi than cua ban hien gap nguy hiem, xin xem tai https://www.google.com/maps/place/'+latitude+'N'+longtitude+'E', "01234555864");
+ 	sendVNSMS('SOS, Nguoi than cua ban hien gap nguy hiem, xin xem tai https://www.google.com/maps/place/'+latitude+'N'+longtitude+'E', phoneNumber);
  	takePhoto();
 	alertBuzzer("S");
 };
@@ -293,15 +293,51 @@ app.get('/api/gps', function (req, res) {
 });
 
 app.get('/api/sms', function (req, res) {
-    sendVNSMS('SOS, Nguoi than cua ban hien gap nguy hiem, xin xem tai https://www.google.com/maps/place/'+latitude+'N'+longtitude+'E', "01234555864");
+    sendVNSMS('Vi tri hien tai cua thiet bi https://www.google.com/maps/place/'+latitude+'N'+longtitude+'E', phoneNumber);
     res.json({
     	"OK":"OK"
     });
 });
+
+app.get('/api/reboot', function (req, res) {
+    command.exe("sudo reboot").then(function(){
+	});
+	res.json({
+    	"OK":"OK"
+    });
+});
+
+app.get('/api/capture', function (req, res) {
+	takePhoto();
+    res.json({
+    	"OK":"OK"
+    });
+});
+app.get('/api/record', function (req, res) {
+	recordVideo();
+    res.json({
+    	"OK":"OK"
+    });
+});
+app.get('/api/reset', function (req, res) {
+	keyboard = "";
+	isMoving = false;
+	isBurning = false;
+	isSOS = false;
+	useFlameDetector = false;
+	useThiefTracking = false;
+	alertBuzzer("P");
+	console.log("Keyboard cleared!");
+	console.log("Flame dectector: "+ useFlameDetector);
+	console.log("Thief dectector: "+ useThiefTracking);
+    res.json({
+    	"OK":"OK"
+    });
+});
+
 app.get('/api/delete', function (req, res) {
     command.exe("sudo rm -r ./gps_tracker/web/camera/*").then(function(){
-		isTakingPhoto = false;
-		console.log("photo taken!!!");
+		console.log("photo deleted!!!");
 	});
 	res.json({
     	"OK":"OK"

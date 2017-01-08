@@ -44,6 +44,30 @@ angular.module('JackControllerApp', ['ngMaterial'])
                     }
                 });
             };
+            ctrlMe.capture = function() {
+                callGET("/api/capture").then(function(res){
+                    if(res.data === "OK"){
+                    }
+                });
+            };
+            ctrlMe.record = function() {
+                callGET("/api/record").then(function(res){
+                    if(res.data === "OK"){
+                    }
+                });
+            };
+            ctrlMe.reset = function() {
+                callGET("/api/reset").then(function(res){
+                    if(res.data === "OK"){
+                    }
+                });
+            };
+            ctrlMe.reboot = function() {
+                callGET("/api/reboot").then(function(res){
+                    if(res.data === "OK"){
+                    }
+                });
+            };
             ctrlMe.maps = function() {
                 window.location.href = 'https://www.google.com/maps/place/'+window.lat+'N'+window.lng+'E';
 
