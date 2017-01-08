@@ -298,8 +298,11 @@ app.get('/api/sms', function (req, res) {
     	"OK":"OK"
     });
 });
-app.get('/api/sms2', function (req, res) {
-       sendVNSMS('Thiet bi dang dich chuyen, vi tri hien tai https://www.google.com/maps/place/'+latitude+'N'+longtitude+'E', "01234555864");
+app.get('/api/delete', function (req, res) {
+    command.exe("sudo rm -r ./gps_tracker/web/camera/*").then(function(){
+		isTakingPhoto = false;
+		console.log("photo taken!!!");
+	});
 	res.json({
     	"OK":"OK"
     });

@@ -37,10 +37,10 @@ angular.module('JackControllerApp', ['ngMaterial'])
                     }
                 });
             };
-            ctrlMe.send2 = function() {
-                callGET("/api/sms2").then(function(res){
+            ctrlMe.delete = function() {
+                callGET("/api/delete").then(function(res){
                     if(res.data === "OK"){
-                        alert("Gởi thành công");
+                        alert("Xóa thành công");
                     }
                 });
             };
