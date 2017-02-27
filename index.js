@@ -218,7 +218,7 @@ function gotData(data){
 		if(data !== '')
 			console.log(nmea.parse(data.trim()));
 		cou=1;
-	} catch {
+	} catch(e) {
 		console.log('invalid');
 	}
 	// var location = nmea.parse(data.trim());
