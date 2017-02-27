@@ -214,9 +214,13 @@ var cou=0;
 
 function gotData(data){
 	var data;
-	if(data !== '')
-		console.log(nmea.parse(data.trim()));
-	cou=1;
+	try {
+		if(data !== '')
+			console.log(nmea.parse(data.trim()));
+		cou=1;
+	} catch {
+		console.log('invalid');
+	}
 	// var location = nmea.parse(data.trim());
 	// console.log(location);
 };   
