@@ -229,7 +229,7 @@ port.on('data', function (data) {
 			}
 		}
 	} catch(e) {
-		console.log('invalid');
+		console.log(e);
 	}
 });
 
