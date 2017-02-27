@@ -25,7 +25,7 @@ var isRecording = false;
 var isSOS = false;
 var fs = require('fs');
 var location = {};
-var nmea = require("node-nmea");
+var nmea = require("nmea-0183");
 
 // rpio.init({mapping: 'gpio'});
 
@@ -204,7 +204,7 @@ function start(port){
 var cou=0;
 function gotData(data){
 	var location = nmea.parse(data)
-	if(location.valid === true)
+	if(location.fix === 1)
 		console.log(location);
 	// var array = data.split(",");
 	// switch (array[0]) {
