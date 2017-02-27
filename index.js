@@ -24,12 +24,12 @@ var isTakingPhoto = false;
 var isRecording = false;
 var isSOS = false;
 var fs = require('fs');
+var location = {};
+// rpio.init({mapping: 'gpio'});
 
-rpio.init({mapping: 'gpio'});
-
-rpio.open(4, rpio.INPUT, rpio.PULL_DOWN);
-rpio.open(17, rpio.INPUT, rpio.PULL_DOWN);
-rpio.open(18, rpio.INPUT, rpio.PULL_DOWN);
+// rpio.open(4, rpio.INPUT, rpio.PULL_DOWN);
+// rpio.open(17, rpio.INPUT, rpio.PULL_DOWN);
+// rpio.open(18, rpio.INPUT, rpio.PULL_DOWN);
 
 function sendFireAlert(){
 	sendVNSMS('Phat hien chay, vi tri hien tai https://www.google.com/maps/place/'+latitude+'N'+longtitude+'E', phoneNumber);
@@ -49,38 +49,38 @@ function sendThiefAlert(){
 	alertBuzzer("S");
 };
 
-function pollVib(pin)
-{
-	if(useThiefTracking) {
-		var state = rpio.read(pin) ? 'high' : 'low';
-		alertCount++;
-		if(alertCount > alertLimit){
-			console.log("Object is moving!!!");
-			alertCount = 0;
-			if(!isMoving){
-				isMoving = true;
-				sendThiefAlert();
-			}
-		}
-	}
-};
+// function pollVib(pin)
+// {
+// 	if(useThiefTracking) {
+// 		var state = rpio.read(pin) ? 'high' : 'low';
+// 		alertCount++;
+// 		if(alertCount > alertLimit){
+// 			console.log("Object is moving!!!");
+// 			alertCount = 0;
+// 			if(!isMoving){
+// 				isMoving = true;
+// 				sendThiefAlert();
+// 			}
+// 		}
+// 	}
+// };
 
 
-function pollFlame(pin)
-{
-	if(useFlameDetector) {
-		var state = rpio.read(pin) ? 'high' : 'low';
-		alertFlameCount++;
-		console.log(state);
-		if(alertFlameCount > alertLimit){
-			console.log("Flame dectected!!!");
-			alertFlameCount = 0;
-			if(!isBurning){
-				sendFireAlert();
-			}
-		}
-	}
-};
+// function pollFlame(pin)
+// {
+// 	if(useFlameDetector) {
+// 		var state = rpio.read(pin) ? 'high' : 'low';
+// 		alertFlameCount++;
+// 		console.log(state);
+// 		if(alertFlameCount > alertLimit){
+// 			console.log("Flame dectected!!!");
+// 			alertFlameCount = 0;
+// 			if(!isBurning){
+// 				sendFireAlert();
+// 			}
+// 		}
+// 	}
+// };
 
 function takePhoto(){
 	isTakingPhoto = true;
@@ -97,92 +97,92 @@ function recordVideo(){
 	});
 };
 
-function pollTouch(pin)
-{
-	var state = rpio.read(pin) ? 'high' : 'low';
-	if(state == 'high'){
-		if(!isRecording){
-			takePhoto();
-		}
-	} else {
-		setTimeout(function(){
-			if(!rpio.read(pin) && !isRecording){
-				isRecording = true;
-				recordVideo();
-			}
-		}, 1500);
-	}
-};
-rpio.poll(4, pollVib);
-rpio.poll(17, pollFlame);
-rpio.poll(18, pollTouch);
+// function pollTouch(pin)
+// {
+// 	var state = rpio.read(pin) ? 'high' : 'low';
+// 	if(state == 'high'){
+// 		if(!isRecording){
+// 			takePhoto();
+// 		}
+// 	} else {
+// 		setTimeout(function(){
+// 			if(!rpio.read(pin) && !isRecording){
+// 				isRecording = true;
+// 				recordVideo();
+// 			}
+// 		}, 1500);
+// 	}
+// };
+// rpio.poll(4, pollVib);
+// rpio.poll(17, pollFlame);
+// rpio.poll(18, pollTouch);
 
 
 var looping = setInterval(loop, 60000);
 
 function loop() {
-	if(isMoving && useThiefTracking) {
-		sendThiefAlert();
-	} else {
-		isMoving = false;
-	}
-	if(isSOS){
-		sendSOS();
-	}
-	if(isBurning && useFlameDetector && rpio.read(17)) {
-		sendFireAlert();
-	} else {
-		isBurning = false;
-	}
+	// if(isMoving && useThiefTracking) {
+	// 	sendThiefAlert();
+	// } else {
+	// 	isMoving = false;
+	// }
+	// if(isSOS){
+	// 	sendSOS();
+	// }
+	// if(isBurning && useFlameDetector && rpio.read(17)) {
+	// 	sendFireAlert();
+	// } else {
+	// 	isBurning = false;
+	// }
 }
 
 function commandTracking(){
-	if(keyboard.indexOf("A#") > -1){
-		keyboard = "";
-		setTimeout(function() {
-			useThiefTracking = useThiefTracking? false : true;
-			if(!useThiefTracking){
-				isMoving = false;
-				alertBuzzer("P");
-			}
-			console.log("Thief dectector: "+ useThiefTracking);
-		}, 2000);
-	} else if(keyboard.indexOf("B#") > -1) {
-		keyboard = "";
-		useFlameDetector = useFlameDetector? false : true;
-		if(!useFlameDetector){
-			isBurning = false;
-			alertBuzzer("P");
-		}
-		console.log("Flame dectector: "+ useFlameDetector);
-	} else if(keyboard.indexOf("C#") > -1 && keyboard.charAt(keyboard.length -1 ) == "*") {
-		phoneNumber = keyboard.replace("C#", '');
-		phoneNumber = phoneNumber.replace("*", '');
-		keyboard = "";
-	} else if(keyboard.indexOf("D") > -1 && keyboard != "") {
-		keyboard = keyboard.substring(0, keyboard.length - 2);
-	} else if(keyboard.indexOf("**") > -1) {
-		keyboard = "";
-	} else if(keyboard.indexOf("911#") > -1) {
-		isSOS = isSOS? false : true;
-		if(isSOS){
-			sendSOS();
-		} else {
-		    alertBuzzer("P");
-		}
-		keyboard = "";
-	} else if(keyboard.indexOf("123#") > -1) {
-		keyboard = "";
-		isMoving = false;
-		isBurning = false;
-		isSOS = false;
-		useFlameDetector = false;
-		useThiefTracking = false;
-		alertBuzzer("P");
-		console.log("Keyboard cleared!");
-		console.log("Flame dectector: "+ useFlameDetector);
-		console.log("Thief dectector: "+ useThiefTracking);
-	}
+	// if(keyboard.indexOf("A#") > -1){
+	// 	keyboard = "";
+	// 	setTimeout(function() {
+	// 		useThiefTracking = useThiefTracking? false : true;
+	// 		if(!useThiefTracking){
+	// 			isMoving = false;
+	// 			alertBuzzer("P");
+	// 		}
+	// 		console.log("Thief dectector: "+ useThiefTracking);
+	// 	}, 2000);
+	// } else if(keyboard.indexOf("B#") > -1) {
+	// 	keyboard = "";
+	// 	useFlameDetector = useFlameDetector? false : true;
+	// 	if(!useFlameDetector){
+	// 		isBurning = false;
+	// 		alertBuzzer("P");
+	// 	}
+	// 	console.log("Flame dectector: "+ useFlameDetector);
+	// } else if(keyboard.indexOf("C#") > -1 && keyboard.charAt(keyboard.length -1 ) == "*") {
+	// 	phoneNumber = keyboard.replace("C#", '');
+	// 	phoneNumber = phoneNumber.replace("*", '');
+	// 	keyboard = "";
+	// } else if(keyboard.indexOf("D") > -1 && keyboard != "") {
+	// 	keyboard = keyboard.substring(0, keyboard.length - 2);
+	// } else if(keyboard.indexOf("**") > -1) {
+	// 	keyboard = "";
+	// } else if(keyboard.indexOf("911#") > -1) {
+	// 	isSOS = isSOS? false : true;
+	// 	if(isSOS){
+	// 		sendSOS();
+	// 	} else {
+	// 	    alertBuzzer("P");
+	// 	}
+	// 	keyboard = "";
+	// } else if(keyboard.indexOf("123#") > -1) {
+	// 	keyboard = "";
+	// 	isMoving = false;
+	// 	isBurning = false;
+	// 	isSOS = false;
+	// 	useFlameDetector = false;
+	// 	useThiefTracking = false;
+	// 	alertBuzzer("P");
+	// 	console.log("Keyboard cleared!");
+	// 	console.log("Flame dectector: "+ useFlameDetector);
+	// 	console.log("Thief dectector: "+ useThiefTracking);
+	// }
 };
 
 
@@ -201,84 +201,85 @@ function start(port){
 };
 
 function gotData(data){
-	var array = data.split(",");
-	switch (array[0]) {
-		case "$GPGLL":
-			latitude = (array[1] !== "" && array[3] !== "")? array[1]: latitude;
-			longtitude = (array[3] !== "" && array[1] !== "")? array[3] : longtitude;
-	}
+	console.log(array[0]);
+	// var array = data.split(",");
+	// switch (array[0]) {
+	// 	case "$GPGLL":
+	// 		latitude = (array[1] !== "" && array[3] !== "")? array[1]: latitude;
+	// 		longtitude = (array[3] !== "" && array[1] !== "")? array[3] : longtitude;
+	// }
 };   
 
-serialjs.open(
-    '/dev/ttyACM0',
-    start1,
-    '\n'
-);
+// serialjs.open(
+//     '/dev/ttyACM0',
+//     start1,
+//     '\n'
+// );
 
-function start1(port){
-    port.on(
-        'data',
-        gotData2
-    );
-	arduino1 = port;	
+// function start1(port){
+//     port.on(
+//         'data',
+//         gotData2
+//     );
+// 	arduino1 = port;	
 
-};
-
-
-function gotData2(data){
-	if(data != '') {
-		keyboard += data.trim().charAt(0);
-		console.log(keyboard);
-		commandTracking();
-	}
-};
+// };
 
 
-function alertBuzzer(key){
-	if(arduino1){
-		arduino1.send(key);
-	}
-};
+// function gotData2(data){
+// 	if(data != '') {
+// 		keyboard += data.trim().charAt(0);
+// 		console.log(keyboard);
+// 		commandTracking();
+// 	}
+// };
 
 
-function sendVNSMS(content, number){
-	var https = require('http');
-		var data = JSON.stringify({
-		 to: [number],
-		 content: content,
-		 sms_type: 4,
-		 dlr: 0
-		});
-   		var auth = "Basic " + new Buffer("_ukSiHakGmLDEYOeQ4uiInIV0Z2de4iD" + ":x").toString("base64");
+// function alertBuzzer(key){
+// 	if(arduino1){
+// 		arduino1.send(key);
+// 	}
+// };
 
-		var options = {
-		 host: 'api.speedsms.vn',
-		 path: '/index.php/sms/send',
-		 method: 'POST',
-		 headers: {
-		   'Content-Type': 'application/json; charset=utf-8',
-		   'Content-Length': Buffer.byteLength(data),
-		   'Authorization' : auth
 
-		 }
-		};
+// function sendVNSMS(content, number){
+// 	var https = require('http');
+// 		var data = JSON.stringify({
+// 		 to: [number],
+// 		 content: content,
+// 		 sms_type: 4,
+// 		 dlr: 0
+// 		});
+//    		var auth = "Basic " + new Buffer("_ukSiHakGmLDEYOeQ4uiInIV0Z2de4iD" + ":x").toString("base64");
 
-		var req = https.request(options);
+// 		var options = {
+// 		 host: 'api.speedsms.vn',
+// 		 path: '/index.php/sms/send',
+// 		 method: 'POST',
+// 		 headers: {
+// 		   'Content-Type': 'application/json; charset=utf-8',
+// 		   'Content-Length': Buffer.byteLength(data),
+// 		   'Authorization' : auth
 
-		req.write(data);
-		req.end();
+// 		 }
+// 		};
 
-		var responseData = '';
-		req.on('response', function(res){
-			 res.on('data', function(chunk){
-		   		responseData += chunk;
-		 	});
+// 		var req = https.request(options);
 
-		 	res.on('end', function(){
-		   		console.log(JSON.parse(responseData));
-		 	});
-		});
-};
+// 		req.write(data);
+// 		req.end();
+
+// 		var responseData = '';
+// 		req.on('response', function(res){
+// 			 res.on('data', function(chunk){
+// 		   		responseData += chunk;
+// 		 	});
+
+// 		 	res.on('end', function(){
+// 		   		console.log(JSON.parse(responseData));
+// 		 	});
+// 		});
+// };
 
 /* serves main page */
 app.get("/", function(req, res) {
