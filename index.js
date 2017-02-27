@@ -204,13 +204,13 @@ function commandTracking(){
 function convertLat(lat, latPle){
 	var dd = lat.substring(0,2);
 	var mm = lat.substring(2);
-	var mInRad = mm/60;
+	var mInRad = mm/60 + "";
 	return dd+mInRad.substring(1)+latPle;
 };
 function convertLon(lat, lonPle){
 	var ddd = lat.substring(0,3);
 	var mm = lat.substring(3);
-	var mInRad = mm/60;
+	var mInRad = mm/60 + "";
 	return ddd+mInRad.substring(1)+lonPle;
 };
 
