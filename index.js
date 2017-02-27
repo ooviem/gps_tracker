@@ -213,10 +213,12 @@ var cou=0;
 // });
 
 function gotData(data){
-	var data = data[0];
-	console.log(data[0]);
-	var location = nmea.parse(data.trim());
-	console.log(location);
+	var data;
+	if(cou === 0)
+		console.log(data[0]);
+	cou=1;
+	// var location = nmea.parse(data.trim());
+	// console.log(location);
 };   
 
 // serialjs.open(
