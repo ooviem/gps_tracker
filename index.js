@@ -206,10 +206,10 @@ var cou=0;
 var SerialPort = require('serialport');
  
 var port = new SerialPort('/dev/ttyUSB1', {
-  parser: SerialPort.parsers.readline('\n')
+  parser: SerialPort.parsers.readline('\r\n')
 });
 port.on('data', function (data) {
-	var location = nmea.parse(data)
+	var location = nmea.parse(data..trim())
 	if(location.fix === 1)
 		console.log(location);
 });
