@@ -209,7 +209,7 @@ var port = new SerialPort('/dev/ttyUSB0', {
 });
 port.on('data', function (data) {
 	try {
-		if(data !== ''){
+		if(data !== '' && data.startsWith("$")){
 			var location = nmea.parse(data.trim());
 			if(location.status === "valid" || location.fixType === "fix"){
 				longtitude = location.lon + lonPole;
