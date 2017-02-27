@@ -68,13 +68,23 @@
               map: map
             });
           }
-          function resetMaker(){
-                var lat = window.lat;
-                var lng = window.lng;       
+            function ConvertDMSToDD(degrees, minutes, seconds, direction) {   
+                var dd = Number(degrees) + Number(minutes)/60 + Number(seconds)/(60*60);
+
+                if (direction == "S" || direction == "W") {
+                    dd = dd * -1;
+                } // Don't do anything for N or E
+                return dd;
+            }
+            function resetMaker(){
+
+                var lat = window.lat.substring(0, window.lat.length -2);
+                var lng = window.lng.substring(0, window.lat.length -2);
+                  
                 var newLatLng = new google.maps.LatLng(lat, lng);
                 marker.setPosition(newLatLng);
                 map.setCenter(marker.getPosition())
-          }
+            }
           setTimeout(function() {
             resetMaker();
             setInterval(function(){
@@ -86,7 +96,7 @@
 
         </script>
         <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBOLfG_cujh2CphObNIy_odaNBGhz72xS8&callback=initMap">
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAoIlmrJmGoZOispoiDRB01L6y_NjOyl2E&callback=initMap">
         </script>   
         </div>
     </div>
