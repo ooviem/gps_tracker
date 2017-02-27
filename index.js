@@ -25,6 +25,8 @@ var isRecording = false;
 var isSOS = false;
 var fs = require('fs');
 var location = {};
+var nmea = require("nmea-simple");
+
 // rpio.init({mapping: 'gpio'});
 
 // rpio.open(4, rpio.INPUT, rpio.PULL_DOWN);
@@ -201,7 +203,23 @@ function start(port){
 };
 
 function gotData(data){
-	console.log(data);
+	try {
+        var packet = nmea.parseNmeaSentence(line);
+ 
+        if (packet.sentenceId === "RMC" && packet.status === "valid") {
+            console.log("Got location via RMC packet:", packet.latitude, packet.longitude);
+        }
+ 
+        if (packet.sentenceId === "GGA" && packet.fixType !== "none") {
+            console.log("Got location via GGA packet:", packet.latitude, packet.longitude);
+        }
+ 
+        if (packet.sentenceId === "GSA") {
+            console.log("There are " + packet.satellites.length + " satellites in view.");
+        }
+    } catch (error) {
+        console.error("Got bad packet:", line, error);
+    }
 	// var array = data.split(",");
 	// switch (array[0]) {
 	// 	case "$GPGLL":
