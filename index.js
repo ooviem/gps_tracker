@@ -205,6 +205,7 @@ var cou=0;
 var SerialPort = require('serialport');
  
 var port = new SerialPort('/dev/ttyUSB1', {
+  baudrate: 4800,
   parser: SerialPort.parsers.readline('\r\n')
 });
 port.on('data', function (data) {
