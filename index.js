@@ -217,13 +217,13 @@ function gotData(data){
 	try {
 		if(data !== ''){
 			var location = nmea.parse(data.trim());
-			if(nmea.fix > 0 ){
+			// if(nmea.fix > 0 ){
 				console.log(location);
-			}
+			// }
 			
 		}
 	} catch(e) {
-		console.log(e);
+		// console.log(e);
 	}
 	// var location = nmea.parse(data.trim());
 	// console.log(location);
