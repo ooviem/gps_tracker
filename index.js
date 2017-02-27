@@ -204,12 +204,14 @@ function commandTracking(){
 function convertLat(lat, latPle){
 	var dd = lat.substring(0,2);
 	var mm = lat.substring(2);
-	return dd+(mm/60)+latPle;
+	var mInRad = mm/60;
+	return dd+mInRad.substring(1)+latPle;
 };
 function convertLon(lat, lonPle){
 	var ddd = lat.substring(0,3);
 	var mm = lat.substring(3);
-	return ddd+(mm/60)+lonPle;
+	var mInRad = mm/60;
+	return ddd+mInRad.substring(1)+lonPle;
 };
 
 var SerialPort = require('serialport');
