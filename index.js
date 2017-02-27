@@ -25,7 +25,7 @@ var isRecording = false;
 var isSOS = false;
 var fs = require('fs');
 var location = {};
-var nmea = require('nmea-0183');
+var nmea = require('nmea');
 // rpio.init({mapping: 'gpio'});
 
 // rpio.open(4, rpio.INPUT, rpio.PULL_DOWN);
@@ -217,13 +217,13 @@ function gotData(data){
 	try {
 		if(data !== ''){
 			var location = nmea.parse(data.trim());
-			// if(nmea.fix > 0 ){
+			if(location.fixType !== undefined){
 				console.log(location);
-			// }
+			}
 			
 		}
 	} catch(e) {
-		// console.log(e);
+		console.log('invalid');
 	}
 	// var location = nmea.parse(data.trim());
 	// console.log(location);
