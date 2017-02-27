@@ -202,7 +202,9 @@ function start(port){
     );
 };
 
-function gotData(line){
+function gotData(data){
+	var array = data.split(",");
+	var line = array[0];
 	try {
         var packet = nmea.parseNmeaSentence(line);
  
