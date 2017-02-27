@@ -188,19 +188,19 @@ function commandTracking(){
 
 
 
-serialjs.open(
-    '/dev/ttyUSB0',
-    start,
-    '\n'
-);
+// serialjs.open(
+//     '/dev/ttyUSB0',
+//     start,
+//     '\n'
+// );
 
-function start(port){
-    port.on(
-        'data',
-        gotData
-    );
-};
-var cou=0;
+// function start(port){
+//     port.on(
+//         'data',
+//         gotData
+//     );
+// };
+// var cou=0;
 
 var SerialPort = require('serialport');
  
