@@ -202,6 +202,16 @@ function start(port){
     );
 };
 var cou=0;
+
+var SerialPort = require('serialport');
+ 
+var port = new SerialPort('/dev/ttyUSB0', {
+  parser: SerialPort.parsers.readline('\n')
+});
+port.on('data', function (data) {
+  console.log('Data: ' + data);
+});
+
 function gotData(data){
 	var location = nmea.parse(data)
 	if(location.fix === 1)
