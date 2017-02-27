@@ -201,13 +201,13 @@ function start(port){
         gotData
     );
 };
-int cou=0;
+var cou=0;
 function gotData(data){
 	var array = data.split(",");
 	var line = array[0];
-	if(count === 0)
+	if(cou === 0)
 		{console.log(data);}
-	count = 1;
+	cou = 1;
 	// try {
  //        var packet = nmea.parseNmeaSentence(line);
  
