@@ -217,7 +217,7 @@ function gotData(data){
 	try {
 		if(data !== ''){
 			var location = nmea.parse(data.trim());
-			if(nmea.fixType !== undefined){
+			if(nmea.fix > 0 ){
 				console.log(location);
 			}
 			
