@@ -203,28 +203,28 @@ function start(port){
 };
 var cou=0;
 function gotData(data){
-	var array = data.split(",");
-	var line = array[0];
-	if(cou === 0)
-		{console.log(data);}
-	cou = 1;
-	// try {
- //        var packet = nmea.parseNmeaSentence(line);
+	// var array = data.split(",");
+	// var line = array[0];
+	// if(cou === 0)
+	// 	{console.log(data);}
+	// cou = 1;
+	try {
+        var packet = nmea.parseNmeaSentence(data);
  
- //        if (packet.sentenceId === "RMC" && packet.status === "valid") {
- //            console.log("Got location via RMC packet:", packet.latitude, packet.longitude);
- //        }
+        if (packet.sentenceId === "RMC" && packet.status === "valid") {
+            console.log("Got location via RMC packet:", packet.latitude, packet.longitude);
+        }
  
- //        if (packet.sentenceId === "GGA" && packet.fixType !== "none") {
- //            console.log("Got location via GGA packet:", packet.latitude, packet.longitude);
- //        }
+        if (packet.sentenceId === "GGA" && packet.fixType !== "none") {
+            console.log("Got location via GGA packet:", packet.latitude, packet.longitude);
+        }
  
- //        if (packet.sentenceId === "GSA") {
- //            console.log("There are " + packet.satellites.length + " satellites in view.");
- //        }
- //    } catch (error) {
- //        console.error("Got bad packet:", line, error);
- //    }
+        if (packet.sentenceId === "GSA") {
+            console.log("There are " + packet.satellites.length + " satellites in view.");
+        }
+    } catch (error) {
+        console.error("Got bad packet:", data, error);
+    }
 	// var array = data.split(",");
 	// switch (array[0]) {
 	// 	case "$GPGLL":
