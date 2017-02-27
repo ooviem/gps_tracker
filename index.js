@@ -223,7 +223,7 @@ function gotData(data){
 			
 		}
 	} catch(e) {
-		console.log('invalid');
+		console.log(e);
 	}
 	// var location = nmea.parse(data.trim());
 	// console.log(location);
