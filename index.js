@@ -25,7 +25,7 @@ var isRecording = false;
 var isSOS = false;
 var fs = require('fs');
 var location = {};
-var nmea = require('nmea');
+var nmea = require('nmea-0183');
 // rpio.init({mapping: 'gpio'});
 
 // rpio.open(4, rpio.INPUT, rpio.PULL_DOWN);
