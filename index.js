@@ -210,8 +210,7 @@ var port = new SerialPort('/dev/ttyUSB1', {
 });
 port.on('data', function (data) {
 	var location = nmea.parse(data.trim());
-	if(location.fix === 1)
-		console.log(location);
+	console.log(location);
 });
 
 function gotData(data){
