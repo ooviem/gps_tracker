@@ -208,13 +208,13 @@ var port = new SerialPort('/dev/ttyUSB0', {
   parser: SerialPort.parsers.readline('\n')
 });
 port.on('data', function (data) {
-	// var location = nmea.parse(data.trim());
-	console.log(data);
+	var location = nmea.parse(data.trim());
+	console.log(location);
 });
 
 function gotData(data){
-	var location = nmea.parse(data)
-	console.log(location);
+	// var location = nmea.parse(data)
+	// console.log(location);
 	// var array = data.split(",");
 	// switch (array[0]) {
 	// 	case "$GPGLL":
