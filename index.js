@@ -202,25 +202,20 @@ function start(port){
 };
 var cou=0;
 
-var SerialPort = require('serialport');
+// var SerialPort = require('serialport');
  
-var port = new SerialPort('/dev/ttyUSB0', {
-  parser: SerialPort.parsers.readline('\r\n')
-});
-port.on('data', function (data) {
-	var location = nmea.parse(data.trim());
-	console.log(location);
-});
+// var port = new SerialPort('/dev/ttyUSB0', {
+//   parser: SerialPort.parsers.readline('\r\n')
+// });
+// port.on('data', function (data) {
+// 	var location = nmea.parse(data.trim());
+// 	console.log(location);
+// });
 
 function gotData(data){
-	// var location = nmea.parse(data)
-	// console.log(location);
-	// var array = data.split(",");
-	// switch (array[0]) {
-	// 	case "$GPGLL":
-	// 		latitude = (array[1] !== "" && array[3] !== "")? array[1]: latitude;
-	// 		longtitude = (array[3] !== "" && array[1] !== "")? array[3] : longtitude;
-	// }
+	var data = data[0];
+	var location = nmea.parse(data.trim());
+	console.log(location);
 };   
 
 // serialjs.open(
