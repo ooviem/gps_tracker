@@ -201,7 +201,7 @@ function start(port){
 };
 
 function gotData(data){
-	console.log(array[0]);
+	console.log(data);
 	// var array = data.split(",");
 	// switch (array[0]) {
 	// 	case "$GPGLL":
@@ -283,7 +283,7 @@ function gotData(data){
 
 /* serves main page */
 app.get("/", function(req, res) {
-    res.sendfile('./gps_tracker/web/index.html')
+    res.sendfile('./web/index.html')
 });
 
 app.get('/api/gps', function (req, res) {
