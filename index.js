@@ -209,7 +209,9 @@ var port = new SerialPort('/dev/ttyUSB1', {
   parser: SerialPort.parsers.readline('\n')
 });
 port.on('data', function (data) {
-  console.log('Data: ' + data);
+	var location = nmea.parse(data)
+	if(location.fix === 1)
+		console.log(location);
 });
 
 function gotData(data){
