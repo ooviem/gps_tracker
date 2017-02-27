@@ -212,9 +212,9 @@ port.on('data', function (data) {
 		if(data !== ''){
 			var location = nmea.parse(data.trim());
 			if(location.status === "valid" || location.fixType === "fix"){
-				console.log(location);
+				longtitude = location.lat;
+				latitude = location.lat;
 			}
-			
 		}
 	} catch(e) {
 		console.log('invalid');
