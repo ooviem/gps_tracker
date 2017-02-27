@@ -211,7 +211,7 @@ port.on('data', function (data) {
 	try {
 		if(data !== ''){
 			var location = nmea.parse(data.trim());
-			if(location !== undefined){
+			if(location.status === "valid" || location.fixType === "fix"){
 				console.log(location);
 			}
 			
