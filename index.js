@@ -214,7 +214,7 @@ port.on('data', function (data) {
 			if(location.status === "valid" || location.fixType === "fix"){
 				longtitude = location.lon + lonPole;
 				latitude = location.lat + latPole;
-				console.log(longtitude + " " + latitude);
+				console.log(location);
 			}
 		}
 	} catch(e) {
