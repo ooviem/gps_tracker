@@ -68,27 +68,13 @@
               map: map
             });
           }
-            function ConvertDMSToDD(degrees, minutes, seconds, direction) {   
-                var dd = Number(degrees) + Number(minutes)/60 + Number(seconds)/(60*60);
-
-                if (direction == "S" || direction == "W") {
-                    dd = dd * -1;
-                } // Don't do anything for N or E
-                return dd;
-            }
-            function resetMaker(){
-
-                var lat = window.lat.replace('.','');
-                var lng = window.lng.replace('.','');
-                lat = lat.length < 9 ? "0"+lat : lat;
-                lng = lng.length < 9 ? "0"+lng : lng;
-
-                lat = ConvertDMSToDD(lat.substring(0,3), lat.substring(3,5),lat.substring(5,7), "N");
-                lng = ConvertDMSToDD(lng.substring(0,3), lng.substring(3,5),lng.substring(5,7), "E");           
+          function resetMaker(){
+                var lat = window.lat;
+                var lng = window.lng;       
                 var newLatLng = new google.maps.LatLng(lat, lng);
                 marker.setPosition(newLatLng);
                 map.setCenter(marker.getPosition())
-            }
+          }
           setTimeout(function() {
             resetMaker();
             setInterval(function(){

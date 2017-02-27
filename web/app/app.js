@@ -2,8 +2,6 @@ angular.module('JackControllerApp', ['ngMaterial'])
     .controller('JackController', ['$http', 
     	function($http) {
 
-            
-
             function callGET(name, data) {
                 return $http({
                     method: 'GET',

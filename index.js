@@ -201,6 +201,16 @@ function commandTracking(){
 //     );
 // };
 // var cou=0;
+function convertLat(lat, latPle){
+	var dd = lat.substring(0,2);
+	var mm = lat.substring(2);
+	return dd+(mm/60)+latPle;
+};
+function convertLon(lat, lonPle){
+	var ddd = lat.substring(0,3);
+	var mm = lat.substring(3);
+	return ddd+(mm/60)+lonPle;
+};
 
 var SerialPort = require('serialport');
  
@@ -212,9 +222,8 @@ port.on('data', function (data) {
 		if(data !== '' && data.startsWith("$")){
 			var location = nmea.parse(data.trim());
 			if(location.status === "valid" || location.fixType === "fix"){
-				console.log(location);
-				longtitude = location.lon + location.lonPole;
-				latitude = location.lat + location.latPole;
+				longtitude = convertLon(location.lon, location.lonPole);
+				latitude = convertLat(location.lat, location.latPole);
 			}
 		}
 	} catch(e) {
