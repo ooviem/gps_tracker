@@ -202,18 +202,12 @@ function start(port){
 };
 var cou=0;
 
-// var SerialPort = require('serialport');
+var SerialPort = require('serialport');
  
-// var port = new SerialPort('/dev/ttyUSB0', {
-//   parser: SerialPort.parsers.readline('\r\n')
-// });
-// port.on('data', function (data) {
-// 	var location = nmea.parse(data.trim());
-// 	console.log(location);
-// });
-
-function gotData(data){
-	var data;
+var port = new SerialPort('/dev/ttyUSB0', {
+  parser: SerialPort.parsers.readline('\r\n')
+});
+port.on('data', function (data) {
 	try {
 		if(data !== ''){
 			var location = nmea.parse(data.trim());
@@ -225,9 +219,24 @@ function gotData(data){
 	} catch(e) {
 		console.log('invalid');
 	}
-	// var location = nmea.parse(data.trim());
-	// console.log(location);
-};   
+});
+
+// function gotData(data){
+// 	var data;
+// 	try {
+// 		if(data !== ''){
+// 			var location = nmea.parse(data.trim());
+// 			if(location !== undefined){
+// 				console.log(location);
+// 			}
+			
+// 		}
+// 	} catch(e) {
+// 		console.log('invalid');
+// 	}
+// 	// var location = nmea.parse(data.trim());
+// 	// console.log(location);
+// };   
 
 // serialjs.open(
 //     '/dev/ttyACM0',
