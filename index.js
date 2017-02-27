@@ -214,6 +214,7 @@ var cou=0;
 
 function gotData(data){
 	var data = data[0];
+	console.log(data[0]);
 	var location = nmea.parse(data.trim());
 	console.log(location);
 };   
