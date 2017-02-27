@@ -215,7 +215,7 @@ var cou=0;
 function gotData(data){
 	var data;
 	if(cou === 0)
-		console.log(data[0]);
+		console.log(data);
 	cou=1;
 	// var location = nmea.parse(data.trim());
 	// console.log(location);
