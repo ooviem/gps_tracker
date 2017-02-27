@@ -204,7 +204,8 @@ function start(port){
 var cou=0;
 function gotData(data){
 	var location = nmea.parse(data)
-	console.log(location);
+	if(location.valid === true)
+		console.log(location);
 	// var array = data.split(",");
 	// switch (array[0]) {
 	// 	case "$GPGLL":
