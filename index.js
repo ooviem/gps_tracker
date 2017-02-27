@@ -205,12 +205,12 @@ var cou=0;
 var SerialPort = require('serialport');
  
 var port = new SerialPort('/dev/ttyUSB0', {
-  baudrate: 4800,
+  baudrate: 9600,
   parser: SerialPort.parsers.readline('\r\n')
 });
 port.on('data', function (data) {
-	var location = nmea.parse(data.trim());
-	console.log(location);
+	// var location = nmea.parse(data.trim());
+	console.log(data);
 });
 
 function gotData(data){
