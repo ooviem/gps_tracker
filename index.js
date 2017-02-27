@@ -212,10 +212,10 @@ port.on('data', function (data) {
 		if(data !== '' && data.startsWith("$")){
 			var location = nmea.parse(data.trim());
 			if(location.status === "valid" || location.fixType === "fix"){
-				longtitude = location.lon + lonPole;
-				latitude = location.lat + latPole;
+				console.log(location);
+				// longtitude = location.lon + lonPole;
+				// latitude = location.lat + latPole;
 			}
-			console.log(location);
 		}
 	} catch(e) {
 		console.log('invalid');
