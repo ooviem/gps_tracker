@@ -14,15 +14,15 @@ angular.module('JackControllerApp', ['ngMaterial'])
 
             ctrlMe.listFiles = "";
             ctrlMe.listImage = [];
-            callGET("/api/images").then(function(res){
-                ctrlMe.listFiles = res.data.data.reverse();
-                res.data.data.forEach(function(file) {
-                    if(file.endsWith(".jpg")){
-                         ctrlMe.listImage.push(file);
-                    }
-                });
-                console.log(ctrlMe.listFiles);
-            });
+            // callGET("/api/images").then(function(res){
+            //     ctrlMe.listFiles = res.data.data.reverse();
+            //     res.data.data.forEach(function(file) {
+            //         if(file.endsWith(".jpg")){
+            //              ctrlMe.listImage.push(file);
+            //         }
+            //     });
+            //     console.log(ctrlMe.listFiles);
+            // });
 
             ctrlMe.map = function() {
                 callGET("/api/gps").then(function(res){
