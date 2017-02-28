@@ -41,8 +41,8 @@ function sendFireAlert(){
 };
 
 function sendSOS(){
- 	// sendVNSMS('SOS, Nguoi than cua ban hien gap nguy hiem, xin xem tai https://www.google.com/maps/place/'+latitude+','+longtitude, phoneNumber);
- 	// takePhoto();
+ 	sendVNSMS('SOS, Nguoi than cua ban hien gap nguy hiem, xin xem tai https://www.google.com/maps/place/'+latitude+','+longtitude, phoneNumber);
+ 	takePhoto();
 	alertBuzzer("S");
 };
 
@@ -51,39 +51,6 @@ function sendThiefAlert(){
 	takePhoto();
 	alertBuzzer("S");
 };
-
-// function pollVib(pin)
-// {
-// 	if(useThiefTracking) {
-// 		var state = rpio.read(pin) ? 'high' : 'low';
-// 		alertCount++;
-// 		if(alertCount > alertLimit){
-// 			console.log("Object is moving!!!");
-// 			alertCount = 0;
-// 			if(!isMoving){
-// 				isMoving = true;
-// 				sendThiefAlert();
-// 			}
-// 		}
-// 	}
-// };
-
-
-// function pollFlame(pin)
-// {
-// 	if(useFlameDetector) {
-// 		var state = rpio.read(pin) ? 'high' : 'low';
-// 		alertFlameCount++;
-// 		console.log(state);
-// 		if(alertFlameCount > alertLimit){
-// 			console.log("Flame dectected!!!");
-// 			alertFlameCount = 0;
-// 			if(!isBurning){
-// 				sendFireAlert();
-// 			}
-// 		}
-// 	}
-// };
 
 function takePhoto(){
 	isTakingPhoto = true;
@@ -122,16 +89,30 @@ function recordVideo(){
 
 
 var looping = setInterval(loop, 60000);
+var buzzerLoop = setInterval(buzzerLooper, 1000);
+
+function buzzerLooper() {
+	if(isBuzzing){
+		rpio.write(12, rpio.HIGH);
+		setTimeout(function(){
+			rpio.write(12, rpio.LOW);
+		},500);
+	}
+}
+
+function alertBuzzer(key){
+	if(key == "P") {
+		isBuzzing = false;
+	} else {
+		isBuzzing = true;
+	}
+};
+
 
 function loop() {
-	// if(isMoving && useThiefTracking) {
-	// 	sendThiefAlert();
-	// } else {
-	// 	isMoving = false;
-	// }
-	// if(isSOS){
-	// 	sendSOS();
-	// }
+	if(isSOS){
+		sendSOS();
+	}
 	// if(isBurning && useFlameDetector && rpio.read(17)) {
 	// 	sendFireAlert();
 	// } else {
@@ -304,10 +285,6 @@ port2.on('data', function (data) {
 // 	}
 // };
 
-
-function alertBuzzer(key){
-	rpio.write(12, rpio.HIGH);
-};
 
 
 function sendVNSMS(content, number){
