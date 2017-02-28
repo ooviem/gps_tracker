@@ -32,6 +32,7 @@ var isFixedPosition = false;
 // rpio.open(4, rpio.INPUT, rpio.PULL_DOWN);
 // rpio.open(17, rpio.INPUT, rpio.PULL_DOWN);
 // rpio.open(18, rpio.INPUT, rpio.PULL_DOWN);
+rpio.open(12, rpio.OUTPUT);
 
 function sendFireAlert(){
 	sendVNSMS('Phat hien chay, vi tri hien tai https://www.google.com/maps/place/'+latitude+','+longtitude, phoneNumber);
@@ -304,11 +305,9 @@ port2.on('data', function (data) {
 // };
 
 
-// function alertBuzzer(key){
-// 	if(arduino1){
-// 		arduino1.send(key);
-// 	}
-// };
+function alertBuzzer(key){
+	rpio.write(12, rpio.HIGH);
+};
 
 
 function sendVNSMS(content, number){
