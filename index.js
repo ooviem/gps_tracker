@@ -27,7 +27,7 @@ var fs = require('fs');
 var location = {};
 var nmea = require('nmea');
 var isFixedPosition = false;
-// rpio.init({mapping: 'gpio'});
+rpio.init({mapping: 'gpio'});
 
 // rpio.open(4, rpio.INPUT, rpio.PULL_DOWN);
 // rpio.open(17, rpio.INPUT, rpio.PULL_DOWN);
@@ -41,8 +41,8 @@ function sendFireAlert(){
 };
 
 function sendSOS(){
- 	sendVNSMS('SOS, Nguoi than cua ban hien gap nguy hiem, xin xem tai https://www.google.com/maps/place/'+latitude+','+longtitude, phoneNumber);
- 	takePhoto();
+ 	// sendVNSMS('SOS, Nguoi than cua ban hien gap nguy hiem, xin xem tai https://www.google.com/maps/place/'+latitude+','+longtitude, phoneNumber);
+ 	// takePhoto();
 	alertBuzzer("S");
 };
 
