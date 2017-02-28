@@ -18,7 +18,7 @@ var useThiefTracking = false;
 var useFlameDetector = false;
 var arduino1;
 var arduino2;
-var phoneNumber = "0905334613";
+var phoneNumber = "01234555864";
 var command = require("./command.js");
 var isTakingPhoto = false;
 var isRecording = false;
@@ -26,6 +26,7 @@ var isSOS = false;
 var fs = require('fs');
 var location = {};
 var nmea = require('nmea');
+var isFixedPosition = false;
 // rpio.init({mapping: 'gpio'});
 
 // rpio.open(4, rpio.INPUT, rpio.PULL_DOWN);
@@ -33,19 +34,19 @@ var nmea = require('nmea');
 // rpio.open(18, rpio.INPUT, rpio.PULL_DOWN);
 
 function sendFireAlert(){
-	sendVNSMS('Phat hien chay, vi tri hien tai https://www.google.com/maps/place/'+latitude+'N'+longtitude+'E', phoneNumber);
+	sendVNSMS('Phat hien chay, vi tri hien tai https://www.google.com/maps/place/'+latitude+','+longtitude, phoneNumber);
 	takePhoto();
 	alertBuzzer("S");
 };
 
 function sendSOS(){
- 	sendVNSMS('SOS, Nguoi than cua ban hien gap nguy hiem, xin xem tai https://www.google.com/maps/place/'+latitude+'N'+longtitude+'E', phoneNumber);
+ 	sendVNSMS('SOS, Nguoi than cua ban hien gap nguy hiem, xin xem tai https://www.google.com/maps/place/'+latitude+','+longtitude, phoneNumber);
  	takePhoto();
 	alertBuzzer("S");
 };
 
 function sendThiefAlert(){
-	sendVNSMS('Thiet bi dang dich chuyen, vi tri hien tai https://www.google.com/maps/place/'+latitude+'N'+longtitude+'E', phoneNumber);
+	sendVNSMS('Thiet bi dang dich chuyen, vi tri hien tai https://www.google.com/maps/place/'+latitude+','+longtitude, phoneNumber);
 	takePhoto();
 	alertBuzzer("S");
 };
@@ -162,28 +163,30 @@ function commandTracking(){
 	// 	keyboard = "";
 	// } else if(keyboard.indexOf("D") > -1 && keyboard != "") {
 	// 	keyboard = keyboard.substring(0, keyboard.length - 2);
-	// } else if(keyboard.indexOf("**") > -1) {
-	// 	keyboard = "";
-	// } else if(keyboard.indexOf("911#") > -1) {
-	// 	isSOS = isSOS? false : true;
-	// 	if(isSOS){
-	// 		sendSOS();
-	// 	} else {
-	// 	    alertBuzzer("P");
-	// 	}
-	// 	keyboard = "";
-	// } else if(keyboard.indexOf("123#") > -1) {
-	// 	keyboard = "";
-	// 	isMoving = false;
-	// 	isBurning = false;
-	// 	isSOS = false;
-	// 	useFlameDetector = false;
-	// 	useThiefTracking = false;
-	// 	alertBuzzer("P");
-	// 	console.log("Keyboard cleared!");
-	// 	console.log("Flame dectector: "+ useFlameDetector);
-	// 	console.log("Thief dectector: "+ useThiefTracking);
-	// }
+	// } else 
+
+	if(keyboard.indexOf("**") > -1) {
+		keyboard = "";
+	} else if(keyboard.indexOf("911#") > -1) {
+		isSOS = isSOS? false : true;
+		if(isSOS){
+			sendSOS();
+		} else {
+		    alertBuzzer("P");
+		}
+		keyboard = "";
+	} else if(keyboard.indexOf("123#") > -1) {
+		keyboard = "";
+		isMoving = false;
+		isBurning = false;
+		isSOS = false;
+		useFlameDetector = false;
+		useThiefTracking = false;
+		alertBuzzer("P");
+		console.log("Keyboard cleared!");
+		// console.log("Flame dectector: "+ useFlameDetector);
+		// console.log("Thief dectector: "+ useThiefTracking);
+	}
 };
 
 
@@ -201,6 +204,7 @@ function commandTracking(){
 //     );
 // };
 // var cou=0;
+
 function convertLat(lat, latPle){
 	var dd = lat.substring(0,2);
 	var mm = lat.substring(2);
@@ -219,6 +223,7 @@ var SerialPort = require('serialport');
 var port = new SerialPort('/dev/ttyUSB0', {
   parser: SerialPort.parsers.readline('\r\n')
 });
+
 port.on('data', function (data) {
 	try {
 		if(data !== '' && data.startsWith("$")){
@@ -226,10 +231,24 @@ port.on('data', function (data) {
 			if(location.status === "valid" || location.fixType === "fix"){
 				longtitude = convertLon(location.lon, location.lonPole);
 				latitude = convertLat(location.lat, location.latPole);
+				isFixedPosition = true;
 			}
 		}
 	} catch(e) {
 		console.log(e);
+	}
+});
+
+ 
+var port2 = new SerialPort('/dev/ttyACM0', {
+  parser: SerialPort.parsers.readline('\r\n')
+});
+
+port2.on('data', function (data) {
+	if(data != '') {
+		keyboard += data.trim().charAt(0);
+		console.log(keyboard);
+		commandTracking();
 	}
 });
 
@@ -282,44 +301,44 @@ port.on('data', function (data) {
 // };
 
 
-// function sendVNSMS(content, number){
-// 	var https = require('http');
-// 		var data = JSON.stringify({
-// 		 to: [number],
-// 		 content: content,
-// 		 sms_type: 4,
-// 		 dlr: 0
-// 		});
-//    		var auth = "Basic " + new Buffer("_ukSiHakGmLDEYOeQ4uiInIV0Z2de4iD" + ":x").toString("base64");
+function sendVNSMS(content, number){
+	var https = require('http');
+		var data = JSON.stringify({
+		 to: [number],
+		 content: content,
+		 sms_type: 4,
+		 dlr: 0
+		});
+   		var auth = "Basic " + new Buffer("_ukSiHakGmLDEYOeQ4uiInIV0Z2de4iD" + ":x").toString("base64");
 
-// 		var options = {
-// 		 host: 'api.speedsms.vn',
-// 		 path: '/index.php/sms/send',
-// 		 method: 'POST',
-// 		 headers: {
-// 		   'Content-Type': 'application/json; charset=utf-8',
-// 		   'Content-Length': Buffer.byteLength(data),
-// 		   'Authorization' : auth
+		var options = {
+		 host: 'api.speedsms.vn',
+		 path: '/index.php/sms/send',
+		 method: 'POST',
+		 headers: {
+		   'Content-Type': 'application/json; charset=utf-8',
+		   'Content-Length': Buffer.byteLength(data),
+		   'Authorization' : auth
 
-// 		 }
-// 		};
+		 }
+		};
 
-// 		var req = https.request(options);
+		var req = https.request(options);
 
-// 		req.write(data);
-// 		req.end();
+		req.write(data);
+		req.end();
 
-// 		var responseData = '';
-// 		req.on('response', function(res){
-// 			 res.on('data', function(chunk){
-// 		   		responseData += chunk;
-// 		 	});
+		var responseData = '';
+		req.on('response', function(res){
+			 res.on('data', function(chunk){
+		   		responseData += chunk;
+		 	});
 
-// 		 	res.on('end', function(){
-// 		   		console.log(JSON.parse(responseData));
-// 		 	});
-// 		});
-// };
+		 	res.on('end', function(){
+		   		console.log(JSON.parse(responseData));
+		 	});
+		});
+};
 
 /* serves main page */
 app.get("/", function(req, res) {
