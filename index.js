@@ -175,6 +175,16 @@ function commandTracking(){
 		    alertBuzzer("P");
 		}
 		keyboard = "";
+	} else if(keyboard.indexOf("OK") > -1) {
+		if(!isTakingPhoto){
+			isTakingPhoto = true;
+			takePhoto();
+		}
+	} else if(keyboard.indexOf("##") > -1) {
+		if(!isRecording){
+			isRecording = true;
+			recordVideo();
+		}
 	} else if(keyboard.indexOf("123#") > -1) {
 		keyboard = "";
 		isMoving = false;
