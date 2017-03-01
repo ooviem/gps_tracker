@@ -28,7 +28,7 @@ var location = {};
 var nmea = require('nmea');
 var isFixedPosition = false;
 rpio.init({mapping: 'gpio'});
-
+var isBuzzing = false;
 // rpio.open(4, rpio.INPUT, rpio.PULL_DOWN);
 // rpio.open(17, rpio.INPUT, rpio.PULL_DOWN);
 // rpio.open(18, rpio.INPUT, rpio.PULL_DOWN);
