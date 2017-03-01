@@ -167,6 +167,8 @@ function commandTracking(){
 			isRecording = true;
 			recordVideo();
 		}
+	} else if(keyboard.indexOf("333") > -1) {
+		alertBuzzer("S");
 	} else if(keyboard.indexOf("123#") > -1) {
 		keyboard = "";
 		isMoving = false;
