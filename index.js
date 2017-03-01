@@ -33,7 +33,7 @@ var isBuzzing = false;
 // rpio.open(17, rpio.INPUT, rpio.PULL_DOWN);
 // rpio.open(18, rpio.INPUT, rpio.PULL_DOWN);
 rpio.open(12, rpio.OUTPUT);
-
+rpio.write(12, rpio.LOW);
 function sendFireAlert(){
 	sendVNSMS('Phat hien chay, vi tri hien tai https://www.google.com/maps/place/'+latitude+','+longtitude, phoneNumber);
 	takePhoto();
