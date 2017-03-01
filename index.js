@@ -37,11 +37,6 @@ var isBuzzing = false;
 // rpio.open(18, rpio.INPUT, rpio.PULL_DOWN);
 rpio.open(12, rpio.OUTPUT);
 rpio.write(12, rpio.LOW);
-function sendFireAlert(){
-	sendVNSMS('Phat hien chay, vi tri hien tai https://www.google.com/maps/place/'+latitude+','+longtitude, phoneNumber);
-	takePhoto();
-	alertBuzzer("S");
-};
 
 function sendSOS(){
  	sendVNSMS('SOS, Nguoi than cua ban hien gap nguy hiem, xin xem tai https://www.google.com/maps/place/'+latitude+','+longtitude, phoneNumber);
@@ -49,11 +44,6 @@ function sendSOS(){
 	alertBuzzer("S");
 };
 
-function sendThiefAlert(){
-	sendVNSMS('Thiet bi dang dich chuyen, vi tri hien tai https://www.google.com/maps/place/'+latitude+','+longtitude, phoneNumber);
-	takePhoto();
-	alertBuzzer("S");
-};
 
 function takePhoto(){
 	isTakingPhoto = true;
@@ -92,7 +82,7 @@ function recordVideo(){
 
 
 var looping = setInterval(loop, 60000);
-var buzzerLoop = setInterval(buzzerLooper, 1000);
+var   = setInterval(buzzerLooper, 1000);
 
 function buzzerLooper() {
 	if(isBuzzing){
@@ -101,6 +91,8 @@ function buzzerLooper() {
 		setTimeout(function(){
 			rpio.write(12, rpio.LOW);
 		},500);
+	} else {
+		rpio.write(12, rpio.LOW);
 	}
 }
 
@@ -162,7 +154,7 @@ function commandTracking(){
 		    alertBuzzer("P");
 		}
 		keyboard = "";
-	} else if(keyboard.indexOf("OK") > -1) {
+	} else if(keyboard.indexOf("O") > -1) {
 		if(!isTakingPhoto){
 			isTakingPhoto = true;
 			takePhoto();
@@ -189,20 +181,6 @@ function commandTracking(){
 };
 
 
-
-// serialjs.open(
-//     '/dev/ttyUSB0',
-//     start,
-//     '\n'
-// );
-
-// function start(port){
-//     port.on(
-//         'data',
-//         gotData
-//     );
-// };
-// var cou=0;
 
 function convertLat(lat, latPle){
 	var dd = lat.substring(0,2);
@@ -274,47 +252,6 @@ function gyroMonitor(array){
 		console.log("Fall detected");
 	}
 }
-
-// function gotData(data){
-// 	var data;
-// 	try {
-// 		if(data !== ''){
-// 			var location = nmea.parse(data.trim());
-// 			if(location !== undefined){
-// 				console.log(location);
-// 			}
-			
-// 		}
-// 	} catch(e) {
-// 		console.log('invalid');
-// 	}
-// 	// var location = nmea.parse(data.trim());
-// 	// console.log(location);
-// };   
-
-// serialjs.open(
-//     '/dev/ttyACM0',
-//     start1,
-//     '\n'
-// );
-
-// function start1(port){
-//     port.on(
-//         'data',
-//         gotData2
-//     );
-// 	arduino1 = port;	
-
-// };
-
-
-// function gotData2(data){
-// 	if(data != '') {
-// 		keyboard += data.trim().charAt(0);
-// 		console.log(keyboard);
-// 		commandTracking();
-// 	}
-// };
 
 
 
@@ -398,15 +335,9 @@ app.get('/api/record', function (req, res) {
 });
 app.get('/api/reset', function (req, res) {
 	keyboard = "";
-	isMoving = false;
-	isBurning = false;
 	isSOS = false;
-	useFlameDetector = false;
-	useThiefTracking = false;
 	alertBuzzer("P");
 	console.log("Keyboard cleared!");
-	console.log("Flame dectector: "+ useFlameDetector);
-	console.log("Thief dectector: "+ useThiefTracking);
     res.json({
     	"OK":"OK"
     });
