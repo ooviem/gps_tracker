@@ -266,7 +266,10 @@ function gyroMonitor(array){
 	Gx = array[3];
 	Gy = array[4];
 	Gz = array[5];
-	if(Math.abs(Gx) > gypoLimit || Math.abs(Gy) > gypoLimit || Math.abs(Gz) > gypoLimit) {
+	gGx = Math.abs(Gx) > gypoLimit ? 1;
+	gGy = Math.abs(Gy) > gypoLimit ? 1 ;
+	gGz = Math.abs(Gz) > gypoLimit ? 1;
+	if(gGx + gGy+ gGz >= 2) {
 		hasFalling = true;
 		console.log("Fall detected");
 	}
