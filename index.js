@@ -27,6 +27,9 @@ var fs = require('fs');
 var location = {};
 var nmea = require('nmea');
 var isFixedPosition = false;
+var gypoLimit = 20000;
+var hasFalling = false;
+
 rpio.init({mapping: 'gpio'});
 var isBuzzing = false;
 // rpio.open(4, rpio.INPUT, rpio.PULL_DOWN);
@@ -249,18 +252,25 @@ port2.on('data', function (data) {
 			commandTracking();
 		} else {
 			var array = data.substring(1).trim().split(',');
-			var Ax, Ay, Az, Gx, Gy, Gz;
-			Ax = array[0];
-			Ay = array[1];
-			Az = array[2];
-			Gx = array[3];
-			Gy = array[4];
-			Gz = array[5];
-			console.log(Gz);
+			gyroMonitor(array);
 		}
 
 	}
 });
+
+function gyroMonitor(array){
+	var Ax, Ay, Az, Gx, Gy, Gz, gGx, gGy, gGz;
+	Ax = array[0];
+	Ay = array[1];
+	Az = array[2];
+	Gx = array[3];
+	Gy = array[4];
+	Gz = array[5];
+	if(abs(Gx) > gypoLimit || abs(Gy) > gypoLimit || abs(Gz) > gypoLimit) {
+		hasFalling = true;
+		console.log("Fall detected");
+	}
+}
 
 // function gotData(data){
 // 	var data;
