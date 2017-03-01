@@ -242,9 +242,23 @@ var port2 = new SerialPort('/dev/ttyACM0', {
 
 port2.on('data', function (data) {
 	if(data != '') {
-		keyboard += data.trim().charAt(0);
-		console.log(keyboard);
-		commandTracking();
+		var firstChar = data.trim().charAt(0);
+		if(firstChar !== "$") {
+			keyboard += data.trim().charAt(0);
+			console.log(keyboard);
+			commandTracking();
+		} else {
+			var array = data.substring(1).trim().split(',');
+			var Ax, Ay, Az, Gx, Gy, Gz;
+			Ax = array[0];
+			Ay = array[1];
+			Az = array[2];
+			Gx = array[3];
+			Gy = array[4];
+			Gz = array[5];
+			console.log(Gz);
+		}
+
 	}
 });
 
