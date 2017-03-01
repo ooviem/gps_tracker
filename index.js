@@ -101,6 +101,7 @@ function buzzerLooper() {
 }
 
 function alertBuzzer(key){
+	console.log("buzzer");
 	if(key == "P") {
 		isBuzzing = false;
 	} else {
