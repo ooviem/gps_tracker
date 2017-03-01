@@ -82,7 +82,7 @@ function recordVideo(){
 
 
 var looping = setInterval(loop, 60000);
-var   = setInterval(buzzerLooper, 1000);
+var buzzerLoop = setInterval(buzzerLooper, 1000);
 
 function buzzerLooper() {
 	if(isBuzzing){
