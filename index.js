@@ -93,6 +93,7 @@ var buzzerLoop = setInterval(buzzerLooper, 1000);
 
 function buzzerLooper() {
 	if(isBuzzing){
+		console.log("buzzer");
 		rpio.write(12, rpio.HIGH);
 		setTimeout(function(){
 			rpio.write(12, rpio.LOW);
@@ -101,10 +102,10 @@ function buzzerLooper() {
 }
 
 function alertBuzzer(key){
-	console.log("buzzer");
-	if(key == "P") {
+	if(key === "P") {
 		isBuzzing = false;
 	} else {
+		console.log(key);
 		isBuzzing = true;
 	}
 };
