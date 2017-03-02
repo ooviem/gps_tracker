@@ -35,7 +35,7 @@ var isBuzzing = false;
 // rpio.open(4, rpio.INPUT, rpio.PULL_DOWN);
 // rpio.open(17, rpio.INPUT, rpio.PULL_DOWN);
 // rpio.open(18, rpio.INPUT, rpio.PULL_DOWN);
-rpio.open(12, rpio.OUTPUT, rpio.LOW);
+rpio.open(12, rpio.OUTPUT, rpio.HIGH);
 
 function sendSOS(){
  	sendVNSMS('SOS, Nguoi than cua ban hien gap nguy hiem, xin xem tai https://www.google.com/maps/place/'+latitude+','+longtitude, phoneNumber);
