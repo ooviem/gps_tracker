@@ -29,12 +29,17 @@ var nmea = require('nmea');
 var isFixedPosition = false;
 var gypoLimit = 20000;
 var hasFalling = false;
-
+var useFallDetection = false;
 rpio.init({mapping: 'gpio'});
 var isBuzzing = false;
 
 function sendSOS(){
  	sendVNSMS('SOS, Nguoi than cua ban hien gap nguy hiem, xin xem tai https://www.google.com/maps/place/'+latitude+','+longtitude, phoneNumber);
+ 	takePhoto();
+	alertBuzzer("S");
+};
+function sendFallSMS(){
+ 	sendVNSMS('SOS, Nguoi than cua ban vua gap tai nan, xin xem tai https://www.google.com/maps/place/'+latitude+','+longtitude, phoneNumber);
  	takePhoto();
 	alertBuzzer("S");
 };
@@ -60,6 +65,7 @@ rpio.open(17, rpio.OUTPUT, rpio.HIGH);
 
 var looping = setInterval(loop, 60000);
 var buzzerLoop = setInterval(buzzerLooper, 500);
+
 var fixedLoop =  setInterval(fixedLooper, 500);
 function fixedLooper() {
 	if(isFixedPosition){
@@ -96,6 +102,8 @@ function alertBuzzer(key){
 function loop() {
 	if(isSOS){
 		sendSOS();
+	} else (hasFalling) {
+		sendFallSMS();
 	}
 }
 
@@ -120,10 +128,6 @@ function commandTracking(){
 			isRecording = true;
 			recordVideo();
 		}
-	} else if(keyboard.indexOf("333") > -1) {
-		alertBuzzer("S");
-	} else if(keyboard.indexOf("111") > -1) {
-		alertBuzzer("P");
 	} else if(keyboard.indexOf("123#") > -1) {
 		keyboard = "";
 		isMoving = false;
@@ -206,7 +210,10 @@ function gyroMonitor(array){
 	gGy = Math.abs(Gy) > gypoLimit ? 1 : 0;
 	gGz = Math.abs(Gz) > gypoLimit ? 1 : 0;
 	if(gGx + gGy+ gGz >= 2) {
-		hasFalling = true;
+		if(!hasFalling) {
+			hasFalling = true;
+			sendFallSMS();
+		}
 		console.log("Fall detected");
 	}
 }
