@@ -66,7 +66,7 @@ function buzzerLooper() {
 		console.log("buzzer");
 		rpio.write(17, rpio.LOW);
 		setTimeout(function(){
-			rpio.write(17, rpio.LOW);
+			rpio.write(17, rpio.HIGH);
 		},500);
 	} else {
 		rpio.write(17, rpio.HIGH);
