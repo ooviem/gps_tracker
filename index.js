@@ -6,7 +6,7 @@ var url = "";
 var msg = "";
 var express = require('express');
 var app = express();
-// var rpio = require('rpio');
+var rpio = require('rpio');
 var keyboard = "";
 var alertCount = 0;
 var alertLimit = 40;
@@ -29,10 +29,8 @@ var nmea = require('nmea');
 var isFixedPosition = false;
 var gypoLimit = 20000;
 var hasFalling = false;
-var gpio = require('rpi-gpio');
-gpio.setup(22, gpio.DIR_IN, readInput);
 
-// rpio.init({mapping: 'gpio'});
+rpio.init({mapping: 'gpio'});
 var isBuzzing = false;
 
 function sendSOS(){
@@ -66,12 +64,14 @@ var buzzerLoop = setInterval(buzzerLooper, 1000);
 function buzzerLooper() {
 	if(isBuzzing){
 		console.log("buzzer");
-		rpio.write(22, true, function(){});
-		// setTimeout(function(){
-		// 	rpio.write(12, rpio.LOW);
-		// },500);
+		rpio.open(17, rpio.OUTPUT, rpio.LOW);
+
+		rpio.write(17, rpio.HIGH);
+		setTimeout(function(){
+			rpio.write(17, rpio.LOW);
+		},500);
 	} else {
-		rpio.write(12, rpio.LOW);
+		rpio.write(17, rpio.LOW);
 	}
 }
 
