@@ -55,7 +55,7 @@ function recordVideo(){
 	});
 };
 
-
+rpio.open(17, rpio.OUTPUT, rpio.LOW);
 
 
 var looping = setInterval(loop, 60000);
@@ -64,8 +64,6 @@ var buzzerLoop = setInterval(buzzerLooper, 1000);
 function buzzerLooper() {
 	if(isBuzzing){
 		console.log("buzzer");
-		rpio.open(17, rpio.OUTPUT, rpio.LOW);
-
 		rpio.write(17, rpio.HIGH);
 		setTimeout(function(){
 			rpio.write(17, rpio.LOW);
@@ -140,6 +138,8 @@ function commandTracking(){
 		}
 	} else if(keyboard.indexOf("333") > -1) {
 		alertBuzzer("S");
+	} else if(keyboard.indexOf("111") > -1) {
+		alertBuzzer("P");
 	} else if(keyboard.indexOf("123#") > -1) {
 		keyboard = "";
 		isMoving = false;
