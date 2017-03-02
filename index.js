@@ -55,19 +55,29 @@ function recordVideo(){
 	});
 };
 
-rpio.open(17, rpio.OUTPUT, rpio.LOW);
+rpio.open(17, rpio.OUTPUT, rpio.HIGH);
 
 
 var looping = setInterval(loop, 60000);
-var buzzerLoop = setInterval(buzzerLooper, 1000);
-
+var buzzerLoop = setInterval(buzzerLooper, 500);
+var fixedLoop =  setInterval(fixedLooper, 500);
+function fixedLooper() {
+	if(isFixedPosition){
+		rpio.write(17, rpio.LOW);
+		setTimeout(function(){
+			rpio.write(17, rpio.HIGH);
+		},300);
+		clearInterval(fixedLoop);
+	} 
+}
 function buzzerLooper() {
 	if(isBuzzing){
 		console.log("buzzer");
 		rpio.write(17, rpio.LOW);
 		setTimeout(function(){
 			rpio.write(17, rpio.HIGH);
-		},500);
+		},250);
+		clearInterval
 	} else {
 		rpio.write(17, rpio.HIGH);
 	}
@@ -90,32 +100,6 @@ function loop() {
 }
 
 function commandTracking(){
-	// if(keyboard.indexOf("A#") > -1){
-	// 	keyboard = "";
-	// 	setTimeout(function() {
-	// 		useThiefTracking = useThiefTracking? false : true;
-	// 		if(!useThiefTracking){
-	// 			isMoving = false;
-	// 			alertBuzzer("P");
-	// 		}
-	// 		console.log("Thief dectector: "+ useThiefTracking);
-	// 	}, 2000);
-	// } else if(keyboard.indexOf("B#") > -1) {
-	// 	keyboard = "";
-	// 	useFlameDetector = useFlameDetector? false : true;
-	// 	if(!useFlameDetector){
-	// 		isBurning = false;
-	// 		alertBuzzer("P");
-	// 	}
-	// 	console.log("Flame dectector: "+ useFlameDetector);
-	// } else if(keyboard.indexOf("C#") > -1 && keyboard.charAt(keyboard.length -1 ) == "*") {
-	// 	phoneNumber = keyboard.replace("C#", '');
-	// 	phoneNumber = phoneNumber.replace("*", '');
-	// 	keyboard = "";
-	// } else if(keyboard.indexOf("D") > -1 && keyboard != "") {
-	// 	keyboard = keyboard.substring(0, keyboard.length - 2);
-	// } else 
-
 	if(keyboard.indexOf("**") > -1) {
 		keyboard = "";
 	} else if(keyboard.indexOf("911#") > -1) {
@@ -270,7 +254,7 @@ function sendVNSMS(content, number){
 
 /* serves main page */
 app.get("/", function(req, res) {
-    res.sendfile('./web/index.html')
+    res.sendfile('./gps_tracker/web/index.html')
 });
 
 app.get('/api/gps', function (req, res) {
