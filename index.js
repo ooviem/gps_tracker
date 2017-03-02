@@ -102,7 +102,7 @@ function alertBuzzer(key){
 function loop() {
 	if(isSOS){
 		sendSOS();
-	} else (hasFalling) {
+	} else if(hasFalling) {
 		sendFallSMS();
 	}
 }
