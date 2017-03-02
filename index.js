@@ -64,12 +64,12 @@ var buzzerLoop = setInterval(buzzerLooper, 1000);
 function buzzerLooper() {
 	if(isBuzzing){
 		console.log("buzzer");
-		rpio.write(17, rpio.HIGH);
+		rpio.write(17, rpio.LOW);
 		setTimeout(function(){
 			rpio.write(17, rpio.LOW);
 		},500);
 	} else {
-		rpio.write(17, rpio.LOW);
+		rpio.write(17, rpio.HIGH);
 	}
 }
 
