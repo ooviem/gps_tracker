@@ -35,8 +35,7 @@ var isBuzzing = false;
 // rpio.open(4, rpio.INPUT, rpio.PULL_DOWN);
 // rpio.open(17, rpio.INPUT, rpio.PULL_DOWN);
 // rpio.open(18, rpio.INPUT, rpio.PULL_DOWN);
-rpio.open(12, rpio.OUTPUT);
-rpio.write(12, rpio.LOW);
+rpio.open(12, rpio.OUTPUT, rpio.LOW));
 
 function sendSOS(){
  	sendVNSMS('SOS, Nguoi than cua ban hien gap nguy hiem, xin xem tai https://www.google.com/maps/place/'+latitude+','+longtitude, phoneNumber);
@@ -60,25 +59,7 @@ function recordVideo(){
 	});
 };
 
-// function pollTouch(pin)
-// {
-// 	var state = rpio.read(pin) ? 'high' : 'low';
-// 	if(state == 'high'){
-// 		if(!isRecording){
-// 			takePhoto();
-// 		}
-// 	} else {
-// 		setTimeout(function(){
-// 			if(!rpio.read(pin) && !isRecording){
-// 				isRecording = true;
-// 				recordVideo();
-// 			}
-// 		}, 1500);
-// 	}
-// };
-// rpio.poll(4, pollVib);
-// rpio.poll(17, pollFlame);
-// rpio.poll(18, pollTouch);
+
 
 
 var looping = setInterval(loop, 60000);
@@ -110,11 +91,6 @@ function loop() {
 	if(isSOS){
 		sendSOS();
 	}
-	// if(isBurning && useFlameDetector && rpio.read(17)) {
-	// 	sendFireAlert();
-	// } else {
-	// 	isBurning = false;
-	// }
 }
 
 function commandTracking(){
