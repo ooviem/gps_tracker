@@ -32,10 +32,6 @@ var hasFalling = false;
 
 rpio.init({mapping: 'gpio'});
 var isBuzzing = false;
-// rpio.open(4, rpio.INPUT, rpio.PULL_DOWN);
-// rpio.open(17, rpio.INPUT, rpio.PULL_DOWN);
-// rpio.open(18, rpio.INPUT, rpio.PULL_DOWN);
-rpio.open(22, rpio.OUTPUT, rpio.LOW);
 
 function sendSOS(){
  	sendVNSMS('SOS, Nguoi than cua ban hien gap nguy hiem, xin xem tai https://www.google.com/maps/place/'+latitude+','+longtitude, phoneNumber);
@@ -68,6 +64,7 @@ var buzzerLoop = setInterval(buzzerLooper, 1000);
 function buzzerLooper() {
 	if(isBuzzing){
 		console.log("buzzer");
+		rpio.open(22, rpio.OUTPUT, rpio.LOW);
 		rpio.write(12, rpio.HIGH);
 		setTimeout(function(){
 			rpio.write(12, rpio.LOW);
