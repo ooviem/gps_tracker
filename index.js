@@ -291,7 +291,7 @@ app.get('/api/gps', function (req, res) {
 });
 
 app.get('/api/sms', function (req, res) {
-    sendVNSMS('Vi tri hien tai cua thiet bi https://www.google.com/maps/place/'+latitude+'N'+longtitude+'E', phoneNumber);
+    sendVNSMS('Vi tri hien tai cua thiet bi https://www.google.com/maps/place/'+latitude+','+longtitude, phoneNumber);
     res.json({
     	"OK":"OK"
     });
