@@ -111,7 +111,7 @@ function commandTracking(){
 	if(keyboard.indexOf("**") > -1) {
 		keyboard = "";
 	} else if(keyboard.indexOf("911#") > -1) {
-		isSOS = isSOS? false : true;
+		isSOS = !isSOS;
 		if(isSOS){
 			sendSOS();
 		} else {
@@ -123,22 +123,24 @@ function commandTracking(){
 			isTakingPhoto = true;
 			takePhoto();
 		}
+	} else if(keyboard.indexOf("123#") > -1) {
+		useFallDetection = !useFallDetection;
 	} else if(keyboard.indexOf("##") > -1) {
 		if(!isRecording){
 			isRecording = true;
 			recordVideo();
 		}
+	} else if(keyboard.indexOf("3#") > -1 && keyboard.charAt(keyboard.length -1 ) == "*") {
+		phoneNumber = keyboard.replace("3#", '');
+		phoneNumber = phoneNumber.replace("*", '');
+		keyboard = "";
 	} else if(keyboard.indexOf("123#") > -1) {
 		keyboard = "";
-		isMoving = false;
-		isBurning = false;
 		isSOS = false;
-		useFlameDetector = false;
-		useThiefTracking = false;
+		useFallDetection = false;
+		isBuzzing = false;
 		alertBuzzer("P");
 		console.log("Keyboard cleared!");
-		// console.log("Flame dectector: "+ useFlameDetector);
-		// console.log("Thief dectector: "+ useThiefTracking);
 	}
 };
 
@@ -210,7 +212,7 @@ function gyroMonitor(array){
 	gGy = Math.abs(Gy) > gypoLimit ? 1 : 0;
 	gGz = Math.abs(Gz) > gypoLimit ? 1 : 0;
 	if(gGx + gGy+ gGz >= 2) {
-		if(!hasFalling) {
+		if(!hasFalling && useFallDetection) {
 			hasFalling = true;
 			sendFallSMS();
 		}
