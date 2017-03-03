@@ -110,8 +110,8 @@ function loop() {
 function commandTracking(){
 	if(keyboard.indexOf("**") > -1) {
 		keyboard = "";
-	} else if(keyboard.indexOf("911#") > -1) {
-		isSOS = !isSOS;
+	} else if(keyboard.indexOf("*911#") > -1) {
+		isSOS = isSOS? false : true;
 		if(isSOS){
 			sendSOS();
 		} else {
@@ -123,8 +123,9 @@ function commandTracking(){
 			isTakingPhoto = true;
 			takePhoto();
 		}
-	} else if(keyboard.indexOf("111#") > -1) {
+	} else if(keyboard.indexOf("*111#") > -1) {
 		useFallDetection = !useFallDetection;
+		console.log('use fall detection');
 	} else if(keyboard.indexOf("##") > -1) {
 		if(!isRecording){
 			isRecording = true;
@@ -134,13 +135,15 @@ function commandTracking(){
 		phoneNumber = keyboard.replace("3#", '');
 		phoneNumber = phoneNumber.replace("*", '');
 		keyboard = "";
-	} else if(keyboard.indexOf("123#") > -1) {
+		console.log('change phoneNumber to '+ phoneNumber);
+
+	} else if(keyboard.indexOf("*123#") > -1) {
 		keyboard = "";
 		isSOS = false;
 		useFallDetection = false;
 		isBuzzing = false;
 		alertBuzzer("P");
-		console.log("Keyboard cleared!");
+		console.log("Reset all!");
 	}
 };
 
