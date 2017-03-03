@@ -110,7 +110,7 @@ function loop() {
 function commandTracking(){
 	if(keyboard.indexOf("**") > -1) {
 		keyboard = "";
-	} else if(keyboard.indexOf("*911#") > -1) {
+	} else if(keyboard.indexOf("911#") > -1) {
 		isSOS = isSOS? false : true;
 		if(isSOS){
 			sendSOS();
@@ -123,7 +123,7 @@ function commandTracking(){
 			isTakingPhoto = true;
 			takePhoto();
 		}
-	} else if(keyboard.indexOf("*111#") > -1) {
+	} else if(keyboard.indexOf("111#") > -1) {
 		useFallDetection = !useFallDetection;
 		console.log('use fall detection');
 	} else if(keyboard.indexOf("##") > -1) {
@@ -137,7 +137,7 @@ function commandTracking(){
 		keyboard = "";
 		console.log('change phoneNumber to '+ phoneNumber);
 
-	} else if(keyboard.indexOf("*123#") > -1) {
+	} else if(keyboard.indexOf("123#") > -1) {
 		keyboard = "";
 		isSOS = false;
 		useFallDetection = false;
