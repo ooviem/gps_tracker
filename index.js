@@ -18,7 +18,7 @@ var useThiefTracking = false;
 var useFlameDetector = false;
 var arduino1;
 var arduino2;
-var phoneNumber = "01234555864";
+var phoneNumber = "0905334613";
 var command = require("./command.js");
 var isTakingPhoto = false;
 var isRecording = false;
