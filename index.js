@@ -128,6 +128,14 @@ function commandTracking(){
 		useFallDetection = useFallDetection? false : true;
 		console.log('use fall detection');
 		keyboard = "";
+	} else if(keyboard.indexOf("000#") > -1) {
+   		command.exe("sudo reboot").then(function(){});
+		console.log('reboot');
+		keyboard = "";
+	} else if(keyboard.indexOf("999#") > -1) {
+   		command.exe("sudo shutdown").then(function(){});
+		console.log('shutdown');
+		keyboard = "";
 	} else if(keyboard.indexOf("##") > -1) {
 		if(!isRecording){
 			isRecording = true;
@@ -181,6 +189,7 @@ port.on('data', function (data) {
 				longtitude = convertLon(location.lon, location.lonPole);
 				latitude = convertLat(location.lat, location.latPole);
 				isFixedPosition = true;
+				console.log(isFixedPosition);
 			}
 		}
 	} catch(e) {
