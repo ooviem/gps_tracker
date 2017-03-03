@@ -123,7 +123,7 @@ function commandTracking(){
 			isTakingPhoto = true;
 			takePhoto();
 		}
-	} else if(keyboard.indexOf("123#") > -1) {
+	} else if(keyboard.indexOf("111#") > -1) {
 		useFallDetection = !useFallDetection;
 	} else if(keyboard.indexOf("##") > -1) {
 		if(!isRecording){
