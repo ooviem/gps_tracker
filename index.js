@@ -83,7 +83,6 @@ function buzzerLooper() {
 		setTimeout(function(){
 			rpio.write(17, rpio.HIGH);
 		},250);
-		clearInterval
 	} else {
 		rpio.write(17, rpio.HIGH);
 	}
