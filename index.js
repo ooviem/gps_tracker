@@ -127,13 +127,25 @@ function commandTracking(){
 	} else if(keyboard.indexOf("111#") > -1) {
 		useFallDetection = useFallDetection? false : true;
 		console.log('use fall detection');
+		rpio.write(17, rpio.LOW);
+		setTimeout(function(){
+			rpio.write(17, rpio.HIGH);
+		},250);
 		keyboard = "";
 	} else if(keyboard.indexOf("000#") > -1) {
    		command.exe("sudo reboot").then(function(){});
+   		rpio.write(17, rpio.LOW);
+		setTimeout(function(){
+			rpio.write(17, rpio.HIGH);
+		},250);
 		console.log('reboot');
 		keyboard = "";
 	} else if(keyboard.indexOf("999#") > -1) {
    		command.exe("sudo shutdown").then(function(){});
+   		rpio.write(17, rpio.LOW);
+		setTimeout(function(){
+			rpio.write(17, rpio.HIGH);
+		},250);
 		console.log('shutdown');
 		keyboard = "";
 	} else if(keyboard.indexOf("##") > -1) {
@@ -148,6 +160,10 @@ function commandTracking(){
 		phoneNumber = phoneNumber.replace("*", '');
 		keyboard = "";
 		console.log('change phoneNumber to '+ phoneNumber);
+		rpio.write(17, rpio.LOW);
+		setTimeout(function(){
+			rpio.write(17, rpio.HIGH);
+		},250);
 
 	} else if(keyboard.indexOf("123#") > -1) {
 		keyboard = "";
