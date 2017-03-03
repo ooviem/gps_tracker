@@ -63,7 +63,7 @@ function recordVideo(){
 rpio.open(17, rpio.OUTPUT, rpio.HIGH);
 
 
-var looping = setInterval(loop, 60000);
+var looping = setInterval(loop, 180000);
 var buzzerLoop = setInterval(buzzerLooper, 500);
 
 var fixedLoop =  setInterval(fixedLooper, 500);
@@ -123,14 +123,18 @@ function commandTracking(){
 			isTakingPhoto = true;
 			takePhoto();
 		}
+		keyboard = "";
 	} else if(keyboard.indexOf("111#") > -1) {
-		useFallDetection = !useFallDetection;
+		useFallDetection = useFallDetection? false : true;
 		console.log('use fall detection');
+		keyboard = "";
 	} else if(keyboard.indexOf("##") > -1) {
 		if(!isRecording){
 			isRecording = true;
 			recordVideo();
 		}
+		keyboard = "";
+
 	} else if(keyboard.indexOf("3#") > -1 && keyboard.charAt(keyboard.length -1 ) == "*") {
 		phoneNumber = keyboard.replace("3#", '');
 		phoneNumber = phoneNumber.replace("*", '');
@@ -142,6 +146,7 @@ function commandTracking(){
 		isSOS = false;
 		useFallDetection = false;
 		isBuzzing = false;
+		hasFalling = false;
 		alertBuzzer("P");
 		console.log("Reset all!");
 	}
