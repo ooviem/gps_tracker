@@ -193,7 +193,8 @@ function convertLon(lat, lonPle){
 var SerialPort = require('serialport');
  
 var port = new SerialPort('/dev/ttyUSB0', {
-  parser: SerialPort.parsers.readline('\r\n')
+  parser: SerialPort.parsers.readline('\r\n'),
+  baudRate: 4800
 });
 
 port.on('data', function (data) {
@@ -204,8 +205,9 @@ port.on('data', function (data) {
 				longtitude = convertLon(location.lon, location.lonPole);
 				latitude = convertLat(location.lat, location.latPole);
 				isFixedPosition = true;
-				console.log(isFixedPosition);
 			}
+			console.log(location);
+
 		}
 	} catch(e) {
 		console.log(e);
