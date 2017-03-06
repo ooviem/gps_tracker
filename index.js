@@ -205,8 +205,8 @@ port.on('data', function (data) {
 				longtitude = convertLon(location.lon, location.lonPole);
 				latitude = convertLat(location.lat, location.latPole);
 				isFixedPosition = true;
+				console.log(isFixedPosition);
 			}
-			console.log(location);
 
 		}
 	} catch(e) {
