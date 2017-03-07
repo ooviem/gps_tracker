@@ -34,6 +34,7 @@ rpio.init({mapping: 'gpio'});
 var isBuzzing = false;
 var isDangerAir = false;
 var useAirQuality = false;
+var hasSentAirMessage = false;
 function sendSOS(){
  	sendVNSMS('SOS, Nguoi than cua ban hien gap nguy hiem, xin xem tai https://www.google.com/maps/place/'+latitude+','+longtitude, phoneNumber);
  	takePhoto();
@@ -71,8 +72,11 @@ rpio.open(23, rpio.INPUT, rpio.PULL_DOWN);
 function pollAir(pin) {
         var state = rpio.read(pin) ? 'normal' : 'danger';
         if(useAirQuality && !isDangerAir && state === 'danger') {
-        	sendAirQuality();
         	alertBuzzer("S");
+        	if(!hasSentAirMessage){
+        		sendAirQuality();
+        		hasSentAirMessage = true;
+        	}
 
         } else {
         	alertBuzzer("P");
@@ -121,6 +125,8 @@ function loop() {
 		sendSOS();
 	} else if(hasFalling) {
 		sendFallSMS();
+	} else if (hasSentAirMessage && useAirQuality && isDangerAir) {
+		sendAirQuality();
 	}
 }
 
@@ -131,6 +137,11 @@ function commandTracking(){
 		isSOS = isSOS? false : true;
 		if(isSOS){
 			sendSOS();
+			console.log("buzzer");
+			rpio.write(17, rpio.LOW);
+			setTimeout(function(){
+				rpio.write(17, rpio.HIGH);
+			},250);
 		} else {
 		    alertBuzzer("P");
 		}
@@ -139,6 +150,11 @@ function commandTracking(){
 		if(!isTakingPhoto){
 			isTakingPhoto = true;
 			takePhoto();
+			console.log("buzzer");
+			rpio.write(17, rpio.LOW);
+			setTimeout(function(){
+				rpio.write(17, rpio.HIGH);
+			},250);
 		}
 		keyboard = "";
 	} else if(keyboard.indexOf("111#") > -1) {
@@ -154,6 +170,11 @@ function commandTracking(){
 		console.log('use air quality checker');
 		alertBuzzer("P");
 		keyboard = "";
+		console.log("buzzer");
+		rpio.write(17, rpio.LOW);
+		setTimeout(function(){
+			rpio.write(17, rpio.HIGH);
+		},250);
 	} else if(keyboard.indexOf("000#") > -1) {
    		command.exe("sudo reboot").then(function(){});
    		rpio.write(17, rpio.LOW);
@@ -193,6 +214,10 @@ function commandTracking(){
 		useFallDetection = false;
 		isBuzzing = false;
 		hasFalling = false;
+		rpio.write(17, rpio.LOW);
+		setTimeout(function(){
+			rpio.write(17, rpio.HIGH);
+		},250);
 		alertBuzzer("P");
 		console.log("Reset all!");
 	}
