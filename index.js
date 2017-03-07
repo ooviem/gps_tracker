@@ -32,7 +32,8 @@ var hasFalling = false;
 var useFallDetection = false;
 rpio.init({mapping: 'gpio'});
 var isBuzzing = false;
-
+var isDangerAir = false;
+var useAirQuality = false;
 function sendSOS(){
  	sendVNSMS('SOS, Nguoi than cua ban hien gap nguy hiem, xin xem tai https://www.google.com/maps/place/'+latitude+','+longtitude, phoneNumber);
  	takePhoto();
@@ -67,16 +68,16 @@ function recordVideo(){
 rpio.open(17, rpio.OUTPUT, rpio.HIGH);
 rpio.open(23, rpio.INPUT, rpio.PULL_DOWN);
 
-function pollAir(pin)
-{
-        /*
-         * Interrupts aren't supported by the underlying hardware, so events
-         * may be missed during the 1ms poll window.  The best we can do is to
-         * print the current state after a event is detected.
-         */
-        var state = rpio.read(pin) ? 'danger' : 'normal';
-        console.log(state);
-}
+function pollAir(pin) {
+        var state = rpio.read(pin) ? 'normal' : 'danger';
+        if(useAirQuality && !isDangerAir && state === 'danger') {
+        	sendAirQuality();
+        	alertBuzzer("S");
+
+        } else {
+        	alertBuzzer("P");
+        }
+};
 
 rpio.poll(23, pollAir);
 
@@ -147,6 +148,11 @@ function commandTracking(){
 		setTimeout(function(){
 			rpio.write(17, rpio.HIGH);
 		},250);
+		keyboard = "";
+	} else if(keyboard.indexOf("222#") > -1) {
+		useAirQuality = useAirQuality? false : true;
+		console.log('use air quality checker');
+		alertBuzzer("P");
 		keyboard = "";
 	} else if(keyboard.indexOf("000#") > -1) {
    		command.exe("sudo reboot").then(function(){});
