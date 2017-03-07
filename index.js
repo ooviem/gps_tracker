@@ -44,6 +44,10 @@ function sendFallSMS(){
 	alertBuzzer("S");
 };
 
+function sendAirQuality(){
+ 	sendVNSMS('Chat luong khong khi o muc do nguy hiem, xin vui long roi khoi khu vuc hien tai', phoneNumber);
+	alertBuzzer("S");
+};
 
 function takePhoto(){
 	isTakingPhoto = true;
@@ -61,7 +65,20 @@ function recordVideo(){
 };
 
 rpio.open(17, rpio.OUTPUT, rpio.HIGH);
+rpio.open(23, rpio.INPUT, rpio.PULL_DOWN);
 
+function pollAir(pin)
+{
+        /*
+         * Interrupts aren't supported by the underlying hardware, so events
+         * may be missed during the 1ms poll window.  The best we can do is to
+         * print the current state after a event is detected.
+         */
+        var state = rpio.read(pin) ? 'danger' : 'normal';
+        console.log(state);
+}
+
+rpio.poll(23, pollAir);
 
 var looping = setInterval(loop, 180000);
 var buzzerLoop = setInterval(buzzerLooper, 500);
