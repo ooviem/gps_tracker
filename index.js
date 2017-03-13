@@ -27,7 +27,7 @@ var fs = require('fs');
 var location = {};
 var nmea = require('nmea');
 var isFixedPosition = false;
-var gypoLimit = 20000;
+var gypoLimit = 15000;
 var hasFalling = false;
 var useFallDetection = false;
 rpio.init({mapping: 'gpio'});
