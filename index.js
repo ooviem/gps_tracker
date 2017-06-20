@@ -240,7 +240,7 @@ function convertLon(lat, lonPle){
 
 var SerialPort = require('serialport');
  
-var port = new SerialPort('/dev/ttyUSB0', {
+var port = new SerialPort('/dev/ttyACM1', {
   parser: SerialPort.parsers.readline('\r\n'),
   baudRate: 4800
 });
