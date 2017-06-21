@@ -84,11 +84,19 @@ function pollAir(pin) {
 };
 
 rpio.poll(23, pollAir);
-
+var useTracking = false;
 var looping = setInterval(loop, 180000);
+var trackingLoop = setInterval(trackingLooper, 3600);
 var buzzerLoop = setInterval(buzzerLooper, 500);
 
 var fixedLoop =  setInterval(fixedLooper, 500);
+
+function trackingLooper(){
+	if(useTracking) {
+		sendSOS();
+	}
+};
+
 function fixedLooper() {
 	if(isFixedPosition){
 		rpio.write(17, rpio.LOW);
@@ -97,18 +105,18 @@ function fixedLooper() {
 		},300);
 		clearInterval(fixedLoop);
 	} 
-}
+};
 function buzzerLooper() {
 	if(isBuzzing){
 		console.log("buzzer");
 		rpio.write(17, rpio.LOW);
 		setTimeout(function(){
-			rpio.write(17, rpio.HIGH);
+		rpio.write(17, rpio.HIGH);
 		},250);
 	} else {
 		rpio.write(17, rpio.HIGH);
 	}
-}
+};
 
 function alertBuzzer(key){
 	if(key === "P") {
@@ -128,7 +136,7 @@ function loop() {
 	} else if (hasSentAirMessage && useAirQuality && isDangerAir) {
 		sendAirQuality();
 	}
-}
+};
 
 function commandTracking(){
 	if(keyboard.indexOf("**") > -1) {
@@ -160,6 +168,14 @@ function commandTracking(){
 	} else if(keyboard.indexOf("111#") > -1) {
 		useFallDetection = useFallDetection? false : true;
 		console.log('use fall detection');
+		rpio.write(17, rpio.LOW);
+		setTimeout(function(){
+			rpio.write(17, rpio.HIGH);
+		},250);
+		keyboard = "";
+	} else if(keyboard.indexOf("444#") > -1) {
+		useTracking = useTracking? false : true;
+		console.log('use tracking');
 		rpio.write(17, rpio.LOW);
 		setTimeout(function(){
 			rpio.write(17, rpio.HIGH);
