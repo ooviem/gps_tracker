@@ -86,7 +86,7 @@ function pollAir(pin) {
 rpio.poll(23, pollAir);
 var useTracking = false;
 var looping = setInterval(loop, 180000);
-var trackingLoop = setInterval(trackingLooper, 3600);
+var trackingLoop = setInterval(trackingLooper, 60000);
 var buzzerLoop = setInterval(buzzerLooper, 500);
 
 var fixedLoop =  setInterval(fixedLooper, 500);
