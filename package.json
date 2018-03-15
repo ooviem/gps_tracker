@@ -2,13 +2,17 @@
   "name": "gps_tracker",
   "version": "0.0.1",
   "private": true,
-  "dependencies": {
-  },
+  "dependencies": {},
   "main": "main.js",
   "engines": {
     "node": ">=0.10.0"
   },
   "devDependencies": {
-    "q": ">=1.4.1"
+    "express": "^4.16.3",
+    "nmea": "^0.1.0",
+    "q": "^1.5.1",
+    "rpio": "^0.9.20",
+    "serialport": "^6.1.1",
+    "serialport-js": "^1.1.0"
   }
 }
