@@ -8,7 +8,7 @@
     "node": ">=0.10.0"
   },
   "devDependencies": {
-    "express": "4.5.12",
+    "express": "4.15.2",
     "nmea": "0.1.0",
     "q": "1.4.1",
     "rpio": "0.9.20",
