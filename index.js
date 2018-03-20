@@ -92,7 +92,6 @@ var trackingLoop = setInterval(trackingLooper, 60000);
 var buzzerLoop = setInterval(buzzerLooper, 500);
 
 var fixedLoop =  setInterval(fixedLooper, 500);
-app.use(bodyParser);
 
 function trackingLooper(){
 	if(useTracking) {
@@ -451,6 +450,7 @@ var server = app.listen(80, function () {
    var port = server.address().port
    console.log("Example app listening at http://%s:%s", host, port)
 });
+app.use(bodyParser);
 
 WebServer.initWebServer();
 
