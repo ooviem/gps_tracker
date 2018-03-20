@@ -359,7 +359,6 @@ function sendVNSMS(content, number){
 		 	});
 		});
 };
-app.use(express.bodyParser());
 
 /* serves main page */
 app.get("/", function(req, res) {
