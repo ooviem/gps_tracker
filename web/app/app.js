@@ -2,12 +2,12 @@ angular.module('JackControllerApp', ['ngMaterial'])
     .controller('JackController', ['$http', 
     	function($http) {
 
-            function callGET(name, data) {
+            function callGET(name, callData) {
                 return $http({
-                    method: 'GET',
+                    method: callData ? 'POST' : 'GET' ,
                     url: "http://"+ window.location.hostname + name,
                     data: {
-                        key: data
+                        key: callData
                     }
                 });
             };
