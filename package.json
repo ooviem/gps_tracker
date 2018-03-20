@@ -2,7 +2,9 @@
   "name": "gps_tracker",
   "version": "0.0.1",
   "private": true,
-  "dependencies": {},
+  "dependencies": {
+    "body-parser": "^1.18.2"
+  },
   "main": "main.js",
   "engines": {
     "node": ">=0.10.0"

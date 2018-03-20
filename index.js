@@ -5,6 +5,7 @@ var latitude = "";
 var url = "";
 var msg = "";
 var express = require('express');
+var bodyParser = require('body-parser');
 var app = express();
 var rpio = require('rpio');
 var keyboard = "";
@@ -91,6 +92,7 @@ var trackingLoop = setInterval(trackingLooper, 60000);
 var buzzerLoop = setInterval(buzzerLooper, 500);
 
 var fixedLoop =  setInterval(fixedLooper, 500);
+app.use(bodyParser);
 
 function trackingLooper(){
 	if(useTracking) {
