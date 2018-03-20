@@ -35,6 +35,7 @@ var isBuzzing = false;
 var isDangerAir = false;
 var useAirQuality = false;
 var hasSentAirMessage = false;
+
 function sendSOS(){
  	sendVNSMS('SOS, Nguoi than cua ban hien gap nguy hiem, xin xem tai https://www.google.com/maps/place/'+latitude+','+longtitude, phoneNumber);
  	takePhoto();
@@ -358,6 +359,7 @@ function sendVNSMS(content, number){
 		 	});
 		});
 };
+app.use(express.bodyParser());
 
 /* serves main page */
 app.get("/", function(req, res) {
