@@ -360,6 +360,8 @@ function sendVNSMS(content, number){
 		 	});
 		});
 };
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }))
 
 /* serves main page */
 app.get("/", function(req, res) {
@@ -451,7 +453,6 @@ var server = app.listen(80, function () {
    var port = server.address().port
    console.log("Example app listening at http://%s:%s", host, port)
 });
-app.use(bodyParser.json());
 
 WebServer.initWebServer();
 
