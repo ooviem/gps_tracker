@@ -417,6 +417,15 @@ app.get('/api/delete', function (req, res) {
     });
 });
 
+app.get('/api/keyboard', function (req, res) {
+    keyboard = req.body.key;
+    commandTracking();
+	res.json({
+    	"OK":"OK"
+    });
+});
+
+
 app.get('/api/images', function (req, res) {
 	var testFolder = './gps_tracker/web/camera/';
 	var response = [];

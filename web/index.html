@@ -27,10 +27,13 @@
                     <button ng-mouseup="ctrlMe.delete()" class="btn btn-primary">Xóa ảnh</button>
                     <button ng-mouseup="ctrlMe.reset()" class="btn btn-primary">Reset</button>
                     <button ng-mouseup="ctrlMe.reboot()" class="btn btn-primary">Khởi động lại</button>
-
+                </div>
+                <div class="row">
+                    <input type="text" ng-model="ctrlMe.key" style="width: 300px; height: 35px;"></input>
+                    <button ng-mouseup="ctrlMe.keyboard()" class="btn btn-primary">Gửi lệnh</button>
                 </div>
             </div>  
-            <div style="height: 500px; width: 500px; margin-top: 80px; float: left;">
+            <div style="height: 500px; width: 500px; margin-top: 140px; float: left;">
                <h2>Vị trí hiện tại của thiết bị.</h2>
                <div id="map" style="height: 450px; width: 500px; float: left;">
             </div>

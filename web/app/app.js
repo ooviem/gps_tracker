@@ -5,13 +5,17 @@ angular.module('JackControllerApp', ['ngMaterial'])
             function callGET(name, data) {
                 return $http({
                     method: 'GET',
-                    url: "http://"+ window.location.hostname + name
+                    url: "http://"+ window.location.hostname + name,
+                    body: {
+                        key: data
+                    }
                 });
             };
             var ctrlMe = this;
 
             ctrlMe.listFiles = "";
             ctrlMe.listImage = [];
+            ctrlMe.key = "";
             callGET("/api/images").then(function(res){
                 ctrlMe.listFiles = res.data.data.reverse();
                 res.data.data.forEach(function(file) {
@@ -21,6 +25,15 @@ angular.module('JackControllerApp', ['ngMaterial'])
                 });
                 console.log(ctrlMe.listFiles);
             });
+
+            ctrlMe.keyboard = function() {
+                callGET("/api/keyboard", ctrlMe.keyboard).then(function(res){
+                    if(res.data === "OK"){
+                        alert("Gởi thành công");
+                        ctrlMe.key = "";
+                    }
+                });
+            };
 
             ctrlMe.map = function() {
                 callGET("/api/gps").then(function(res){
