@@ -27,7 +27,7 @@ angular.module('JackControllerApp', ['ngMaterial'])
             });
 
             ctrlMe.keyboard = function() {
-                callGET("/api/keyboard", ctrlMe.keyboard).then(function(res){
+                callGET("/api/keyboard", ctrlMe.key).then(function(res){
                     if(res.data === "OK"){
                         alert("Gởi thành công");
                         ctrlMe.key = "";
