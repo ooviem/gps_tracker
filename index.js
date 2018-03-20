@@ -422,8 +422,7 @@ app.get('/api/delete', function (req, res) {
 });
 
 app.post('/api/keyboard', function (req, res) {
-    //keyboard = req.body.key;
-    console.log(req.body);
+    keyboard = req.body.key;
     commandTracking();
 	res.json({
     	"OK":"OK"
