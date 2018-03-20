@@ -6,7 +6,7 @@ angular.module('JackControllerApp', ['ngMaterial'])
                 return $http({
                     method: 'GET',
                     url: "http://"+ window.location.hostname + name,
-                    body: {
+                    data: {
                         key: data
                     }
                 });
