@@ -404,8 +404,10 @@ app.get('/api/record', function (req, res) {
 });
 app.get('/api/reset', function (req, res) {
 	keyboard = "";
+	useFallDetection = false;
+	isBuzzing = false;
+	hasFalling = false;
 	isSOS = false;
-	alertBuzzer("P");
 	console.log("Keyboard cleared!");
     res.json({
     	"OK":"OK"
